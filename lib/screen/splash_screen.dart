@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
               'Futsal\nGembira', 
               style: TextStyle(
                 color: Colors.white, 
-                fontWeight: semiBold, 
+                fontWeight: semiBold,
                 fontSize: 40,
               ),
             ),
