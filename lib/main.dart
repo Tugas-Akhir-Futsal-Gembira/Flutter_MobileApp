@@ -25,7 +25,11 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        fontFamily: 'Inter'
+        textTheme: Theme.of(context).textTheme.apply(
+          fontFamily: 'Inter',
+          bodyColor: Colors.white,
+          displayColor: Colors.white
+        )
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: const SplashScreen(),
