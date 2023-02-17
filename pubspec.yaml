@@ -88,3 +88,51 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+      - family: Inter
+        fonts:
+          - asset: assets/font_family/Inter-Thin.otf
+            weight: 100
+          - asset: assets/font_family/Inter-ThinItalic.otf
+            weight: 100
+            style: italic
+          - asset: assets/font_family/Inter-ExtraLight.otf
+            weight: 200
+          - asset: assets/font_family/Inter-ExtraLightItalic.otf
+            weight: 200
+            style: italic
+          - asset: assets/font_family/Inter-Light.otf
+            weight: 300
+          - asset: assets/font_family/Inter-LightItalic.otf
+            weight: 300
+            style: italic
+          - asset: assets/font_family/Inter-Regular.otf
+            weight: 400
+          - asset: assets/font_family/Inter-Italic.otf
+            weight: 400
+            style: italic
+          - asset: assets/font_family/Inter-Medium.otf
+            weight: 500
+          - asset: assets/font_family/Inter-MediumItalic.otf
+            weight: 500
+            style: italic
+          - asset: assets/font_family/Inter-SemiBold.otf
+            weight: 600
+          - asset: assets/font_family/Inter-SemiBoldItalic.otf
+            weight: 600
+            style: italic
+          - asset: assets/font_family/Inter-Bold.otf
+            weight: 700
+          - asset: assets/font_family/Inter-BoldItalic.otf
+            weight: 700
+            style: italic
+          - asset: assets/font_family/Inter-ExtraBold.otf
+            weight: 800
+          - asset: assets/font_family/Inter-ExtraBoldItalic.otf
+            weight: 800
+            style: italic
+          - asset: assets/font_family/Inter-Black.otf
+            weight: 900
+          - asset: assets/font_family/Inter-BlackItalic.otf
+            weight: 900
+            style: italic
