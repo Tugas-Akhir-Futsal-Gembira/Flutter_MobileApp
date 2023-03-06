@@ -1,18 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class DaftarScreen extends StatelessWidget {
+  const DaftarScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
+    TextEditingController nameTextController = TextEditingController();
     TextEditingController emailTextController = TextEditingController();
+    TextEditingController nohpTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
     
     return Scaffold(
@@ -85,14 +87,23 @@ class LoginScreen extends StatelessWidget {
                                 Column(
                                   children: [
                                     Text(
-                                      'Futsal\nGembira',
+                                      'Daftar',
                                       style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                     ),
                                     const SizedBox(height: 20,),
                                     CustomTextfield(
+                                      title: 'Nama',
+                                      controller: nameTextController,
+                                    ),
+                                    const SizedBox(height: 20,),
+                                    CustomTextfield(
                                       title: 'Email',
-                                      value: null,
                                       controller: emailTextController,
+                                    ),
+                                    const SizedBox(height: 20,),
+                                    CustomTextfield(
+                                      title: 'No HP',
+                                      controller: nohpTextController,
                                     ),
                                     const SizedBox(height: 20,),
                                     CustomTextfield(
@@ -100,56 +111,40 @@ class LoginScreen extends StatelessWidget {
                                       type: CustomTextfieldType.password,
                                       controller: passwordTextController,
                                     ),
-                                    const SizedBox(height: 8,),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: RichText(
-                                        text: TextSpan(
-                                          text: 'Lupa Password?',
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = (){
-                                              Navigator.pushReplacement(
-                                                context, 
-                                                MaterialPageRoute(builder: (context) => const SplashScreen(),)
-                                              );
-                                            },
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: semiBold,
-                                            decoration: TextDecoration.underline,
-                                          )
-                                        )
-                                      )
-                                    )
                                   ],
                                 ),
-
+                
                                 Column(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 64),
                                       child: CustomButton(
-                                        value: 'Masuk', 
+                                        value: 'Daftar', 
                                         size: const Size(202, 44),
-                                        onPressed: (){},
+                                        onPressed: (){
+                                          Navigator.pushReplacement(
+                                            context, 
+                                            MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                          );
+                                        },
                                       ),
                                     ),
                                     const SizedBox(height: 20,),
                                     RichText(
                                       text: TextSpan(
-                                        text: 'Belum punya akun? ',
+                                        text: 'Sudah punya akun? ',
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: regular,
                                         ),
                                         children: [
                                           TextSpan(
-                                            text: 'Buat Akun',
+                                            text: 'Masuk',
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = (){ 
                                                 Navigator.pushReplacement(
                                                   context, 
-                                                  MaterialPageRoute(builder: (context) => const DaftarScreen(),)
+                                                  MaterialPageRoute(builder: (context) => const LoginScreen(),)
                                                 );
                                               },
                                             style: TextStyle(
