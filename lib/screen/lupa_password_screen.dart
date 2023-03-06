@@ -1,20 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
-class DaftarScreen extends StatelessWidget {
-  const DaftarScreen({super.key});
+class LupaPasswordScreen extends StatelessWidget {
+  const LupaPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController nameTextController = TextEditingController();
     TextEditingController emailTextController = TextEditingController();
-    TextEditingController nohpTextController = TextEditingController();
-    TextEditingController passwordTextController = TextEditingController();
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -86,52 +84,67 @@ class DaftarScreen extends StatelessWidget {
                                 Column(
                                   children: [
                                     Text(
-                                      'Daftar',
+                                      'Lupa Password',
                                       style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                     ),
                                     const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'Nama',
-                                      controller: nameTextController,
+                                    RichText(
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: regular,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: 'Masukkan email ',
+                                            style: TextStyle(fontWeight: semiBold),
+                                          ),
+                                          const TextSpan(
+                                            text: 'anda. Kami akan mengirimkan sebuah '
+                                          ),
+                                          TextSpan(
+                                            text: 'tautan lewat email',
+                                            style: TextStyle(fontWeight: semiBold),
+                                          ),
+                                          const TextSpan(
+                                            text: ' untuk mengatur ulang password anda.'
+                                          )
+                                        ]
+                                      )
                                     ),
                                     const SizedBox(height: 20,),
                                     CustomTextfield(
                                       title: 'Email',
+                                      value: null,
                                       controller: emailTextController,
                                     ),
                                     const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'No HP',
-                                      controller: nohpTextController,
+                                    Text(
+                                      'Jika anda mempunyai tautan atur ulang password yang lama, tautan tersebut tidak dapat digunakan kembali jika anda telah klik tombol Kirimkan',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: regular,
+                                        color: warningColor,
+                                      ),
                                     ),
-                                    const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'Password',
-                                      type: CustomTextfieldType.password,
-                                      controller: passwordTextController,
-                                    ),
+
                                   ],
                                 ),
-                
+
                                 Column(
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(top: 64),
                                       child: CustomButton(
-                                        value: 'Daftar', 
+                                        value: 'Kirimkan', 
                                         size: const Size(202, 44),
-                                        onPressed: (){
-                                          Navigator.pushReplacement(
-                                            context, 
-                                            MaterialPageRoute(builder: (context) => const LoginScreen(),)
-                                          );
-                                        },
+                                        onPressed: (){},
                                       ),
                                     ),
                                     const SizedBox(height: 20,),
                                     RichText(
                                       text: TextSpan(
-                                        text: 'Sudah punya akun? ',
+                                        text: 'Kembali ke halaman ',
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: regular,
