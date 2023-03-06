@@ -5,3 +5,4 @@ Color primaryLightColor = const Color(0xFF363636);
 Color primaryLighterColor = const Color(0xFF7E7E7E);
 
 Color infoColor = const Color(0xFF00D1FF);
+Color warningColor = const Color(0xFFFFE600);

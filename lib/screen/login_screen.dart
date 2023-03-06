@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
-import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/lupa_password_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                                             ..onTap = (){
                                               Navigator.pushReplacement(
                                                 context, 
-                                                MaterialPageRoute(builder: (context) => const SplashScreen(),)
+                                                MaterialPageRoute(builder: (context) => const LupaPasswordScreen(),)
                                               );
                                             },
                                           style: TextStyle(
