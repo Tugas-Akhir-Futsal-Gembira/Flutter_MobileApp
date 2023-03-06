@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -85,9 +86,19 @@ class LandindPageScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 50,),
+
+                    ///'Mulai' Button
                     Center(
                       child: ElevatedButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.pushReplacement(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                              // builder: (context) => const ExampleScren(),
+                            )
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           fixedSize: const Size(202, 44),
