@@ -21,9 +21,30 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    timer = Timer(const Duration(milliseconds: 1500), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LandindPageScreen(),));
-    });
+    timer = Timer(
+      const Duration(milliseconds: 1500), 
+      (){
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(
+            builder: (context) => const LandindPageScreen(),
+          )
+        );
+      }
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(
+      const AssetImage('assets/image/landing_page/Lapangan futsal wallpaper 3.jpg'), 
+      context
+    );
+    precacheImage(
+      const AssetImage('assets/image/Lapangan futsal wallpaper.jpg'), 
+      context
+    );
   }
 
   @override
