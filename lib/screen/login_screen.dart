@@ -5,6 +5,7 @@ import 'package:flutter_application_futsal_gembira/screen/lupa_password_screen.d
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
+import 'package:flutter_application_futsal_gembira/screen/main_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -131,7 +132,12 @@ class LoginScreen extends StatelessWidget {
                                       child: CustomButton(
                                         value: 'Masuk', 
                                         size: const Size(202, 44),
-                                        onPressed: (){},
+                                        onPressed: (){
+                                          Navigator.pushReplacement(
+                                            context, 
+                                            MaterialPageRoute(builder: (context) => const MainScreen(),)
+                                          );
+                                        },
                                       ),
                                     ),
                                     const SizedBox(height: 20,),

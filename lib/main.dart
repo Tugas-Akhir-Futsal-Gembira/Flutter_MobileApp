@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 
 void main() {
   runApp(const MyApp());
@@ -67,11 +68,14 @@ class _MyAppState extends State<MyApp> {
       ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        ///To set Inter font to be default font
         textTheme: Theme.of(context).textTheme.apply(
           fontFamily: 'Inter',
           bodyColor: Colors.white,
           displayColor: Colors.white
-        )
+        ),
+        ///To set scroll effect color
+        accentColor: primaryLightestColor,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: const SplashScreen(),
