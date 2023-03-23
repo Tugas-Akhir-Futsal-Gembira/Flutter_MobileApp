@@ -72,7 +72,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   style: TextStyle(
                     fontWeight: medium,
                     fontSize: 16,
-                    color: (widget.type == CustomTextfieldType.disabled) ? primaryLighterColor : Colors.white
+                    color: (widget.type == CustomTextfieldType.disabled) ? primaryLightestColor : Colors.white
                   ),
                   obscureText: !valueIsShown.value,
                   obscuringCharacter: '*',
