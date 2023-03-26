@@ -6,3 +6,5 @@ Color primaryLightestColor = const Color(0xFF7E7E7E);
 
 Color infoColor = const Color(0xFF00D1FF);
 Color warningColor = const Color(0xFFFFE600);
+Color error2Color = const Color(0xFFFF3D00);
+Color success2Color = const Color(0xFF00FF47);

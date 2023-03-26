@@ -120,11 +120,17 @@ class FieldGridItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontWeight: semiBold,
-                      fontSize: 14
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          fontWeight: semiBold,
+                          fontSize: 14
+                        ),
+                      ),
                     ),
                   ),
                   SvgPicture.asset('assets/icon/Caret-Right.svg'),
