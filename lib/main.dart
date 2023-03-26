@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/screen/main_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  await initializeDateFormatting('id_ID, null').then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -75,10 +77,11 @@ class _MyAppState extends State<MyApp> {
           displayColor: Colors.white
         ),
         ///To set scroll effect color
+        // ignore: deprecated_member_use
         accentColor: primaryLightestColor,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home: const MainScreen()
     );
   }
 }
