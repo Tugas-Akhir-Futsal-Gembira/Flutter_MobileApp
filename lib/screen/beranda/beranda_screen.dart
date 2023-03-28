@@ -57,7 +57,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        // WelcomeContainer(name: 'Chandra',),
+                        const WelcomeContainer(name: 'Chandra',),
                         PenyewaanContainer(
                           abstractPenyewaanModel: SudahDibayarModel(
                             fieldName: 'Lapangan#1', 
