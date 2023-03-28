@@ -24,24 +24,7 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
   void initState() {
     ///After 1 second, from loading linear transformed to riwayat penyewaan screen
     super.initState();
-    Timer(const Duration(seconds: 1), () => isLoading.value = false,);
-
-    ///Add list dummy
-    listPenyewaanModel = [
-      SudahDibayarModel(
-        fieldName: "Lapangan #1", 
-        rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
-        durationInt: 2, 
-        createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
-      ),
-
-      MenungguPembayaranModel(
-        fieldName: "Lapangan #1", 
-        rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
-        durationInt: 2, 
-        createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
-      )
-    ];
+    refreshDummy();
   }
 
   @override
@@ -75,11 +58,42 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
           ) : 
 
           ///If list is not empty
-          ListView.builder(
-            itemCount: listPenyewaanModel.length,
-            padding: const EdgeInsets.all(16),
-            itemBuilder: (context, index) =>  PenyewaanContainer(abstractPenyewaanModel: listPenyewaanModel[index])
+          RefreshIndicator(
+            onRefresh: () async{
+              refreshDummy();
+            },
+            child: ListView.builder(
+              itemCount: listPenyewaanModel.length,
+              padding: const EdgeInsets.all(16),
+              itemBuilder: (context, index) =>  PenyewaanContainer(abstractPenyewaanModel: listPenyewaanModel[index])
+            ),
           ),
+    );
+  }
+
+  void refreshDummy(){
+    isLoading.value = true;
+
+    ///Add list dummy
+      listPenyewaanModel = [
+        SudahDibayarModel(
+          fieldName: "Lapangan #1", 
+          rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
+          durationInt: 2, 
+          createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
+        ),
+
+        MenungguPembayaranModel(
+          fieldName: "Lapangan #1", 
+          rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
+          durationInt: 2, 
+          createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
+        )
+      ];
+
+    Timer(
+      const Duration(seconds: 1), 
+      ()=> isLoading.value = false,
     );
   }
 }
