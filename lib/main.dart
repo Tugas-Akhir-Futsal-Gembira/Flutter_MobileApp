@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
         accentColor: primaryLightestColor,
       ),
       // home: const SplashScreen(),
-      home: const MainScreen()
+      home: const MainScreen(indexChoosen: 0,)
     );
   }
 }

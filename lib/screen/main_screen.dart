@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/beranda/beranda_appbar.dart';
 import 'package:flutter_application_futsal_gembira/screen/beranda/beranda_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/pengaturan/pengaturan_appbar.dart';
+import 'package:flutter_application_futsal_gembira/screen/pengaturan/pengaturan_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/riwayat_penyewaan/riwayat_penyewaan_appbar.dart';
 import 'package:flutter_application_futsal_gembira/screen/riwayat_penyewaan/riwayat_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({super.key, this.indexChoosen = 0});
+
+  ///To choose between 0.Beranda, 1.Riwayat, 2.Pengaturan.
+  ///
+  ///Other than that will be goes to 0.Beranda.
+  final int indexChoosen;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -15,7 +22,19 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
+  ///Index that used for bottomNavigation
   int navigationIndex = 0;
+
+  @override
+  void initState() {
+    if(widget.indexChoosen < 0 || widget.indexChoosen > 2){
+      navigationIndex = 0;
+    }
+    else{
+      navigationIndex = widget.indexChoosen;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +43,14 @@ class _MainScreenState extends State<MainScreen> {
     List<Widget> bodyList = const [
       BerandaScreen(),
       RiwayatPenyewaanScreen(),
-      Placeholder(),
+      PengaturanScreen(),
     ];
 
     ///List of AppBar
     List<PreferredSizeWidget> appBarList = [
       berandaAppBar,
       riwayatPenyewaanAppBar,
-      AppBar(),
+      pengaturanAppBar,
     ];
 
     return Container(
