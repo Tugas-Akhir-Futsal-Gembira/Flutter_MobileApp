@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/keluar_dialog.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/pengaturan_listitem.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/profile_container.dart';
-import 'package:flutter_application_futsal_gembira/style/color_style.dart';
-import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class PengaturanScreen extends StatelessWidget {
   const PengaturanScreen({super.key});

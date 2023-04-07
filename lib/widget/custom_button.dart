@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 
 class CustomButton extends StatelessWidget {
@@ -14,6 +15,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
+        disabledBackgroundColor: primaryLightestColor,
         fixedSize: size,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20)
@@ -24,7 +26,7 @@ class CustomButton extends StatelessWidget {
         style: TextStyle(
           color: Colors.black, 
           fontWeight: semiBold, 
-          fontSize: 20
+          fontSize: 16
         ),
       ),
     );
