@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/lupa_password_screen.dart';
-import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
