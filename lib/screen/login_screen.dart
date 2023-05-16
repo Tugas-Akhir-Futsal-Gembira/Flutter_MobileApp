@@ -2,8 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/lupa_password_screen.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 import 'package:flutter_application_futsal_gembira/screen/main_screen.dart';
 
@@ -133,9 +135,13 @@ class LoginScreen extends StatelessWidget {
                                         value: 'Masuk', 
                                         size: const Size(202, 44),
                                         onPressed: (){
-                                          Navigator.pushReplacement(
+                                          //Temp. pushReplacement(true)
+                                          Navigator.push(
                                             context, 
                                             MaterialPageRoute(builder: (context) => const MainScreen(),)
+                                          );
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            CustomSnackbar(title: 'Berhasil Login',)
                                           );
                                         },
                                       ),
