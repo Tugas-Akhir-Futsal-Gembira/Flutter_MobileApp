@@ -19,7 +19,7 @@ String paymentStatusString(AbstractPenyewaanModel model){
   Map stringMap = {
     SudahDibayarModel : 'Sudah Dibayar',
     MenungguPembayaranModel : 'Menunggu Pembayaran',
-    TransaksiDibatalkanModel : 'Transaksi\nDibatalkan',
+    TransaksiDibatalkanModel : 'Transaksi Dibatalkan',
   };
 
   return stringMap[model.runtimeType];

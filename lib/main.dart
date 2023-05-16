@@ -81,8 +81,8 @@ class _MyAppState extends State<MyApp> {
         accentColor: primaryLightestColor,
         scrollbarTheme: ScrollbarThemeData(thumbColor: MaterialStatePropertyAll(primaryLightestColor))
       ),
-      // home: const SplashScreen(),
-      home: const MainScreen(indexChoosen: 0,)
+      home: const SplashScreen(),
+      // home: const MainScreen(indexChoosen: 0,)
     );
   }
 }
