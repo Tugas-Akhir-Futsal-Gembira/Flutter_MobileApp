@@ -28,7 +28,7 @@ void keluarDialog(BuildContext context){
           const SizedBox(height: 16,),
 
           ///Second Row: 'Keluar' text
-          Text(
+          const Text(
             'Keluar',
             style: TextStyle(
               fontWeight: semiBold,
@@ -38,7 +38,7 @@ void keluarDialog(BuildContext context){
           const SizedBox(height: 8,),
 
           ///Third Row: Confirmation text
-          Text(
+          const Text(
             'Apakah anda yakin ingin keluar',
             style: TextStyle(
               fontWeight: regular,
@@ -66,7 +66,7 @@ void keluarDialog(BuildContext context){
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(color: primaryLightestColor),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Tidak',
                       style: TextStyle(
                         fontWeight: semiBold,
@@ -105,7 +105,7 @@ void keluarDialog(BuildContext context){
                       borderRadius: BorderRadius.circular(5),
                       color: error2Color
                     ),
-                    child: Text(
+                    child: const Text(
                       'Ya',
                       style: TextStyle(
                         fontWeight: semiBold,

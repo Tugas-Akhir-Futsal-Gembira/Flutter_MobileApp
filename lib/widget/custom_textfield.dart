@@ -57,7 +57,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                 children: [
                   Text(
                     widget.title.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: regular, 
                       fontSize: 16
                     ),
@@ -90,7 +90,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   keyboardType: widget.keyboardType,
                   decoration: InputDecoration(
                     errorMaxLines: 2,
-                    errorStyle: TextStyle(
+                    errorStyle: const TextStyle(
                       color: error2Color
                     ),
                     contentPadding: EdgeInsets.only(
@@ -126,7 +126,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: infoColor
                       )
                     ),
@@ -138,13 +138,13 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: error2Color
                       )
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: error2Color
                       )
                     ),

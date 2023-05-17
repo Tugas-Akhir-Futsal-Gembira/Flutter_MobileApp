@@ -17,7 +17,7 @@ class FieldGridView extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           child: Text(
             'Yuk $name main futsal...',
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: medium,
               fontSize: 20
             ),

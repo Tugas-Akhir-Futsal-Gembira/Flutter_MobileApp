@@ -35,7 +35,7 @@ class LandindPageScreen extends StatelessWidget {
                   color: Colors.white.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(5)
                 ),
-                child: Text(
+                child: const Text(
                   'Futsal\nGembira', 
                   style: TextStyle(
                     fontWeight: semiBold, 
@@ -71,13 +71,13 @@ class LandindPageScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Jadilah pemenang', style: TextStyle(fontSize: 32, fontWeight: semiBold, height: 1.0),),
+                    const Text('Jadilah pemenang', style: TextStyle(fontSize: 32, fontWeight: semiBold, height: 1.0),),
                     const SizedBox(height: 10,),
                     ConstrainedBox(
                       constraints: const BoxConstraints(
                         maxWidth: 250
                       ),
-                      child: Text(
+                      child: const Text(
                         'Tidak hanya di atas lapangan tapi juga di hati orang-orang terdekat kita',
                         style: TextStyle(
                           fontSize: 16, 
@@ -106,7 +106,7 @@ class LandindPageScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20)
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Mulai', 
                           style: TextStyle(
                             color: Colors.black, 

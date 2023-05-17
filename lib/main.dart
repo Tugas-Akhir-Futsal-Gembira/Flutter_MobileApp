@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
         ///To set scroll effect color
         // ignore: deprecated_member_use
         accentColor: primaryLightestColor,
-        scrollbarTheme: ScrollbarThemeData(thumbColor: MaterialStatePropertyAll(primaryLightestColor))
+        scrollbarTheme: const ScrollbarThemeData(thumbColor: MaterialStatePropertyAll(primaryLightestColor))
       ),
       home: const SplashScreen(),
       // home: const MainScreen(indexChoosen: 0,)

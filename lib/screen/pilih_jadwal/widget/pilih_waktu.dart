@@ -89,7 +89,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                               width: 69 + 12,
                               child: Text(
                                 '${NumberFormat('00').format(startHour+i)}:00',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: semiBold,
                                   fontSize: 12,
                                 ),
@@ -163,7 +163,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
+                                                      const Text(
                                                         'Tersedia',
                                                         style: TextStyle(
                                                           fontWeight: semiBold,
@@ -421,7 +421,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                 ///Duration Text
                                 Text(
                                   '$choosenCount Jam',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: semiBold,
                                     fontSize: 16,
                                   ),
@@ -495,7 +495,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                   Text(
                                     //Example 07:00 - 09:00
                                     '${NumberFormat('00').format(startHour + firstChoosen)}:00 - ${NumberFormat('00').format(startHour + lastChoosen + 1)}:00',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: semiBold,
                                       fontSize: 14
                                     ),
@@ -535,7 +535,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
 
                           return Text(
                             (isChoosen) ? 'Pilih Durasi' : 'Pilih waktu yang tersedia',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: regular,
                               fontSize: 14,
                             ),

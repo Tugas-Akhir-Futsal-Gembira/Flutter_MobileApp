@@ -1,20 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_alert_dialog.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
-import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
-class DaftarScreen extends StatelessWidget {
-  const DaftarScreen({super.key});
+class AturUlangPasswordScreen extends StatelessWidget {
+  const AturUlangPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController nameTextController = TextEditingController();
-    TextEditingController emailTextController = TextEditingController();
-    TextEditingController nohpTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
     TextEditingController konfirmasiPasswordTextController = TextEditingController();
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -89,7 +87,6 @@ class DaftarScreen extends StatelessWidget {
                           ),
                           child: Container(
                             color: Colors.blue.withOpacity(0.0),
-                            ///Form
                             child: Form(
                               key: formKey,
                               child: Column(
@@ -98,47 +95,42 @@ class DaftarScreen extends StatelessWidget {
                                   Column(
                                     children: [
                                       const Text(
-                                        'Daftar',
+                                        'Atur Ulang Password',
                                         style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                       ),
-                                      const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'Nama',
-                                        controller: nameTextController,
-                                        validator: (value) {
-                                          if(nameTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return null;
-                                        },
+                                      const SizedBox(height: 60,),
+                                      RichText(
+                                        text: const TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: regular,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Masukkan password yang baru',
+                                              style: TextStyle(fontWeight: semiBold),
+                                            ),
+                                            TextSpan(
+                                              text: ' pada akun anda.',
+                                            ),
+                                          ]
+                                        )
                                       ),
-                                      const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'Email',
-                                        controller: emailTextController,
-                                        validator: (value) {
-                                          if(emailTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return null;
-                                        },
+                                      const SizedBox(height: 40,),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'example123@mail.com',
+                                          style: TextStyle(
+                                            fontWeight: semiBold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
                                       ),
-                                      const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'No HP',
-                                        controller: nohpTextController,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if(nohpTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      const SizedBox(height: 20,),
+                                      const SizedBox(height: 30),
                                       CustomTextfield(
                                         title: 'Password',
-                                        type: CustomTextfieldType.password,
+                                        value: null,
                                         controller: passwordTextController,
                                         validator: (value) {
                                           if(passwordTextController.text.length < 8){
@@ -150,38 +142,95 @@ class DaftarScreen extends StatelessWidget {
                                       const SizedBox(height: 20,),
                                       CustomTextfield(
                                         title: 'Konfirmasi Password',
-                                        type: CustomTextfieldType.password,
+                                        value: null,
                                         controller: konfirmasiPasswordTextController,
                                         validator: (value) {
                                           if(konfirmasiPasswordTextController.text.length < 8){
                                             return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
                                           }
                                           return (passwordTextController.text != konfirmasiPasswordTextController.text) 
-                                              ? 'Input pada Konfirmasi Password tidak sama dengan Password' : null;
+                                                ? 'Input pada Konfirmasi Password tidak sama dengan Password' : null;
                                         },
                                       ),
+                                      const SizedBox(height: 40,),
+                                      const Text(
+                                        'Setelah menekan tombol Atur Ulang, maka password lama pada akun anda tidak dapat digunakan dan password baru akan langsung dapat digunakan',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: regular,
+                                          color: warningColor,
+                                        ),
+                                      ),
+                            
                                     ],
                                   ),
-                                            
+                            
                                   Column(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(top: 64),
                                         child: CustomButton(
-                                          value: 'Daftar', 
+                                          value: 'Atur Ulang', 
                                           size: const Size(202, 44),
+                                          fontSize: 20,
                                           onPressed: (){
-
-                                            ///If validation of form return true
+                                            FocusScope.of(context).requestFocus(FocusNode());
                                             if(formKey.currentState!.validate()){
-                                              Navigator.pushReplacement(
-                                                context, 
-                                                MaterialPageRoute(builder: (context) => const LoginScreen(),)
-                                              );
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                CustomSnackbar(
-                                                  title: 'Buka email anda untuk validasi akun',
-                                                )
+                                              showDialog(
+                                                context: context, 
+                                                barrierDismissible: false,
+                                                builder: (context) {
+                                                  return CustomAlertDialog(
+                                                    context: context,
+                                                    backgroundColor: primaryLightColor,
+                                                    visibleFirstButton: true,
+                                                    visibleSecondButton: false,
+                                                    backgroundColorFirstButton: success2Color,
+                                                    childFirstButton: const Text(
+                                                      'OK',
+                                                      style: TextStyle(
+                                                        fontWeight: semiBold,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    onPressedFirstButton: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.pushReplacement(
+                                                        context, 
+                                                        MaterialPageRoute(
+                                                          builder: (context) => const LoginScreen(),
+                                                        )
+                                                      );
+                                                    },
+                                                    content: WillPopScope(
+                                                      onWillPop: () async{
+                                                        return false;
+                                                      },
+                                                      child: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: const [
+                                                          SizedBox(height: 16,),
+                                                          Text(
+                                                            'Berhasil Atur Ulang',
+                                                            style: TextStyle(
+                                                              fontWeight: semiBold,
+                                                              fontSize: 24
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 32),
+                                                          Text(
+                                                            'Atur Ulang Password berhasil.\n Akun anda telah menyimpan password yang baru',
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                              fontWeight: regular,
+                                                              fontSize: 16
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ),
+                                                  );
+                                                },
                                               );
                                             }
                                           },
@@ -190,7 +239,7 @@ class DaftarScreen extends StatelessWidget {
                                       const SizedBox(height: 20,),
                                       RichText(
                                         text: TextSpan(
-                                          text: 'Sudah punya akun? ',
+                                          text: 'Kembali ke halaman ',
                                           style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: regular,

@@ -8,7 +8,7 @@ AppBar berandaAppBar = AppBar(
   backgroundColor: primaryBaseColor,
   toolbarHeight: 71,
   titleSpacing: 20,
-  title: Text(
+  title: const Text(
     'Futsal Gembira',
     style: TextStyle(
       fontSize: 20,

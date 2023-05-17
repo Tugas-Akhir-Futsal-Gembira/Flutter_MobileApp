@@ -44,7 +44,7 @@ class PenyewaanContainer extends StatelessWidget {
                     Expanded(
                       child: Text(
                         abstractPenyewaanModel.fieldName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: medium,
                           fontSize: 20,
                         ),
@@ -67,7 +67,7 @@ class PenyewaanContainer extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Tanggal & Waktu Sewa',
                             style: TextStyle(
                               fontWeight: light,
@@ -77,7 +77,7 @@ class PenyewaanContainer extends StatelessWidget {
                           const SizedBox(height: 2,),
                           Text(
                             customDateFormat(abstractPenyewaanModel.createdAtDateTime),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: medium,
                               fontSize: 12,
                             ),
@@ -97,7 +97,7 @@ class PenyewaanContainer extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Durasi Sewa',
                             style: TextStyle(
                               fontWeight: light,
@@ -107,7 +107,7 @@ class PenyewaanContainer extends StatelessWidget {
                           const SizedBox(height: 2,),
                           Text(
                             '${abstractPenyewaanModel.durationInt} Jam',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: medium,
                               fontSize: 12,
                             ),
@@ -128,7 +128,7 @@ class PenyewaanContainer extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Status',
                               style: TextStyle(
                                 fontWeight: light,
@@ -159,7 +159,7 @@ class PenyewaanContainer extends StatelessWidget {
                     (customMessage == null) ? 
                         'Dibuat pada tanggal ${customDateFormat(abstractPenyewaanModel.createdAtDateTime)}' :
                         customMessage!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: light,
                       fontStyle: FontStyle.italic,
                       fontSize: 10,

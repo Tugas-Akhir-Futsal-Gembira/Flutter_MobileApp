@@ -3,10 +3,11 @@ import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.value, this.onPressed, required this.size});
+  const CustomButton({super.key, required this.value, this.onPressed, required this.size, this.fontSize = 16});
 
   final String value;
   final void Function()? onPressed;
+  final double fontSize;
   final Size size;
 
   @override
@@ -26,7 +27,7 @@ class CustomButton extends StatelessWidget {
         style: TextStyle(
           color: Colors.black, 
           fontWeight: semiBold, 
-          fontSize: 16
+          fontSize: fontSize,
         ),
       ),
     );

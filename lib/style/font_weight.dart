@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 
-FontWeight thin = FontWeight.w100;
-FontWeight extraLight = FontWeight.w200;
-FontWeight light = FontWeight.w300;
-FontWeight regular = FontWeight.w400;
-FontWeight medium = FontWeight.w500;
-FontWeight semiBold = FontWeight.w600;
-FontWeight bold = FontWeight.w700;
-FontWeight extraBold = FontWeight.w800;
-FontWeight black = FontWeight.w900;
+const FontWeight thin = FontWeight.w100;
+const FontWeight extraLight = FontWeight.w200;
+const FontWeight light = FontWeight.w300;
+const FontWeight regular = FontWeight.w400;
+const FontWeight medium = FontWeight.w500;
+const FontWeight semiBold = FontWeight.w600;
+const FontWeight bold = FontWeight.w700;
+const FontWeight extraBold = FontWeight.w800;
+const FontWeight black = FontWeight.w900;

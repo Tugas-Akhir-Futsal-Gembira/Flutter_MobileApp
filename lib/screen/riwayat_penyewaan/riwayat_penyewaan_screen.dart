@@ -33,7 +33,7 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
       valueListenable: isLoading,
       builder: (context, value, child){
         if(value){
-          return LinearProgressIndicator(
+          return const LinearProgressIndicator(
             color: infoColor,
             backgroundColor: primaryLightestColor,
           );
@@ -45,7 +45,7 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
       child: (listPenyewaanModel.isEmpty) ? 
 
           ///If list is empty
-          Center(
+          const Center(
             child: Text(
               'Riwayat anda kosong\nSeperti rasanya ditinggal doi',
               textAlign: TextAlign.center,

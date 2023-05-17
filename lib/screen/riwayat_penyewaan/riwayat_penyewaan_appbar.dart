@@ -8,7 +8,7 @@ AppBar riwayatPenyewaanAppBar = AppBar(
   backgroundColor: primaryBaseColor,
   toolbarHeight: 71,
   titleSpacing: 20,
-  title: Text(
+  title: const Text(
     'Riwayat Penyewaan',
     style: TextStyle(
       fontSize: 20,
@@ -18,7 +18,7 @@ AppBar riwayatPenyewaanAppBar = AppBar(
   actions: [
     Tooltip(
       message: 'Daftar Riwayat Penyewaan diurutkan berdasarkan tanggal dibuatnya penyewaan lapangan',
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
         color: Colors.black,
         fontWeight: regular,
         fontSize: 12
