@@ -11,12 +11,22 @@ enum CustomTextfieldType{
 }
 
 class CustomTextfield extends StatefulWidget {
-  const CustomTextfield({super.key, this.title, this.value, this.type = CustomTextfieldType.normal, this.controller});
+  const CustomTextfield({
+    super.key, 
+    this.title, 
+    this.value, 
+    this.type = CustomTextfieldType.normal, 
+    this.controller,
+    this.validator,
+    this.keyboardType,
+  });
 
   final String? title;
   final String? value;
   final CustomTextfieldType type;
   final TextEditingController? controller;
+  final String? Function(String? value)? validator;
+  final TextInputType? keyboardType;
 
   @override
   State<CustomTextfield> createState() => _CustomTextfieldState();
@@ -59,13 +69,14 @@ class _CustomTextfieldState extends State<CustomTextfield> {
 
           ///Custom TextFormField
           SizedBox(
-            height: 45,
+            // height: 45,
             child: ValueListenableBuilder(
               valueListenable: valueIsShown,
               builder: (context, value, child){
                 return TextFormField(
                   controller: widget.controller,
                   enabled: !(widget.type == CustomTextfieldType.disabled),
+                  validator: widget.validator,
                   initialValue: widget.value,
                   cursorColor: infoColor,
                   textAlignVertical: TextAlignVertical.center,
@@ -76,7 +87,12 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   ),
                   obscureText: !valueIsShown.value,
                   obscuringCharacter: '*',
+                  keyboardType: widget.keyboardType,
                   decoration: InputDecoration(
+                    errorMaxLines: 2,
+                    errorStyle: TextStyle(
+                      color: error2Color
+                    ),
                     contentPadding: EdgeInsets.only(
                       left: 20,
                       right: (widget.type == CustomTextfieldType.normal || widget.type == CustomTextfieldType.disabled)
@@ -100,6 +116,8 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                               )
                             )
                             : null,
+
+                    ///Borders Settings
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(
@@ -118,7 +136,18 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                         color: Colors.white
                       )
                     ),
-                    
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: error2Color
+                      )
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: error2Color
+                      )
+                    ),
                   ),
                 );
               }

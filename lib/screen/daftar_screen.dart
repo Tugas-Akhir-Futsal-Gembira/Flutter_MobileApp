@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
 class DaftarScreen extends StatelessWidget {
@@ -15,6 +16,8 @@ class DaftarScreen extends StatelessWidget {
     TextEditingController emailTextController = TextEditingController();
     TextEditingController nohpTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
+    TextEditingController konfirmasiPasswordTextController = TextEditingController();
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,6 +71,12 @@ class DaftarScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
+                          color: Colors.amber.withOpacity(0.0),
+                          constraints: BoxConstraints(
+                            minHeight: p1constraint.maxHeight * 15 / 100
+                          ),
+                        ),
+                        Container(
                           width: double.infinity,
                           constraints: BoxConstraints(
                             minHeight: p1constraint.maxHeight * 75 / 100
@@ -80,83 +89,130 @@ class DaftarScreen extends StatelessWidget {
                           ),
                           child: Container(
                             color: Colors.blue.withOpacity(0.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      'Daftar',
-                                      style: TextStyle(fontWeight: semiBold, fontSize: 32),
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'Nama',
-                                      controller: nameTextController,
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'Email',
-                                      controller: emailTextController,
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'No HP',
-                                      controller: nohpTextController,
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    CustomTextfield(
-                                      title: 'Password',
-                                      type: CustomTextfieldType.password,
-                                      controller: passwordTextController,
-                                    ),
-                                  ],
-                                ),
-                
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 64),
-                                      child: CustomButton(
-                                        value: 'Daftar', 
-                                        size: const Size(202, 44),
-                                        onPressed: (){
-                                          Navigator.pushReplacement(
-                                            context, 
-                                            MaterialPageRoute(builder: (context) => const LoginScreen(),)
-                                          );
+                            ///Form
+                            child: Form(
+                              key: formKey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Daftar',
+                                        style: TextStyle(fontWeight: semiBold, fontSize: 32),
+                                      ),
+                                      const SizedBox(height: 20,),
+                                      CustomTextfield(
+                                        title: 'Nama',
+                                        controller: nameTextController,
+                                        validator: (value) {
+                                          if(nameTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
                                         },
                                       ),
-                                    ),
-                                    const SizedBox(height: 20,),
-                                    RichText(
-                                      text: TextSpan(
-                                        text: 'Sudah punya akun? ',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: regular,
+                                      const SizedBox(height: 20,),
+                                      CustomTextfield(
+                                        title: 'Email',
+                                        controller: emailTextController,
+                                        validator: (value) {
+                                          if(emailTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                        },
+                                      ),
+                                      const SizedBox(height: 20,),
+                                      CustomTextfield(
+                                        title: 'No HP',
+                                        controller: nohpTextController,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if(nohpTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                        },
+                                      ),
+                                      const SizedBox(height: 20,),
+                                      CustomTextfield(
+                                        title: 'Password',
+                                        type: CustomTextfieldType.password,
+                                        controller: passwordTextController,
+                                        validator: (value) {
+                                          if(passwordTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                        },
+                                      ),
+                                      const SizedBox(height: 20,),
+                                      CustomTextfield(
+                                        title: 'Konfirmasi Password',
+                                        type: CustomTextfieldType.password,
+                                        controller: konfirmasiPasswordTextController,
+                                        validator: (value) {
+                                          if(konfirmasiPasswordTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                          return (passwordTextController.text != konfirmasiPasswordTextController.text) 
+                                              ? 'Input pada Konfirmasi Password tidak sama dengan Password' : null;
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                            
+                                  Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 64),
+                                        child: CustomButton(
+                                          value: 'Daftar', 
+                                          size: const Size(202, 44),
+                                          onPressed: (){
+
+                                            ///If validation of form return true
+                                            if(formKey.currentState!.validate()){
+                                              Navigator.pushReplacement(
+                                                context, 
+                                                MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                              );
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                CustomSnackbar(
+                                                  title: 'Buka email anda untuk validasi akun',
+                                                )
+                                              );
+                                            }
+                                          },
                                         ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Masuk',
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = (){ 
-                                                Navigator.pushReplacement(
-                                                  context, 
-                                                  MaterialPageRoute(builder: (context) => const LoginScreen(),)
-                                                );
-                                              },
-                                            style: TextStyle(
-                                              decoration: TextDecoration.underline,
-                                              fontWeight: semiBold,
+                                      ),
+                                      const SizedBox(height: 20,),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Sudah punya akun? ',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: regular,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Masuk',
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = (){ 
+                                                  Navigator.pushReplacement(
+                                                    context, 
+                                                    MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                                  );
+                                                },
+                                              style: TextStyle(
+                                                decoration: TextDecoration.underline,
+                                                fontWeight: semiBold,
+                                              )
                                             )
-                                          )
-                                        ]
+                                          ]
+                                        )
                                       )
-                                    )
-                                  ],
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         )
