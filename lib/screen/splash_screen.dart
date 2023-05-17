@@ -55,13 +55,13 @@ class _SplashScreenState extends State<SplashScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: primaryBaseColor,
       body: Center(
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Padding(
-            padding: const EdgeInsets.all(64.0),
+            padding: EdgeInsets.all(64.0),
             child: Text(
               'Futsal\nGembira', 
               style: TextStyle(

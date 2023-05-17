@@ -47,7 +47,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
             }, 
             icon: SvgPicture.asset('assets/icon/Caret-Left.svg')
           ),
-          title: Text(
+          title: const Text(
             'Detail Lapangan',
             style: TextStyle(
               fontWeight: semiBold,
@@ -169,7 +169,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                               children: [
                               
                                 ///Text Field Name
-                                Text(
+                                const Text(
                                   'Lapangan #1',
                                   style: TextStyle(
                                     fontWeight: semiBold,
@@ -203,7 +203,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                             ///Rent Price
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
+                                              children: const [
                                                 Text(
                                                   'Harga Sewa',
                                                   style: TextStyle(
@@ -226,7 +226,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   'Harga Sewa Khusus Malam',
                                                   style: TextStyle(
                                                     fontWeight: regular,
@@ -237,7 +237,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                                 Row(
                                                   mainAxisSize: MainAxisSize.min,
                                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                                  children: [
+                                                  children: const [
                                                     Text(
                                                       'Rp 79.999,-',
                                                       style: TextStyle(
@@ -246,7 +246,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                                       ),
                                                     ),
                                       
-                                                    const SizedBox(width: 16,),
+                                                    SizedBox(width: 16,),
                                       
                                                     Text(
                                                       'mulai pukul 17:00',
@@ -269,7 +269,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                       ///Days
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
+                                        children: const [
                                           Text(
                                             'Menerima pesanan sewa setiap hari',
                                             style: TextStyle(
@@ -293,7 +293,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                       ///Hour
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
+                                        children: const [
                                           Text(
                                             'Menerima pesanan sewa setiap pukul',
                                             style: TextStyle(
@@ -318,7 +318,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                               
                                 const SizedBox(height: 32,),
                               
-                                Text(
+                                const Text(
                                   'Deskripsi Lapangan',
                                   style: TextStyle(
                                     fontWeight: semiBold,
@@ -335,7 +335,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                     color: primaryLightColor,
                                     border: Border.all(color: primaryLightestColor)
                                   ),
-                                  child: Text(
+                                  child: const Text(
                                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Facilisis gravida neque convallis a cras. Sapien eget mi proin sed libero enim sed faucibus turpis.',
                                     style: TextStyle(
                                       fontWeight: regular,
@@ -360,14 +360,14 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                               children: [
                                 SvgPicture.asset(
                                   'assets/icon/Alert-Triangle.svg', 
-                                  colorFilter: ColorFilter.mode(
+                                  colorFilter: const ColorFilter.mode(
                                     warningColor, 
                                     BlendMode.srcATop
                                   ),
                                   // color: warningColor,
                                 ),
                                 const SizedBox(width: 4,),
-                                Expanded(
+                                const Expanded(
                                   child: Text(
                                     'Lakukan pembayaran pada penyewaan yang belum selesai',
                                     style: TextStyle(

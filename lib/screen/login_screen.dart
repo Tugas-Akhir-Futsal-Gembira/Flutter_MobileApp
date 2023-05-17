@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
-import 'package:flutter_application_futsal_gembira/screen/lupa_password_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/lupa_password/lupa_password_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
@@ -92,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Futsal\nGembira',
                                       style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                     ),
@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                                                 MaterialPageRoute(builder: (context) => const LupaPasswordScreen(),)
                                               );
                                             },
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: semiBold,
                                             decoration: TextDecoration.underline,
@@ -139,6 +139,7 @@ class LoginScreen extends StatelessWidget {
                                       child: CustomButton(
                                         value: 'Masuk', 
                                         size: const Size(202, 44),
+                                        fontSize: 20,
                                         onPressed: (){
                                           Navigator.pushReplacement(
                                             context, 
@@ -154,7 +155,7 @@ class LoginScreen extends StatelessWidget {
                                     RichText(
                                       text: TextSpan(
                                         text: 'Belum punya akun? ',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: regular,
                                         ),
@@ -168,7 +169,7 @@ class LoginScreen extends StatelessWidget {
                                                   MaterialPageRoute(builder: (context) => const DaftarScreen(),)
                                                 );
                                               },
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               decoration: TextDecoration.underline,
                                               fontWeight: semiBold,
                                             )

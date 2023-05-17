@@ -32,7 +32,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
         valueListenable: isLoading,
         builder: (context, value, child) {
           if(value){
-            return LinearProgressIndicator(
+            return const LinearProgressIndicator(
               color: infoColor,
               backgroundColor: primaryLightestColor,
             );

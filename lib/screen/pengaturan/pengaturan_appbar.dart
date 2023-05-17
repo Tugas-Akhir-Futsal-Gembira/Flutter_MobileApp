@@ -7,7 +7,7 @@ AppBar pengaturanAppBar = AppBar(
   backgroundColor: primaryBaseColor,
   toolbarHeight: 71,
   titleSpacing: 20,
-  title: Text(
+  title: const Text(
     'Pengaturan',
     style: TextStyle(
       fontSize: 20,

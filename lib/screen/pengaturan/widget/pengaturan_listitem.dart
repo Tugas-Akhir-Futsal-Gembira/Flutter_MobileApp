@@ -45,7 +45,7 @@ class PengaturanListItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: semiBold,
                     fontSize: 14,
                   ),

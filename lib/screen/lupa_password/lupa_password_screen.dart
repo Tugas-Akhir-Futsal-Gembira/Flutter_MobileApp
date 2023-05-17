@@ -1,22 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/lupa_password/lupa_password_input_otp_screen.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
-import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
-class DaftarScreen extends StatelessWidget {
-  const DaftarScreen({super.key});
+class LupaPasswordScreen extends StatelessWidget {
+  const LupaPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController nameTextController = TextEditingController();
     TextEditingController emailTextController = TextEditingController();
-    TextEditingController nohpTextController = TextEditingController();
-    TextEditingController passwordTextController = TextEditingController();
-    TextEditingController konfirmasiPasswordTextController = TextEditingController();
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     
     return Scaffold(
@@ -89,7 +86,6 @@ class DaftarScreen extends StatelessWidget {
                           ),
                           child: Container(
                             color: Colors.blue.withOpacity(0.0),
-                            ///Form
                             child: Form(
                               key: formKey,
                               child: Column(
@@ -97,24 +93,39 @@ class DaftarScreen extends StatelessWidget {
                                 children: [
                                   Column(
                                     children: [
-                                      const Text(
-                                        'Daftar',
+                                      Text(
+                                        'Lupa Password',
                                         style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                       ),
-                                      const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'Nama',
-                                        controller: nameTextController,
-                                        validator: (value) {
-                                          if(nameTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return null;
-                                        },
+                                      const SizedBox(height: 60,),
+                                      RichText(
+                                        text: TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: regular,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Masukkan email ',
+                                              style: TextStyle(fontWeight: semiBold),
+                                            ),
+                                            const TextSpan(
+                                              text: 'anda. Kami akan mengirimkan sebuah '
+                                            ),
+                                            TextSpan(
+                                              text: 'kode OTP atur ulang password lewat email',
+                                              style: TextStyle(fontWeight: semiBold),
+                                            ),
+                                            const TextSpan(
+                                              text: ' untuk mengatur ulang password anda.'
+                                            )
+                                          ]
+                                        )
                                       ),
-                                      const SizedBox(height: 20,),
+                                      const SizedBox(height: 40,),
                                       CustomTextfield(
                                         title: 'Email',
+                                        value: null,
                                         controller: emailTextController,
                                         validator: (value) {
                                           if(emailTextController.text.length < 8){
@@ -123,65 +134,54 @@ class DaftarScreen extends StatelessWidget {
                                           return null;
                                         },
                                       ),
-                                      const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'No HP',
-                                        controller: nohpTextController,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if(nohpTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return null;
-                                        },
+                                      const SizedBox(height: 8,),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text: 'Sudah menerima kode?',
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = (){
+                                                Navigator.pushReplacement(
+                                                  context, 
+                                                  MaterialPageRoute(builder: (context) => const LupaPasswordInputOTPScreen(),)
+                                                );
+                                              },
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: semiBold,
+                                              decoration: TextDecoration.underline,
+                                            )
+                                          )
+                                        )
                                       ),
                                       const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'Password',
-                                        type: CustomTextfieldType.password,
-                                        controller: passwordTextController,
-                                        validator: (value) {
-                                          if(passwordTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return null;
-                                        },
+                                      Text(
+                                        'Jika anda mempunyai kode OTP atur ulang password yang lama, tautan tersebut tidak dapat digunakan kembali jika anda telah klik tombol Kirimkan',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: regular,
+                                          color: warningColor,
+                                        ),
                                       ),
-                                      const SizedBox(height: 20,),
-                                      CustomTextfield(
-                                        title: 'Konfirmasi Password',
-                                        type: CustomTextfieldType.password,
-                                        controller: konfirmasiPasswordTextController,
-                                        validator: (value) {
-                                          if(konfirmasiPasswordTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
-                                          }
-                                          return (passwordTextController.text != konfirmasiPasswordTextController.text) 
-                                              ? 'Input pada Konfirmasi Password tidak sama dengan Password' : null;
-                                        },
-                                      ),
+                            
                                     ],
                                   ),
-                                            
+                            
                                   Column(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(top: 64),
                                         child: CustomButton(
-                                          value: 'Daftar', 
+                                          value: 'Kirimkan', 
                                           size: const Size(202, 44),
+                                          fontSize: 20,
                                           onPressed: (){
-
                                             ///If validation of form return true
                                             if(formKey.currentState!.validate()){
                                               Navigator.pushReplacement(
                                                 context, 
-                                                MaterialPageRoute(builder: (context) => const LoginScreen(),)
-                                              );
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                CustomSnackbar(
-                                                  title: 'Buka email anda untuk validasi akun',
-                                                )
+                                                MaterialPageRoute(builder: (context) => const LupaPasswordInputOTPScreen(),)
                                               );
                                             }
                                           },
@@ -190,8 +190,8 @@ class DaftarScreen extends StatelessWidget {
                                       const SizedBox(height: 20,),
                                       RichText(
                                         text: TextSpan(
-                                          text: 'Sudah punya akun? ',
-                                          style: const TextStyle(
+                                          text: 'Kembali ke halaman ',
+                                          style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: regular,
                                           ),
@@ -205,7 +205,7 @@ class DaftarScreen extends StatelessWidget {
                                                     MaterialPageRoute(builder: (context) => const LoginScreen(),)
                                                   );
                                                 },
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 decoration: TextDecoration.underline,
                                                 fontWeight: semiBold,
                                               )

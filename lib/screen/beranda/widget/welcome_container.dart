@@ -34,7 +34,7 @@ class WelcomeContainer extends StatelessWidget {
                   'Hi Futsal Lovers $name',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: medium, 
                     fontSize: 20
                   ),
@@ -47,7 +47,7 @@ class WelcomeContainer extends StatelessWidget {
           ///Second Row
           Text(
             'Anda belum menyewa lapangan futsal, yuk ajak teman teman $name main futsal agar kalian bisa tetap kompak dan akrab',
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: regular,
               fontSize: 14
             ),
@@ -55,7 +55,7 @@ class WelcomeContainer extends StatelessWidget {
           const SizedBox(height: 12,),
 
           ///Third Row
-          Align(
+          const Align(
             alignment: Alignment.centerRight,
             child: Text(
               'Yuk pick lapangan dibawah ini',

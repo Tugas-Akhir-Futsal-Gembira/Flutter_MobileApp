@@ -67,7 +67,7 @@ class ProfileContainer extends StatelessWidget {
                       Container(
                         height: profilePictureRadius,
                         width: profilePictureRadius,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: primaryBaseColor,
                           shape: BoxShape.circle,
                         ),
@@ -96,7 +96,7 @@ class ProfileContainer extends StatelessWidget {
                                     profileName,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: semiBold,
                                       fontSize: 20,
                                     ),
@@ -122,7 +122,7 @@ class ProfileContainer extends StatelessWidget {
                             ///Second Row personal data: uniqueId
                             Text(
                               uniqueId,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: primaryLightestColor,
                                 fontWeight: regular,
                                 fontSize: 14,
@@ -141,7 +141,7 @@ class ProfileContainer extends StatelessWidget {
                                 const SizedBox(width: 8,),
                                 Text(
                                   phoneNumber,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: regular,
                                     fontSize: 12
                                   ),
@@ -161,7 +161,7 @@ class ProfileContainer extends StatelessWidget {
                                 const SizedBox(width: 8,),
                                 Text(
                                   email,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: regular,
                                     fontSize: 12
                                   ),
@@ -181,7 +181,7 @@ class ProfileContainer extends StatelessWidget {
                                 const SizedBox(width: 8,),
                                 Text(
                                   address,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: regular,
                                     fontSize: 12
                                   ),
@@ -201,7 +201,7 @@ class ProfileContainer extends StatelessWidget {
                                 const SizedBox(width: 8,),
                                 Text(
                                   (accountCreated == null) ? 'Tidak ada data' : customDateFormat(accountCreated!),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: regular,
                                     fontSize: 12
                                   ),
@@ -237,7 +237,7 @@ class ProfileContainer extends StatelessWidget {
 
                             return Text(
                               'Akun ini diblokir selama $minute menit',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: medium,
                                 fontSize: 12,
                                 color: warningColor,
@@ -248,7 +248,7 @@ class ProfileContainer extends StatelessWidget {
                       ),
 
                       ///Second & Third Column: 'Sunting Profil' text and icon
-                      Text(
+                      const Text(
                         'Sunting Profil',
                         style: TextStyle(
                           fontWeight: medium,

@@ -78,7 +78,7 @@ class FieldGridItem extends StatelessWidget {
                         ),
                         child: Text(
                           daysFormatted,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: medium,
                             fontSize: 10
                           ),
@@ -101,7 +101,7 @@ class FieldGridItem extends StatelessWidget {
                               Text(
                                 //10:00 - 21:00
                                 '${numFormat.format(timeStart.hour)}:${numFormat.format(timeStart.minute)} - ${numFormat.format(timeEnd.hour)}:${numFormat.format(timeEnd.minute)}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: medium,
                                   fontSize: 10
                                 ),
@@ -131,7 +131,7 @@ class FieldGridItem extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: semiBold,
                               fontSize: 14
                             ),
