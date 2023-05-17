@@ -69,6 +69,12 @@ class LoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
+                          color: Colors.amber.withOpacity(0.0),
+                          constraints: BoxConstraints(
+                            minHeight: p1constraint.maxHeight * 15 / 100
+                          ),
+                        ),
+                        Container(
                           width: double.infinity,
                           constraints: BoxConstraints(
                             minHeight: p1constraint.maxHeight * 75 / 100
@@ -134,8 +140,7 @@ class LoginScreen extends StatelessWidget {
                                         value: 'Masuk', 
                                         size: const Size(202, 44),
                                         onPressed: (){
-                                          //Temp. pushReplacement(true)
-                                          Navigator.push(
+                                          Navigator.pushReplacement(
                                             context, 
                                             MaterialPageRoute(builder: (context) => const MainScreen(),)
                                           );
