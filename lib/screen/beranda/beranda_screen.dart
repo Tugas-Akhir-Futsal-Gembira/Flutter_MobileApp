@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
-import 'package:flutter_application_futsal_gembira/screen/beranda/widget/field_gridview.dart';
+import 'package:flutter_application_futsal_gembira/screen/beranda/widget/field_listview.dart';
 import 'package:flutter_application_futsal_gembira/screen/beranda/widget/welcome_container.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/screen/beranda/widget/penyewaan_container.dart';
@@ -64,7 +64,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                     customMessage: 'Semoga Chandra mendapat pengalaman menyenangkan',
                   ),
                   const SizedBox(height: 16,),
-                  const FieldGridView(name: 'Chandra'),
+                  const FieldListView(name: 'Chandra'),
                 ],
               ),
             ),
