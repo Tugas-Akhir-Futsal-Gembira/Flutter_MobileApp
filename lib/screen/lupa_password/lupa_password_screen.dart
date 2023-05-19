@@ -93,13 +93,13 @@ class LupaPasswordScreen extends StatelessWidget {
                                 children: [
                                   Column(
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Lupa Password',
                                         style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                       ),
                                       const SizedBox(height: 60,),
                                       RichText(
-                                        text: TextSpan(
+                                        text: const TextSpan(
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: regular,
@@ -109,14 +109,14 @@ class LupaPasswordScreen extends StatelessWidget {
                                               text: 'Masukkan email ',
                                               style: TextStyle(fontWeight: semiBold),
                                             ),
-                                            const TextSpan(
+                                            TextSpan(
                                               text: 'anda. Kami akan mengirimkan sebuah '
                                             ),
                                             TextSpan(
                                               text: 'kode OTP atur ulang password lewat email',
                                               style: TextStyle(fontWeight: semiBold),
                                             ),
-                                            const TextSpan(
+                                            TextSpan(
                                               text: ' untuk mengatur ulang password anda.'
                                             )
                                           ]
@@ -147,7 +147,7 @@ class LupaPasswordScreen extends StatelessWidget {
                                                   MaterialPageRoute(builder: (context) => const LupaPasswordInputOTPScreen(),)
                                                 );
                                               },
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: semiBold,
                                               decoration: TextDecoration.underline,
@@ -156,7 +156,7 @@ class LupaPasswordScreen extends StatelessWidget {
                                         )
                                       ),
                                       const SizedBox(height: 20,),
-                                      Text(
+                                      const Text(
                                         'Jika anda mempunyai kode OTP atur ulang password yang lama, tautan tersebut tidak dapat digunakan kembali jika anda telah klik tombol Kirimkan',
                                         style: TextStyle(
                                           fontSize: 16,
@@ -191,7 +191,7 @@ class LupaPasswordScreen extends StatelessWidget {
                                       RichText(
                                         text: TextSpan(
                                           text: 'Kembali ke halaman ',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: regular,
                                           ),
@@ -205,7 +205,7 @@ class LupaPasswordScreen extends StatelessWidget {
                                                     MaterialPageRoute(builder: (context) => const LoginScreen(),)
                                                   );
                                                 },
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 decoration: TextDecoration.underline,
                                                 fontWeight: semiBold,
                                               )

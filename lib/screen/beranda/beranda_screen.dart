@@ -5,7 +5,7 @@ import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar
 import 'package:flutter_application_futsal_gembira/screen/beranda/widget/field_listview.dart';
 import 'package:flutter_application_futsal_gembira/screen/beranda/widget/welcome_container.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
-import 'package:flutter_application_futsal_gembira/screen/beranda/widget/penyewaan_container.dart';
+import 'package:flutter_application_futsal_gembira/widget/penyewaan_container.dart';
 
 class BerandaScreen extends StatefulWidget {
   const BerandaScreen({super.key});
@@ -62,6 +62,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                       createdAtDateTime: DateTime.now(),
                     ),
                     customMessage: 'Semoga Chandra mendapat pengalaman menyenangkan',
+                    transparentBackground: false,
                   ),
                   const SizedBox(height: 16,),
                   const FieldListView(name: 'Chandra'),

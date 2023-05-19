@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/enum/day_enum.dart';
 import 'package:flutter_application_futsal_gembira/screen/beranda/widget/field_listitem.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 
