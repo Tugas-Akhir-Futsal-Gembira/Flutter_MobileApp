@@ -4,7 +4,6 @@ import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:recase/recase.dart';
 
 class FieldGridItem extends StatelessWidget {
   const FieldGridItem({

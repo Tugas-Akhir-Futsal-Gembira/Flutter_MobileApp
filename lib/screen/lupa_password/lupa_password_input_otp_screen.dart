@@ -93,13 +93,13 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                 children: [
                                   Column(
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Lupa Password',
                                         style: TextStyle(fontWeight: semiBold, fontSize: 32),
                                       ),
                                       const SizedBox(height: 60,),
                                       RichText(
-                                        text: TextSpan(
+                                        text: const TextSpan(
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: regular,
@@ -109,7 +109,7 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                               text: 'Masukkan kode OTP atur ulang password',
                                               style: TextStyle(fontWeight: semiBold),
                                             ),
-                                            const TextSpan(
+                                            TextSpan(
                                               text: ' yang diterima dari email untuk mengatur ulang password anda.'
                                             ),
                                           ]
@@ -129,7 +129,7 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                         },
                                       ),
                                       const SizedBox(height: 40,),
-                                      Text(
+                                      const Text(
                                         'Setelah menekan tombol kirimkan, maka anda dapat mengubah password anda dan kode otp yang diterima pada email anda tidak dapat digunakan kembali',
                                         style: TextStyle(
                                           fontSize: 16,
@@ -163,7 +163,7 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                       RichText(
                                         text: TextSpan(
                                           text: 'Kembali ke halaman ',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             fontWeight: regular,
                                           ),
@@ -177,7 +177,7 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                                     MaterialPageRoute(builder: (context) => const LoginScreen(),)
                                                   );
                                                 },
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 decoration: TextDecoration.underline,
                                                 fontWeight: semiBold,
                                               )

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeContainer extends StatelessWidget {
   const WelcomeContainer({super.key, required this.name});
