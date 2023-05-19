@@ -6,7 +6,9 @@ import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async{
-  await initializeDateFormatting('id_ID, null').then((_) => runApp(const MyApp()));
+  // await initializeDateFormatting('id_ID, null').then((_) => runApp(const MyApp()));
+  await initializeDateFormatting('id_ID, null');
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
