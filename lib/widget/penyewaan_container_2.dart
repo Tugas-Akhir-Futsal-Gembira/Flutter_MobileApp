@@ -7,8 +7,8 @@ import 'package:flutter_application_futsal_gembira/tools/payment_status_tools.da
 import 'package:flutter_application_futsal_gembira/widget/custom_dot.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class PenyewaanContainer extends StatelessWidget {
-  const PenyewaanContainer({
+class PenyewaanContainer2 extends StatelessWidget {
+  const PenyewaanContainer2({
     super.key,
     required this.abstractPenyewaanModel,
     this.customMessage,
@@ -31,7 +31,6 @@ class PenyewaanContainer extends StatelessWidget {
             decoration: BoxDecoration(
               color: primaryLightColor,
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: primaryLightestColor)
             ),
             child: Column(
               children: [

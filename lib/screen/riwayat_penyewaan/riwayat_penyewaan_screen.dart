@@ -6,7 +6,8 @@ import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pemb
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
-import 'package:flutter_application_futsal_gembira/widget/penyewaan_container.dart';
+import 'package:flutter_application_futsal_gembira/screen/beranda/widget/penyewaan_container.dart';
+import 'package:flutter_application_futsal_gembira/widget/penyewaan_container_2.dart';
 
 class RiwayatPenyewaanScreen extends StatefulWidget {
   const RiwayatPenyewaanScreen({super.key});
@@ -65,7 +66,7 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
             child: ListView.builder(
               itemCount: listPenyewaanModel.length,
               padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) =>  PenyewaanContainer(abstractPenyewaanModel: listPenyewaanModel[index])
+              itemBuilder: (context, index) =>  PenyewaanContainer2(abstractPenyewaanModel: listPenyewaanModel[index])
             ),
           ),
     );
