@@ -19,6 +19,7 @@ class CustomTextfield extends StatefulWidget {
     this.controller,
     this.validator,
     this.keyboardType,
+    this.enabledBorderColor,
   });
 
   final String? title;
@@ -27,6 +28,7 @@ class CustomTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final String? Function(String? value)? validator;
   final TextInputType? keyboardType;
+  final Color? enabledBorderColor;
 
   @override
   State<CustomTextfield> createState() => _CustomTextfieldState();
@@ -120,8 +122,8 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                     ///Borders Settings
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Colors.white
+                      borderSide: BorderSide(
+                        color: (widget.enabledBorderColor != null) ? widget.enabledBorderColor! : Colors.white
                       )
                     ),
                     focusedBorder: OutlineInputBorder(

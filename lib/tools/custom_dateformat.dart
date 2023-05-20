@@ -8,6 +8,11 @@ String customDateFormat(DateTime dateTime){
   return DateFormat('d MMMM y, H:mm', 'id_ID').format(dateTime);
 }
 
+///Example: Jumat, 19 Mei 2023
+String customDateFormat2(DateTime dateTime){
+  return DateFormat('EEEE, d MMMM y', 'id_ID').format(dateTime);
+}
+
 ///Example: 07:00
 String customTimeFormat(
   int timeHour, 
