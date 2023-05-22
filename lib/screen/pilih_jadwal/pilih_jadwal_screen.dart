@@ -33,7 +33,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
       duration: null,
     )
   );
-  // PilihWaktuController pilihWaktuController = PilihWaktuController();
+  PilihWaktuController pilihWaktuController = PilihWaktuController([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]);
 
   int dayFieldPrice = 69999;
   int nightFieldPrice = 79999;
@@ -288,7 +288,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                               context: context, 
                                               initialDate: dateChoosen.value!, 
                                               firstDate: DateTime.now(), 
-                                              lastDate: dateChoosen.value!.add(const Duration(days: 7)),
+                                              lastDate: DateTime.now().add(const Duration(days: 7)),
                                               fieldLabelText: 'Tanggal (cth: 05/31/2023)',
                                               helpText: 'Pilih Tanggal',
                                               initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -305,6 +305,8 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                               },
                                             );
                                             if(tempDate != null){
+                                              pilihWaktuController.revertBackList();
+                                              // pilihWaktuController.value = [0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1];
                                               dateChoosen.value = tempDate;
                                               timeChoosen.setTimeData(null, null, nightHour);
                                             }
@@ -323,7 +325,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                 valueListenable: dateChoosen,
                                 builder: (context, value, child) {
                                   return PilihWaktu(
-                                    // controller: pilihWaktuController,
+                                    controller: pilihWaktuController,
                                     callback: ({duration1, startHour1}) {
                                       timeChoosen.setTimeData(startHour1, duration1, nightHour);
                                     },

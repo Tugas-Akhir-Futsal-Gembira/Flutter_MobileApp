@@ -5,10 +5,37 @@ import 'package:flutter_application_futsal_gembira/style/shadow_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
+class PilihWaktuController extends ValueNotifier<List<int>>{
+  PilihWaktuController(this._value) : super(_value){
+    _initialValue = [..._value];
+  }
+  
+  late final List<int> _initialValue;
+  List<int> _value;
+
+  @override
+  List<int> get value => _value;
+
+  @override
+  set value(List<int> newValue) {
+    if (_value == newValue) {
+      return;
+    }
+    _value = newValue;
+    notifyListeners();
+  }
+
+  ///Revert back list to its initial value
+  void revertBackList(){
+    value = [..._initialValue];
+  }
+}
+
 class PilihWaktu extends StatefulWidget {
-  const PilihWaktu({super.key, required this.callback});
+  const PilihWaktu({super.key, required this.callback, this.controller});
 
   final void Function({int? startHour1, int? duration1}) callback;
+  final PilihWaktuController? controller;
 
   @override
   State<PilihWaktu> createState() => _PilihWaktuState();
@@ -17,7 +44,8 @@ class PilihWaktu extends StatefulWidget {
 class _PilihWaktuState extends State<PilihWaktu> {
 
   ///0 = Unavailable, 1 = Available, 2 = Choosen
-  ValueNotifier<List<int>> listDaftarSewaDummy = ValueNotifier([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]  );
+  late ValueNotifier<List<int>> listDaftarSewaDummy;
+  // ValueNotifier<List<int>> listDaftarSewaDummy = ValueNotifier([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]  );
   //[0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]
   ///Starting hour example 07:00
   int startHour = 7;
@@ -30,6 +58,10 @@ class _PilihWaktuState extends State<PilihWaktu> {
   @override
   void initState() {
     super.initState();
+
+    listDaftarSewaDummy = (widget.controller != null) 
+        ? widget.controller! 
+        : ValueNotifier([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]  );
     
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       for(int i = 0; i < listDaftarSewaDummy.value.length; i++){
@@ -53,7 +85,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
   @override
   void didUpdateWidget(covariant PilihWaktu oldWidget) {
     ///Reset listDaftarSewaDummy
-    listDaftarSewaDummy.value = [0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1];
+    // listDaftarSewaDummy.value = [0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1];
     super.didUpdateWidget(oldWidget);
   }
   
@@ -217,7 +249,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                                           startHour1: startHour + i, 
                                                           duration1: 1,
                                                         );
-
+                                                        
                                                         listDaftarSewaDummy.value = [...listDaftarSewaDummy.value];
                                                       },
                                                     ),
