@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
+import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
 
-void showMetodePembayaran(BuildContext context, double maxHeight) {
-  showModalBottomSheet(
+Future<PaymentMethods?> showMetodePembayaran(BuildContext context, double maxHeight) async{
+  return await showModalBottomSheet(
     context: context, 
     constraints: BoxConstraints(
       maxHeight: (668/926) * maxHeight
@@ -15,67 +17,61 @@ void showMetodePembayaran(BuildContext context, double maxHeight) {
     isScrollControlled: true,
     builder: (context) {
 
-      List<Map> listOfTransaction = [
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #1',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #1',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #1',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
-        {
-          'logo' : 'assets/image/Temp/Logo BCA_Putih.png',
-          'name' : 'BCA #2',
-          'admin_price' : 4440,
-        },
+      List<PaymentMethods> listOfTransaction = [
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #1',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #2',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #3',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #4',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #5',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #6',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #7',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #8',
+          ppnNominal: 4440,
+        ),
+        PaymentMethods(
+          paymentMethodsId: 1, 
+          logo: 'assets/image/Temp/Logo BCA_Putih.png', 
+          paymentMethodName: 'BCA #9',
+          ppnNominal: 4440,
+        ),
 
       ];
 
@@ -117,42 +113,71 @@ void showMetodePembayaran(BuildContext context, double maxHeight) {
 
                     Column(
                       children: [
-                        for(Map i in listOfTransaction)
-                            Container(
-                              height: 51,
-                              clipBehavior: Clip.antiAlias,
-                              margin: const EdgeInsets.only(top: 6),
-                              decoration: BoxDecoration(
-                                color: primaryLightColor,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: primaryLightestColor),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      image: DecorationImage(
-                                        image: AssetImage(i['logo']),
+                        for(PaymentMethods i in listOfTransaction)
+                            
+                            Stack(
+                              children: [
+
+                                ///Container of PaymentItem
+                                Container(
+                                  height: 51,
+                                  clipBehavior: Clip.antiAlias,
+                                  margin: const EdgeInsets.only(top: 6),
+                                  decoration: BoxDecoration(
+                                    color: primaryLightColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: primaryLightestColor),
+                                  ),
+                                  child: Row(
+                                    children: [
+
+                                      ///ImageLogo
+                                      Container(
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          // color: Colors.red,
+                                          image: DecorationImage(
+                                            image: AssetImage(i.logo),
+                                          )
+                                        ),
+                                      ),
+
+                                      ///Name
+                                      Expanded(
+                                        child: SizedBox(
+                                          // color: Colors.green,
+                                          child: Text(i.paymentMethodName),
+                                        ),
+                                      ),
+
+                                      ///AdminPrice
+                                      SizedBox(
+                                        // color: Colors.blue,
+                                        width: 85,
+                                        child: Text(
+                                          '+ ${customCurrencyFormat(i.ppnNominal!, decimalDigits: 0)}',
+                                        ),
                                       )
+                                    ],
+                                  ),
+                                ),
+
+                                ///InkWell
+                                Positioned.fill(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 6),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context, i);
+                                        },
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Container(
-                                      color: Colors.green,
-                                      child: Text(i['name']),
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Colors.blue,
-                                    width: 80,
-                                    child: Text(
-                                      '+ Rp ${i['admin_price']}'
-                                    ),
-                                  )
-                                ],
-                              ),
+                                )
+                              ],
                             )
                       ],
                     ),
