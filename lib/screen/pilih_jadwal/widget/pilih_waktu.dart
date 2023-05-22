@@ -5,8 +5,37 @@ import 'package:flutter_application_futsal_gembira/style/shadow_style.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
+class PilihWaktuController extends ValueNotifier<List<int>>{
+  PilihWaktuController(this._value) : super(_value){
+    _initialValue = [..._value];
+  }
+  
+  late final List<int> _initialValue;
+  List<int> _value;
+
+  @override
+  List<int> get value => _value;
+
+  @override
+  set value(List<int> newValue) {
+    if (_value == newValue) {
+      return;
+    }
+    _value = newValue;
+    notifyListeners();
+  }
+
+  ///Revert back list to its initial value
+  void revertBackList(){
+    value = [..._initialValue];
+  }
+}
+
 class PilihWaktu extends StatefulWidget {
-  const PilihWaktu({super.key});
+  const PilihWaktu({super.key, required this.callback, this.controller});
+
+  final void Function({int? startHour1, int? duration1}) callback;
+  final PilihWaktuController? controller;
 
   @override
   State<PilihWaktu> createState() => _PilihWaktuState();
@@ -15,11 +44,13 @@ class PilihWaktu extends StatefulWidget {
 class _PilihWaktuState extends State<PilihWaktu> {
 
   ///0 = Unavailable, 1 = Available, 2 = Choosen
-  ValueNotifier<List<int>> listDaftarSewaDummy = ValueNotifier([0,1,1,0,1,0,1,1,1,1,0,0,0,0,1,1]  );
-  //[0,1,1,0,1,0,1,1,1,1,0,0,0,0,1,1]
+  late ValueNotifier<List<int>> listDaftarSewaDummy;
+  // ValueNotifier<List<int>> listDaftarSewaDummy = ValueNotifier([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]  );
+  //[0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]
   ///Starting hour example 07:00
   int startHour = 7;
   int? hourLimit;
+  int duration = 0;
   ScrollController scrollController = ScrollController(
     initialScrollOffset: 0,
   );
@@ -27,6 +58,10 @@ class _PilihWaktuState extends State<PilihWaktu> {
   @override
   void initState() {
     super.initState();
+
+    listDaftarSewaDummy = (widget.controller != null) 
+        ? widget.controller! 
+        : ValueNotifier([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]  );
     
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       for(int i = 0; i < listDaftarSewaDummy.value.length; i++){
@@ -39,7 +74,19 @@ class _PilihWaktuState extends State<PilihWaktu> {
           break;
         }
       }
+
+      widget.callback(
+        startHour1: null,
+        duration1: null,
+      );
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant PilihWaktu oldWidget) {
+    ///Reset listDaftarSewaDummy
+    // listDaftarSewaDummy.value = [0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1];
+    super.didUpdateWidget(oldWidget);
   }
   
   @override
@@ -123,7 +170,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                         
                                         switch(listDaftarSewaDummy.value[i]){
             
-                                          ///If 'is Unavailable'
+                                          ///If 'is Unavailable(Gray/Black)'
                                           case 0: {
                                             return Container(
                                               width: 69,
@@ -146,7 +193,7 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                             );
                                           }
             
-                                          ///If 'is Available'
+                                          ///If 'is Available(Blue)'
                                           case 1: {
                                             return Stack(
                                               children: [
@@ -196,6 +243,13 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                                           }
                                                         }
                                                         listDaftarSewaDummy.value[i] = 2;
+
+                                                        ///Send data
+                                                        widget.callback(
+                                                          startHour1: startHour + i, 
+                                                          duration1: 1,
+                                                        );
+                                                        
                                                         listDaftarSewaDummy.value = [...listDaftarSewaDummy.value];
                                                       },
                                                     ),
@@ -204,6 +258,8 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                               ],
                                             );
                                           }
+
+                                          ///If 'is Choosen(Green)'
                                           case 2: {
                                             
                                             int length = listDaftarSewaDummy.value.length;
@@ -303,6 +359,13 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                                                   listDaftarSewaDummy.value[j] = 1;
                                                                 }
                                                               }
+
+                                                              ///Send data
+                                                              widget.callback(
+                                                                startHour1: null, 
+                                                                duration1: null,
+                                                              );
+
                                                               listDaftarSewaDummy.value = [...listDaftarSewaDummy.value];
                                                             },
                                                           ),
@@ -365,10 +428,14 @@ class _PilihWaktuState extends State<PilihWaktu> {
                         }
                       }
 
+                      duration = choosenCount;
+
+                      ///If duration = 0
                       if(choosenCount == 0){
                         return const SizedBox();
                       }
 
+                      ///If duration != 0
                       else{
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -408,6 +475,13 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                           borderRadius: BorderRadius.circular(5),
                                           onTap: (choosenCount > 1) ? (){
                                             listDaftarSewaDummy.value[lastChoosen] = 1;
+
+                                            ///Send data
+                                            widget.callback(
+                                              startHour1: firstChoosen + startHour, 
+                                              duration1: duration - 1,
+                                            );
+
                                             listDaftarSewaDummy.value = [...listDaftarSewaDummy.value];
                                           } : null,
                                         ),
@@ -459,6 +533,13 @@ class _PilihWaktuState extends State<PilihWaktu> {
                                           borderRadius: BorderRadius.circular(5),
                                           onTap: (possibleAddHour) ? (){
                                             listDaftarSewaDummy.value[lastChoosen + 1] = 2;
+
+                                            ///Send data
+                                            widget.callback(
+                                              startHour1: firstChoosen + startHour, 
+                                              duration1: duration + 1,
+                                            );
+
                                             listDaftarSewaDummy.value = [...listDaftarSewaDummy.value];
                                           } : null,
                                         ),
