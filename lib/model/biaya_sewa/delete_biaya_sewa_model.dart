@@ -1,4 +1,4 @@
-import 'package:flutter_application_futsal_gembira/model/biaya_sewa/biaya_sewa_item_model.dart';
+import 'package:flutter_application_futsal_gembira/model/biaya_sewa/delete_biaya_sewa_item_model.dart';
 
 class BiayaSewaModel{
   BiayaSewaModel({

@@ -232,7 +232,10 @@ class BiayaSewa extends StatelessWidget {
                     child: Container(
                       color: (debugColor) ? Colors.green : Colors.transparent,
                       child: Text(
-                        customCurrencyFormat(fieldNightPrice!, withSymbol: true), 
+                        customCurrencyFormat(
+                          fieldNightPrice!,
+                          withSymbol: (totalPriceDay == null) ? true : false,
+                        ), 
                         style: nonFirstRow, 
                         textAlign: TextAlign.right,
                       )
