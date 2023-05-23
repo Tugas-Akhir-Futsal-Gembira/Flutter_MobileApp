@@ -132,6 +132,7 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                         title: 'Password',
                                         value: null,
                                         controller: passwordTextController,
+                                        type: CustomTextfieldType.password,
                                         validator: (value) {
                                           if(passwordTextController.text.length < 8){
                                             return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
@@ -144,12 +145,13 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                         title: 'Konfirmasi Password',
                                         value: null,
                                         controller: konfirmasiPasswordTextController,
+                                        type: CustomTextfieldType.password,
                                         validator: (value) {
                                           if(konfirmasiPasswordTextController.text.length < 8){
                                             return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
                                           }
                                           return (passwordTextController.text != konfirmasiPasswordTextController.text) 
-                                                ? 'Input pada Konfirmasi Password tidak sama dengan Password' : null;
+                                                ? 'Input pada Konfirmasi Password harus sama dengan Password' : null;
                                         },
                                       ),
                                       const SizedBox(height: 40,),
