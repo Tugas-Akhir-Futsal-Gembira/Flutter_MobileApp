@@ -81,13 +81,6 @@ class _PilihWaktuState extends State<PilihWaktu> {
       );
     });
   }
-
-  @override
-  void didUpdateWidget(covariant PilihWaktu oldWidget) {
-    ///Reset listDaftarSewaDummy
-    // listDaftarSewaDummy.value = [0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1];
-    super.didUpdateWidget(oldWidget);
-  }
   
   @override
   Widget build(BuildContext context) {
@@ -404,13 +397,13 @@ class _PilihWaktuState extends State<PilihWaktu> {
                     valueListenable: listDaftarSewaDummy,
                     builder: (context, value, child) {
                       
-                      //How many 'Choosen hour' count
+                      ///How many 'Choosen hour' count
                       int choosenCount = 0;
-                      //Possibility to add more hour from base hour
+                      ///Possibility to add more hour from base hour
                       bool possibleAddHour = false;
-                      //Index of position of the first 'Choosen Hour'
+                      ///Index of position of the first 'Choosen Hour'
                       int firstChoosen = -1;
-                      //Index of position of the last 'Choosen Hour'
+                      ///Index of position of the last 'Choosen Hour'
                       int lastChoosen = -1;
 
                       for(int i = 0; i < listDaftarSewaDummy.value.length; i++){

@@ -65,39 +65,6 @@ class TimeChoosenNotifier extends ValueNotifier<TimeChoosen>{
     _value.duration = duration;
 
     _value.setDayNight(startHour, duration, nightHour);
-
-    // ///Seperate day and night duration
-    // if(startHour != null && duration != null){
-    //   ///If nightHour not specified
-    //   if(nightHour == null){
-    //     _dayDuration = duration;
-    //     _nightDuration = null;
-    //   }
-    //   ///If nightHour specified
-    //   else{
-    //     ///If startHour is in day
-    //     if(startHour < nightHour){
-    //       ///Hours count from startHour(Day) to nightHour
-    //       int startHourToNightHourInHours = nightHour - startHour;
-    //       if(startHourToNightHourInHours >= duration){
-    //         _dayDuration = duration;
-    //       }
-    //       else{
-    //         _dayDuration = startHourToNightHourInHours;
-    //         _nightDuration = duration - startHourToNightHourInHours;
-    //       }
-    //     }
-    //     ///If startHour is in night
-    //     else{
-    //       _nightDuration = duration;
-    //     }
-    //   }
-    // }
-    // else{
-    //   _dayDuration = null;
-    //   _nightDuration = null;
-    // }
-    
     notifyListeners();
   }
 

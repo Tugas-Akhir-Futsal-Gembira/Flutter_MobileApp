@@ -306,7 +306,6 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                             );
                                             if(tempDate != null){
                                               pilihWaktuController.revertBackList();
-                                              // pilihWaktuController.value = [0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1];
                                               dateChoosen.value = tempDate;
                                               timeChoosen.setTimeData(null, null, nightHour);
                                             }
