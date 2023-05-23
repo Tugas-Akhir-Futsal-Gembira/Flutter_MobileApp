@@ -5,14 +5,14 @@ import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class DetailPenyewaanScreen extends StatefulWidget {
-  const DetailPenyewaanScreen({super.key});
+class DetailLapanganScreen extends StatefulWidget {
+  const DetailLapanganScreen({super.key});
 
   @override
-  State<DetailPenyewaanScreen> createState() => _DetailPenyewaanScreenState();
+  State<DetailLapanganScreen> createState() => _DetailLapanganScreenState();
 }
 
-class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
+class _DetailLapanganScreenState extends State<DetailLapanganScreen> {
 
   ScrollController scrollController = ScrollController();
   ValueNotifier<double> opacity = ValueNotifier(0);

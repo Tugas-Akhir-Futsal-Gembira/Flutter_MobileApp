@@ -22,55 +22,55 @@ Future<PaymentMethods?> showMetodePembayaran(BuildContext context, double maxHei
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #1',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #2',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #3',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #4',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #5',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #6',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #7',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #8',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
         PaymentMethods(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #9',
-          ppnNominal: 4440,
+          paymentAdminNominal: 4440,
         ),
 
       ];
@@ -155,7 +155,7 @@ Future<PaymentMethods?> showMetodePembayaran(BuildContext context, double maxHei
                                         // color: Colors.blue,
                                         width: 85,
                                         child: Text(
-                                          '+ ${customCurrencyFormat(i.ppnNominal!, decimalDigits: 0)}',
+                                          '+ ${customCurrencyFormat(i.paymentAdminNominal!, decimalDigits: 0)}',
                                         ),
                                       )
                                     ],

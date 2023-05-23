@@ -6,7 +6,6 @@ class TransaksiDibatalkanModel extends AbstractPenyewaanModel{
     required super.rentDateTime, 
     required super.durationInt, 
     required super.createdAtDateTime,
-    super.biayaSewaModel,
     this.paymentDueDateTime,
   });
 

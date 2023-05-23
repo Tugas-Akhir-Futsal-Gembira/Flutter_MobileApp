@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
+import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/detail_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
@@ -189,7 +190,12 @@ class PenyewaanContainer extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen(),)
+                  );
+                },
                 borderRadius: BorderRadius.circular(5),
                 highlightColor: primaryBaseColor.withOpacity(0.5),
                 splashColor: primaryLightestColor.withOpacity(0.5)

@@ -106,7 +106,7 @@ class FieldGridItem extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(5),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailLapanganScreen(),));
             },
             highlightColor: primaryBaseColor.withOpacity(0.5),
             splashColor: primaryLightestColor.withOpacity(0.5)

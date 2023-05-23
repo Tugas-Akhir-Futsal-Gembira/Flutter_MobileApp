@@ -4,15 +4,15 @@ class PaymentMethods{
     required this.logo,
     required this.paymentMethodName,
     this.paymentTypes,
-    this.ppnPercent,
-    this.ppnNominal
+    this.paymentAdminPercent,
+    this.paymentAdminNominal
   });
 
   final int paymentMethodsId;
   final String? paymentTypes;
   final String logo;
   final String paymentMethodName;
-  final int? ppnPercent;
-  final int? ppnNominal;
+  final int? paymentAdminPercent;
+  final int? paymentAdminNominal;
 
 }

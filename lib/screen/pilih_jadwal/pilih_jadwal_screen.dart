@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods.dart';
+import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/detail_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/time_choosen_notifier.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/pilih_waktu.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/show_metode_pembayaran.dart';
@@ -172,55 +175,64 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                       child: SizedBox(
                                         width: double.infinity,
                                         ///Bunch of field data
-                                        child: SingleChildScrollView(
-                                          controller: fieldScrollController,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: const [
-                                              SizedBox(height: 18,),
-                                              Text(
-                                                'Lapangan #1',
-                                                style: TextStyle(
-                                                  fontWeight: semiBold,
-                                                  fontSize: 24,
+                                        child: LayoutBuilder(
+                                          builder: (p0context1, p1constraint1) {
+                                            return SingleChildScrollView(
+                                              controller: fieldScrollController,
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                  minHeight: p1constraint1.maxHeight
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: const [
+                                                    SizedBox(height: 18,),
+                                                    Text(
+                                                      'Lapangan #1',
+                                                      style: TextStyle(
+                                                        fontWeight: semiBold,
+                                                        fontSize: 24,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 28,),
+                                                    Text(
+                                                      'Rp 69.999,- /jam',
+                                                      style: TextStyle(
+                                                        fontWeight: regular,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 4,),
+                                                    Text(
+                                                      'Rp 79.999,- /jam diatas pukul 17.00',
+                                                      style: TextStyle(
+                                                        fontWeight: regular,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 28,),
+                                                    Text(
+                                                      'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu',
+                                                      style: TextStyle(
+                                                        fontWeight: semiBold,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 4,),
+                                                    Text(
+                                                      '07:00 hingga 22:00',
+                                                      style: TextStyle(
+                                                        fontWeight: semiBold,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                                                          
+                                                  ],
                                                 ),
                                               ),
-                                              SizedBox(height: 28,),
-                                              Text(
-                                                'Rp 69.999,- /jam',
-                                                style: TextStyle(
-                                                  fontWeight: regular,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                              SizedBox(height: 4,),
-                                              Text(
-                                                'Rp 79.999,- /jam diatas pukul 17.00',
-                                                style: TextStyle(
-                                                  fontWeight: regular,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                              SizedBox(height: 28,),
-                                              Text(
-                                                'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu',
-                                                style: TextStyle(
-                                                  fontWeight: semiBold,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                              SizedBox(height: 4,),
-                                              Text(
-                                                '07:00 hingga 22:00',
-                                                style: TextStyle(
-                                                  fontWeight: semiBold,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                        
-                                            ],
-                                          ),
+                                            );
+                                          }
                                         ),
                                       ),
                                     ),
@@ -229,7 +241,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                               )
                             ),
                           ],
-                        ),
+                        ),  ///End of Image and Field Data
                 
                         
                 
@@ -445,7 +457,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                             fieldNightPrice: nightFieldPrice,
                                             durationDay: timeChoosen.dayDuration,
                                             durationNight: timeChoosen.nightDuration, 
-                                            adminPriceNominal: paymentChoosen.value!.ppnNominal!,
+                                            adminPriceNominal: paymentChoosen.value!.paymentAdminNominal!,
                                             debugColor: false,
                                           )
                                         ],
@@ -462,10 +474,24 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16.0),
-                      child: CustomButton(
-                        value: 'Konfirmasi Jadwal', 
-                        size: const Size(double.infinity, 48),
-                        onPressed: (){},
+                      child: ValueListenableBuilder(
+                        valueListenable: timeChoosen,
+                        builder: (context, value, child) {
+                          return CustomButton(
+                            value: 'Konfirmasi Jadwal', 
+                            size: const Size(double.infinity, 48),
+                            onPressed: (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true )
+                                ? (){
+                                  Timer(const Duration(milliseconds: 1500), () { });
+                                  Navigator.pushAndRemoveUntil(
+                                    context, 
+                                    MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen()), 
+                                    (route) => route.isFirst,
+                                  );
+                                } 
+                                : null,
+                          );
+                        }
                       ),
                     ),
                   ],

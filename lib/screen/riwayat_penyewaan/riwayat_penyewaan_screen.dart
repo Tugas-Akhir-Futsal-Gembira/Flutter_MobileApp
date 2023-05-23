@@ -45,15 +45,29 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
       child: (listPenyewaanModel.isEmpty) ? 
 
           ///If list is empty
-          const Center(
-            child: Text(
-              'Riwayat anda kosong\nSeperti rasanya ditinggal doi',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: regular,
-                fontSize: 16,
-                color: primaryLightestColor,
-              ),
+          RefreshIndicator(
+            onRefresh: () async{
+              refreshDummy();
+            },
+            child: LayoutBuilder(
+              builder: (p0context, p1constraint) {
+                return SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    constraints: BoxConstraints(minHeight: p1constraint.maxHeight),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Riwayat anda kosong\nSeperti rasanya ditinggal doi',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: regular,
+                        fontSize: 16,
+                        color: primaryLightestColor,
+                      ),
+                    ),
+                  ),
+                );
+              }
             ),
           ) : 
 
@@ -78,25 +92,26 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
     isLoading.value = true;
 
     ///Add list dummy
-      listPenyewaanModel = [
-        SudahDibayarModel(
-          fieldName: "Lapangan #1", 
-          rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
-          durationInt: 2, 
-          createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
-        ),
+    listPenyewaanModel = [
+      SudahDibayarModel(
+        fieldName: "Lapangan #1", 
+        rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
+        durationInt: 2, 
+        createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
+      ),
 
-        MenungguPembayaranModel(
-          fieldName: "Lapangan #1", 
-          rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
-          durationInt: 2, 
-          createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
-        )
-      ];
+      MenungguPembayaranModel(
+        fieldName: "Lapangan #1", 
+        rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
+        durationInt: 2, 
+        createdAtDateTime: DateTime(2023, 9, 23, 22, 45),
+      )
+    ];
 
-    Timer(
-      const Duration(seconds: 1), 
-      ()=> isLoading.value = false,
-    );
+    // Timer(
+    //   const Duration(seconds: 1), 
+    //   ()=> isLoading.value = false,
+    // );
+    Future.delayed(const Duration(seconds: 1), ()=> isLoading.value = false);
   }
 }
