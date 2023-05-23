@@ -157,7 +157,7 @@ class DaftarScreen extends StatelessWidget {
                                             return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
                                           }
                                           return (passwordTextController.text != konfirmasiPasswordTextController.text) 
-                                              ? 'Input pada Konfirmasi Password tidak sama dengan Password' : null;
+                                              ? 'Input pada Konfirmasi Password harus sama dengan Password' : null;
                                         },
                                       ),
                                     ],
