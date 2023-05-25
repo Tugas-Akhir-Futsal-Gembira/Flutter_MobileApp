@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran.dart';
-import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/status_penyewaan.dart';
+import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/widget/status_penyewaan.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
@@ -237,47 +237,51 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                         
                                                       Row(
                                                         children: [
-                                                          Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              const Text(
-                                                                'Tanggal & Waktu Sewa',
-                                                                style: TextStyle(
-                                                                  fontWeight: regular,
-                                                                  fontSize: 14
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                const Text(
+                                                                  'Tanggal & Waktu Sewa',
+                                                                  style: TextStyle(
+                                                                    fontWeight: regular,
+                                                                    fontSize: 14
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              ///21 Januari 2023, 08:00
-                                                              Text(
-                                                                customDateFormat(abstractPenyewaanModel.rentDateTime),
-                                                                style: const TextStyle(
-                                                                  fontWeight: semiBold,
-                                                                  fontSize: 16
-                                                                ),
-                                                              )
-                                                            ],
+                                                                ///21 Januari 2023, 08:00
+                                                                Text(
+                                                                  customDateFormat(abstractPenyewaanModel.rentDateTime),
+                                                                  style: const TextStyle(
+                                                                    fontWeight: semiBold,
+                                                                    fontSize: 16
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
-                                                          const SizedBox(width: 64,),
+                                                          const SizedBox(width: 32,),
                         
-                                                          Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              const Text(
-                                                                'Durasi Sewa',
-                                                                style: TextStyle(
-                                                                  fontWeight: regular,
-                                                                  fontSize: 14
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                const Text(
+                                                                  'Durasi Sewa',
+                                                                  style: TextStyle(
+                                                                    fontWeight: regular,
+                                                                    fontSize: 14
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              ///2 jam
-                                                              Text(
-                                                                '${abstractPenyewaanModel.durationInt} jam',
-                                                                style: const TextStyle(
-                                                                  fontWeight: semiBold,
-                                                                  fontSize: 16
-                                                                ),
-                                                              )
-                                                            ],
+                                                                ///2 jam
+                                                                Text(
+                                                                  '${abstractPenyewaanModel.durationInt} jam',
+                                                                  style: const TextStyle(
+                                                                    fontWeight: semiBold,
+                                                                    fontSize: 16
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
                                                         ],
                                                       )                                  
