@@ -8,7 +8,9 @@ import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
 class AturUlangPasswordScreen extends StatelessWidget {
-  const AturUlangPasswordScreen({super.key});
+  const AturUlangPasswordScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +94,8 @@ class AturUlangPasswordScreen extends StatelessWidget {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
+
+                                  ///Texts and TextFields
                                   Column(
                                     children: [
                                       const Text(
@@ -117,11 +121,11 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                         )
                                       ),
                                       const SizedBox(height: 40,),
-                                      const Align(
+                                      Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'example123@mail.com',
-                                          style: TextStyle(
+                                          email,
+                                          style: const TextStyle(
                                             fontWeight: semiBold,
                                             fontSize: 20,
                                           ),

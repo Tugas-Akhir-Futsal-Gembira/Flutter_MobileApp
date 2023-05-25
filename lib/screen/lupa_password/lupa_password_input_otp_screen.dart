@@ -8,11 +8,14 @@ import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
 class LupaPasswordInputOTPScreen extends StatelessWidget {
-  const LupaPasswordInputOTPScreen({super.key});
+  const LupaPasswordInputOTPScreen({super.key, this.email});
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
 
+    TextEditingController emailTextController = TextEditingController(text: email);
     TextEditingController otpTextController = TextEditingController();
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     
@@ -117,6 +120,18 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 40,),
                                       CustomTextfield(
+                                        title: 'Email',
+                                        value: null,
+                                        controller: emailTextController,
+                                        validator: (value) {
+                                          if(emailTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(height: 20,),
+                                      CustomTextfield(
                                         title: 'Kode OTP',
                                         value: null,
                                         controller: otpTextController,
@@ -145,6 +160,8 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(top: 64),
+
+                                        ///Button 'Kirimkan'
                                         child: CustomButton(
                                           value: 'Kirimkan', 
                                           size: const Size(202, 44),
@@ -153,7 +170,11 @@ class LupaPasswordInputOTPScreen extends StatelessWidget {
                                             if(formKey.currentState!.validate()){
                                               Navigator.pushReplacement(
                                                 context, 
-                                                MaterialPageRoute(builder: (context) => const AturUlangPasswordScreen(),)
+                                                MaterialPageRoute(
+                                                  builder: (context) => AturUlangPasswordScreen(
+                                                    email: emailTextController.text
+                                                  ),
+                                                )
                                               );
                                             }
                                           },

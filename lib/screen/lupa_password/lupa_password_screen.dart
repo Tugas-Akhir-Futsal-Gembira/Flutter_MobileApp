@@ -167,11 +167,13 @@ class LupaPasswordScreen extends StatelessWidget {
                             
                                     ],
                                   ),
-                            
+                                  
                                   Column(
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(top: 64),
+
+                                        ///Button 'Kirimkan'
                                         child: CustomButton(
                                           value: 'Kirimkan', 
                                           size: const Size(202, 44),
@@ -181,7 +183,11 @@ class LupaPasswordScreen extends StatelessWidget {
                                             if(formKey.currentState!.validate()){
                                               Navigator.pushReplacement(
                                                 context, 
-                                                MaterialPageRoute(builder: (context) => const LupaPasswordInputOTPScreen(),)
+                                                MaterialPageRoute(
+                                                  builder: (context) => LupaPasswordInputOTPScreen(
+                                                    email: emailTextController.text
+                                                  ),
+                                                )
                                               );
                                             }
                                           },

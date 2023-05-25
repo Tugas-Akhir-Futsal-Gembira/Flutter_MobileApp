@@ -79,7 +79,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   controller: widget.controller,
                   enabled: !(widget.type == CustomTextfieldType.disabled),
                   validator: widget.validator,
-                  initialValue: widget.value,
+                  initialValue: (widget.controller == null) ? widget.value : null,
                   cursorColor: infoColor,
                   textAlignVertical: TextAlignVertical.center,
                   style: TextStyle(
