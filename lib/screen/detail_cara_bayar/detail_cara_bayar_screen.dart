@@ -121,216 +121,223 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
           onRefresh: () async{
 
           },
-          child: SingleChildScrollView(
-            controller: scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-        
-                ///Image with payment method name, total price, payment code, payment due date time
-                Stack(
-                  children: [
-                    
-                    ///Image
-                    AspectRatio(
-                      aspectRatio: 428/239,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: const AssetImage('assets/image/cara_bayar/debit credit card wallpaper.jpg'),
-                            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.7), 
-                              BlendMode.srcATop
+          child: LayoutBuilder(
+            builder: (p0context, p1constraint)  {
+              return SizedBox(
+                height: p1constraint.maxHeight,
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      
+                      ///Image with payment method name, total price, payment code, payment due date time
+                      Stack(
+                        children: [
+                          
+                          ///Image
+                          AspectRatio(
+                            aspectRatio: 428/239,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: const AssetImage('assets/image/cara_bayar/debit credit card wallpaper.jpg'),
+                                  fit: BoxFit.cover,
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.7), 
+                                    BlendMode.srcATop
+                                  ),
+                                )
+                              ),
                             ),
-                          )
-                        ),
-                      ),
-                    ),
-        
-                    ///Bunch of Data Text
-                    Positioned.fill(
-                      child: Container(
-                        padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
-                        ///For dividing notch(and System UI) and content(such as PaymentMethod, TotalPrice)
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).viewPadding.top + 71, //notch and systemUI + AppBar height
-                            ),
-                            Expanded(
-                              child: ValueListenableBuilder(
-                                valueListenable: isLoading,
-                                builder: (context, value, child) {
-                                  
-                                  (isLoading.value == true)
-                                      ? null
-                                      : Future.delayed( const Duration(milliseconds: 0),() {
-                                        if(cardScrollController.hasClients){
-                                          cardScrollController.animateTo(
-                                            18, 
-                                            duration: const Duration(seconds: 2), 
-                                            curve: Curves.easeOutCubic
-                                          );
-                                        }
-                                      },);
+                          ),
                       
-                                  return (isLoading.value == true)
-                                      ? const SizedBox()
-                                      : SizedBox(
-                                        width: double.infinity,
-                                        ///Bunch of field data
-                                        child: LayoutBuilder(
-                                          builder: (p0context1, p1constraint1) {
-                                            return SingleChildScrollView(
-                                              controller: cardScrollController,
-                                              child: ConstrainedBox(
-                                                constraints: BoxConstraints(
-                                                  minHeight: p1constraint1.maxHeight
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    const SizedBox(height: 18,),
-        
-                                                    ///First Row
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              const Text(
-                                                                'Metode Pembayaran',
-                                                                style: TextStyle(
-                                                                  fontWeight: regular,
-                                                                  fontSize: 14
-                                                                ),
-                                                              ),
-                                                              ///'Virtual Account BCA
-                                                              Text(
-                                                                paymentMethodName,
-                                                                style: const TextStyle(
-                                                                  fontWeight: semiBold,
-                                                                  fontSize: 16
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        const SizedBox(width: 32,),
+                          ///Bunch of Data Text
+                          Positioned.fill(
+                            child: Container(
+                              padding: const EdgeInsets.only(bottom: 16, left: 16, right: 16),
+                              ///For dividing notch(and System UI) and content(such as PaymentMethod, TotalPrice)
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).viewPadding.top + 71, //notch and systemUI + AppBar height
+                                  ),
+                                  Expanded(
+                                    child: ValueListenableBuilder(
+                                      valueListenable: isLoading,
+                                      builder: (context, value, child) {
+                                        
+                                        (isLoading.value == true)
+                                            ? null
+                                            : Future.delayed( const Duration(milliseconds: 0),() {
+                                              if(cardScrollController.hasClients){
+                                                cardScrollController.animateTo(
+                                                  18, 
+                                                  duration: const Duration(seconds: 2), 
+                                                  curve: Curves.easeOutCubic
+                                                );
+                                              }
+                                            },);
+                            
+                                        return (isLoading.value == true)
+                                            ? const SizedBox()
+                                            : SizedBox(
+                                              width: double.infinity,
+                                              ///Bunch of field data
+                                              child: LayoutBuilder(
+                                                builder: (p0context1, p1constraint1) {
+                                                  return SingleChildScrollView(
+                                                    controller: cardScrollController,
+                                                    child: ConstrainedBox(
+                                                      constraints: BoxConstraints(
+                                                        minHeight: p1constraint1.maxHeight
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          const SizedBox(height: 18,),
                       
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                          ///First Row
+                                                          Row(
                                                             children: [
-                                                              const Text(
-                                                                'Total Harga',
-                                                                style: TextStyle(
-                                                                  fontWeight: regular,
-                                                                  fontSize: 14
+                                                              Expanded(
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    const Text(
+                                                                      'Metode Pembayaran',
+                                                                      style: TextStyle(
+                                                                        fontWeight: regular,
+                                                                        fontSize: 14
+                                                                      ),
+                                                                    ),
+                                                                    ///'Virtual Account BCA
+                                                                    Text(
+                                                                      paymentMethodName,
+                                                                      style: const TextStyle(
+                                                                        fontWeight: semiBold,
+                                                                        fontSize: 16
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                               ),
-                                                              ///Rp 79.999
-                                                              Text(
-                                                                customCurrencyFormat(totalPrice),
-                                                                style: const TextStyle(
-                                                                  fontWeight: semiBold,
-                                                                  fontSize: 16
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),    ///End of First Row
-                                                    const SizedBox(height: 16,),
-        
-                                                    ///Second Row
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              const Text(
-                                                                'Kode Pembayaran',
-                                                                style: TextStyle(
-                                                                  fontWeight: regular,
-                                                                  fontSize: 14
+                                                              const SizedBox(width: 32,),
+                            
+                                                              Expanded(
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    const Text(
+                                                                      'Total Harga',
+                                                                      style: TextStyle(
+                                                                        fontWeight: regular,
+                                                                        fontSize: 14
+                                                                      ),
+                                                                    ),
+                                                                    ///Rp 79.999
+                                                                    Text(
+                                                                      customCurrencyFormat(totalPrice),
+                                                                      style: const TextStyle(
+                                                                        fontWeight: semiBold,
+                                                                        fontSize: 16
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                               ),
-                                                              ///1234567890123456
-                                                              Text(
-                                                                paymentCode,
-                                                                style: const TextStyle(
-                                                                  fontWeight: semiBold,
-                                                                  fontSize: 16
-                                                                ),
-                                                              )
                                                             ],
-                                                          ),
-                                                        ),
-                                                        const SizedBox(width: 32,),
+                                                          ),    ///End of First Row
+                                                          const SizedBox(height: 16,),
                       
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                          ///Second Row
+                                                          Row(
                                                             children: [
-                                                              const Text(
-                                                                'Batas Pembayaran',
-                                                                style: TextStyle(
-                                                                  fontWeight: regular,
-                                                                  fontSize: 14
+                                                              Expanded(
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    const Text(
+                                                                      'Kode Pembayaran',
+                                                                      style: TextStyle(
+                                                                        fontWeight: regular,
+                                                                        fontSize: 14
+                                                                      ),
+                                                                    ),
+                                                                    ///1234567890123456
+                                                                    Text(
+                                                                      paymentCode,
+                                                                      style: const TextStyle(
+                                                                        fontWeight: semiBold,
+                                                                        fontSize: 16
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                               ),
-                                                              ///21 Januari 2023, 08:15
-                                                              Text(
-                                                                customDateFormat(paymentDueDateTime),
-                                                                style: const TextStyle(
-                                                                  fontWeight: semiBold,
-                                                                  fontSize: 16
+                                                              const SizedBox(width: 32,),
+                            
+                                                              Expanded(
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    const Text(
+                                                                      'Batas Pembayaran',
+                                                                      style: TextStyle(
+                                                                        fontWeight: regular,
+                                                                        fontSize: 14
+                                                                      ),
+                                                                    ),
+                                                                    ///21 Januari 2023, 08:15
+                                                                    Text(
+                                                                      customDateFormat(paymentDueDateTime),
+                                                                      style: const TextStyle(
+                                                                        fontWeight: semiBold,
+                                                                        fontSize: 16
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
-                                                              )
+                                                              ),
                                                             ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )   ///End of Second Row
-                                                  ],
-                                                ),
+                                                          )   ///End of Second Row
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
                                               ),
                                             );
-                                          }
-                                        ),
-                                      );
-                                }
+                                      }
+                                    ),
+                                  )
+                                ],
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      
+                      ValueListenableBuilder(
+                        valueListenable: isLoading,
+                        builder: (context, value, child) {
+                          return (isLoading.value) 
+                              ? const LinearProgressIndicator(
+                                color: infoColor,
+                                backgroundColor: primaryLightestColor,
+                              )
+                              : Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: ListCaraBayarContainer(listOfInstruction: listOfInstruction, debugColor: false,),
+                              );
+                        }
+                      ),
+                    ],
+                  ),
                 ),
-        
-                ValueListenableBuilder(
-                  valueListenable: isLoading,
-                  builder: (context, value, child) {
-                    return (isLoading.value) 
-                        ? const LinearProgressIndicator(
-                          color: infoColor,
-                          backgroundColor: primaryLightestColor,
-                        )
-                        : Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: ListCaraBayarContainer(listOfInstruction: listOfInstruction, debugColor: false,),
-                        );
-                  }
-                ),
-              ],
-            ),
+              );
+            }
           ),
         ),
       ),

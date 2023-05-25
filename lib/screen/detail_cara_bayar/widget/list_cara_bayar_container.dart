@@ -47,6 +47,7 @@ class ListCaraBayarContainer extends StatelessWidget {
             color: (debugColor) ? Colors.amber : null,
             child: Markdown(
               data: model.instructionPaymentMethodDescription,
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: const EdgeInsets.all(0),
               styleSheet: MarkdownStyleSheet(
