@@ -10,11 +10,13 @@ import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart'
 class AturUlangPasswordScreen extends StatelessWidget {
   const AturUlangPasswordScreen({super.key, required this.email});
 
-  final String email;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
 
+    TextEditingController emailTextController = TextEditingController(text: email);
+    TextEditingController kodeOTPTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
     TextEditingController konfirmasiPasswordTextController = TextEditingController();
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -121,17 +123,31 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                         )
                                       ),
                                       const SizedBox(height: 40,),
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          email,
-                                          style: const TextStyle(
-                                            fontWeight: semiBold,
-                                            fontSize: 20,
-                                          ),
-                                        ),
+                                      CustomTextfield(
+                                        title: 'Email',
+                                        value: null,
+                                        controller: emailTextController,
+                                        validator: (value) {
+                                          if(passwordTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                          return null;
+                                        },
                                       ),
-                                      const SizedBox(height: 30),
+                                      const SizedBox(height: 20),
+                                      CustomTextfield(
+                                        title: 'Kode OTP',
+                                        value: null,
+                                        controller: kodeOTPTextController,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if(passwordTextController.text.length < 8){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(height: 20),
                                       CustomTextfield(
                                         title: 'Password',
                                         value: null,

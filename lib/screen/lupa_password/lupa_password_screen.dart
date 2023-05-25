@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
-import 'package:flutter_application_futsal_gembira/screen/lupa_password/lupa_password_input_otp_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/lupa_password/atur_ulang_password_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
@@ -144,7 +144,9 @@ class LupaPasswordScreen extends StatelessWidget {
                                               ..onTap = (){
                                                 Navigator.pushReplacement(
                                                   context, 
-                                                  MaterialPageRoute(builder: (context) => const LupaPasswordInputOTPScreen(),)
+                                                  MaterialPageRoute(
+                                                    builder: (context) => const AturUlangPasswordScreen(email: null),
+                                                  )
                                                 );
                                               },
                                             style: const TextStyle(
@@ -182,11 +184,9 @@ class LupaPasswordScreen extends StatelessWidget {
                                             ///If validation of form return true
                                             if(formKey.currentState!.validate()){
                                               Navigator.pushReplacement(
-                                                context, 
+                                                context,
                                                 MaterialPageRoute(
-                                                  builder: (context) => LupaPasswordInputOTPScreen(
-                                                    email: emailTextController.text
-                                                  ),
+                                                  builder: (context) => AturUlangPasswordScreen(email: emailTextController.text),
                                                 )
                                               );
                                             }
