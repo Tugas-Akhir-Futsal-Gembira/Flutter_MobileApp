@@ -60,6 +60,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
   @override
   Widget build(BuildContext context) {
 
+    ScrollController scrollController = ScrollController();
     ValueNotifier<double> opacity = ValueNotifier(0);
 
     return Container(
@@ -126,375 +127,388 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
         ///Body
         body: LayoutBuilder(
           builder: (p0context, p1constraint) {
-            return SingleChildScrollView(
-              child: Container(
-                constraints: BoxConstraints(
-                  minHeight: p1constraint.maxHeight
-                ),
-            
-                ///Dividing content and button
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        
-                        ///Image with field data
-                        Stack(
-                          children: [
-                
-                            ///Image
-                            AspectRatio(
-                              aspectRatio: 428/302,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: const AssetImage('assets/image/Lapangan futsal wallpaper.jpg'),
-                                    fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(0.7), 
-                                      BlendMode.srcATop
-                                    ),
-                                  )
+            return NotificationListener<ScrollUpdateNotification>(
+              onNotification: (notification) {
+                if(scrollController.offset < 71){
+                  opacity.value = scrollController.offset / 71;
+                  return true;
+                }
+                else{
+                  opacity.value = 1;
+                  return true;
+                }
+              },
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: Container(
+                  constraints: BoxConstraints(
+                    minHeight: p1constraint.maxHeight
+                  ),
+              
+                  ///Dividing content and button
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          
+                          ///Image with field data
+                          Stack(
+                            children: [
+                  
+                              ///Image
+                              AspectRatio(
+                                aspectRatio: 428/302,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: const AssetImage('assets/image/Lapangan futsal wallpaper.jpg'),
+                                      fit: BoxFit.cover,
+                                      colorFilter: ColorFilter.mode(
+                                        Colors.black.withOpacity(0.7), 
+                                        BlendMode.srcATop
+                                      ),
+                                    )
+                                  ),
                                 ),
                               ),
-                            ),
-                
-                            ///Bunch of Text contain Field Data
-                            Positioned.fill(
-                              child: Container(
-                                // color: Colors.amber,
-                                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                                ///For dividing notch(and System UI) and content(such as 'Lapangan #1', 'Rp 69.999,-/jam)
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: MediaQuery.of(context).viewPadding.top + 71, //notch and systemUI + AppBar height
-                                    ),
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        ///Bunch of field data
-                                        child: LayoutBuilder(
-                                          builder: (p0context1, p1constraint1) {
-                                            return SingleChildScrollView(
-                                              controller: fieldScrollController,
-                                              child: ConstrainedBox(
-                                                constraints: BoxConstraints(
-                                                  minHeight: p1constraint1.maxHeight
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: const [
-                                                    SizedBox(height: 18,),
-                                                    Text(
-                                                      'Lapangan #1',
-                                                      style: TextStyle(
-                                                        fontWeight: semiBold,
-                                                        fontSize: 24,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 28,),
-                                                    Text(
-                                                      'Rp 69.999,- /jam',
-                                                      style: TextStyle(
-                                                        fontWeight: regular,
-                                                        fontSize: 16,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 4,),
-                                                    Text(
-                                                      'Rp 79.999,- /jam diatas pukul 17.00',
-                                                      style: TextStyle(
-                                                        fontWeight: regular,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 28,),
-                                                    Text(
-                                                      'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu',
-                                                      style: TextStyle(
-                                                        fontWeight: semiBold,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 4,),
-                                                    Text(
-                                                      '07:00 hingga 22:00',
-                                                      style: TextStyle(
-                                                        fontWeight: semiBold,
-                                                        fontSize: 12,
-                                                      ),
-                                                    ),
-                                                                                          
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ),
-                          ],
-                        ),  ///End of Image and Field Data
-                
-                        
-                
-                        ///JadwalPenyewaan, PilihWaktu, MetodePembayaran
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 32, 
-                            bottom: 16, 
-                            right: 16, 
-                            left: 16
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                        
-                              ///JadwalPenyewaan (Text and TextField)
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Jadwal Penyewaan',
-                                    style: TextStyle(
-                                      fontWeight: semiBold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 4,),
-
-                                  Stack(
+                  
+                              ///Bunch of Text contain Field Data
+                              Positioned.fill(
+                                child: Container(
+                                  // color: Colors.amber,
+                                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                                  ///For dividing notch(and System UI) and content(such as 'Lapangan #1', 'Rp 69.999,-/jam)
+                                  child: Column(
                                     children: [
                                       SizedBox(
-                                        width: 220,
-                                        child: ValueListenableBuilder(
-                                          valueListenable: dateChoosen,
-                                          builder: (context, value, child) {
-
-                                            if(dateChoosen.value != null){
-                                              jadwalPenyewaanTextController.text = customDateFormat2(dateChoosen.value!);
-                                            }
-
-                                            return CustomTextfield(
-                                              controller: jadwalPenyewaanTextController,
-                                              type: CustomTextfieldType.edit,
-                                              enabledBorderColor: primaryLightestColor,
-                                            );
-                                          }
-                                        ),
+                                        height: MediaQuery.of(context).viewPadding.top + 71, //notch and systemUI + AppBar height
                                       ),
-
-                                      Positioned.fill(
-                                        child: GestureDetector(
-                                          onLongPress: () {},
-                                          onTap: () async{
-                                            DateTime? tempDate = await showDatePicker(
-                                              context: context, 
-                                              initialDate: dateChoosen.value!, 
-                                              firstDate: DateTime.now(), 
-                                              lastDate: DateTime.now().add(const Duration(days: 7)),
-                                              fieldLabelText: 'Tanggal (cth: 05/31/2023)',
-                                              helpText: 'Pilih Tanggal',
-                                              initialEntryMode: DatePickerEntryMode.calendarOnly,
-                                              builder: (context, child) {
-                                                return Theme(
-                                                  data: ThemeData.light().copyWith(
-                                                    colorScheme: const ColorScheme.light(
-                                                      primary: primaryBaseColor,
-                                                      onPrimary: Colors.white
-                                                    )
+                                      Expanded(
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          ///Bunch of field data
+                                          child: LayoutBuilder(
+                                            builder: (p0context1, p1constraint1) {
+                                              return SingleChildScrollView(
+                                                controller: fieldScrollController,
+                                                child: ConstrainedBox(
+                                                  constraints: BoxConstraints(
+                                                    minHeight: p1constraint1.maxHeight
                                                   ),
-                                                  child: child!,
-                                                );
-                                              },
-                                            );
-                                            if(tempDate != null){
-                                              pilihWaktuController.revertBackList();
-                                              dateChoosen.value = tempDate;
-                                              timeChoosen.setTimeData(null, null, nightHour);
-                                            }
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-
-                              const SizedBox(height: 16,),
-                        
-                              ///PilihWaktu
-                              ValueListenableBuilder(
-                                valueListenable: dateChoosen,
-                                builder: (context, value, child) {
-                                  return PilihWaktu(
-                                    controller: pilihWaktuController,
-                                    callback: ({duration1, startHour1}) {
-                                      timeChoosen.setTimeData(startHour1, duration1, nightHour);
-                                    },
-                                  );
-                                }
-                              ),
-
-                              const SizedBox(height: 16,),
-
-                              ///MetodePembayaran
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Metode Pembayaran',
-                                    style: TextStyle(
-                                      fontWeight: semiBold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 4,),
-
-                                  ///MethodButton
-                                  GestureDetector(
-                                    onTap: () async{
-                                      PaymentMethods? tempPaymentMethod = await showMetodePembayaran(context, p1constraint.maxHeight);
-                                      if(tempPaymentMethod != null){
-                                        paymentChoosen.value = tempPaymentMethod;
-                                        timeChoosen.setPaymentMethodIsChoosen(true);
-                                      }
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                                      decoration: BoxDecoration(
-                                        color: primaryLightColor,
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: primaryLightestColor)
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: ValueListenableBuilder(
-                                              valueListenable: paymentChoosen,
-                                              builder: (context, value, child) {
-                                                
-                                                if(paymentChoosen.value != null){
-                                                  return Row(
-                                                    children: [
-                                                      ///ImageLogo
-                                                      Container(
-                                                        width: 100,
-                                                        decoration: BoxDecoration(
-                                                          // color: Colors.red,
-                                                          image: DecorationImage(
-                                                            image: AssetImage(paymentChoosen.value!.logo),
-                                                          )
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: const [
+                                                      SizedBox(height: 18,),
+                                                      Text(
+                                                        'Lapangan #1',
+                                                        style: TextStyle(
+                                                          fontWeight: semiBold,
+                                                          fontSize: 24,
                                                         ),
                                                       ),
-
-                                                      ///Name
-                                                      Expanded(
-                                                        child: SizedBox(
-                                                          // color: Colors.green,
-                                                          child: Text(paymentChoosen.value!.paymentMethodName),
+                                                      SizedBox(height: 28,),
+                                                      Text(
+                                                        'Rp 69.999,- /jam',
+                                                        style: TextStyle(
+                                                          fontWeight: regular,
+                                                          fontSize: 16,
                                                         ),
                                                       ),
+                                                      SizedBox(height: 4,),
+                                                      Text(
+                                                        'Rp 79.999,- /jam diatas pukul 17.00',
+                                                        style: TextStyle(
+                                                          fontWeight: regular,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 28,),
+                                                      Text(
+                                                        'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu',
+                                                        style: TextStyle(
+                                                          fontWeight: semiBold,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 4,),
+                                                      Text(
+                                                        '07:00 hingga 22:00',
+                                                        style: TextStyle(
+                                                          fontWeight: semiBold,
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                                                            
                                                     ],
-                                                  );
-                                                }
-                                                else{
-                                                  return const Text(
-                                                    'Metode Pembayaran belum dipilih',
-                                                    style: TextStyle(
-                                                      fontWeight: regular,
-                                                      fontSize: 12
-                                                    ),
-                                                  );
-                                                }
-                                              }
-                                            ),
+                                                  ),
+                                                ),
+                                              );
+                                            }
                                           ),
-                                          SvgPicture.asset(
-                                            'assets/icon/Caret-Down.svg',
-                                            height: 24,
-                                            width: 24,
-                                          )
-                                        ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ),
+                            ],
+                          ),  ///End of Image and Field Data
+                  
+                          
+                  
+                          ///JadwalPenyewaan, PilihWaktu, MetodePembayaran
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 32, 
+                              bottom: 16, 
+                              right: 16, 
+                              left: 16
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                          
+                                ///JadwalPenyewaan (Text and TextField)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Jadwal Penyewaan',
+                                      style: TextStyle(
+                                        fontWeight: semiBold,
+                                        fontSize: 16,
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
-
-                              const SizedBox(height: 16,),
-
-                              ///BiayaSewa
-                              ValueListenableBuilder(
-                                valueListenable: timeChoosen,
-                                builder: (context, value, child) {
-                                  return (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true) 
-                                      ? Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Biaya Sewa',
-                                            style: TextStyle(
-                                              fontWeight: semiBold,
-                                              fontSize: 16
-                                            ),
+            
+                                    const SizedBox(height: 4,),
+            
+                                    Stack(
+                                      children: [
+                                        SizedBox(
+                                          width: 220,
+                                          child: ValueListenableBuilder(
+                                            valueListenable: dateChoosen,
+                                            builder: (context, value, child) {
+            
+                                              if(dateChoosen.value != null){
+                                                jadwalPenyewaanTextController.text = customDateFormat2(dateChoosen.value!);
+                                              }
+            
+                                              return CustomTextfield(
+                                                controller: jadwalPenyewaanTextController,
+                                                type: CustomTextfieldType.edit,
+                                                enabledBorderColor: primaryLightestColor,
+                                              );
+                                            }
                                           ),
-                                          
-                                          const SizedBox(height: 4,),
-
-                                          BiayaSewa(
-                                            fieldDayPrice: dayFieldPrice,
-                                            fieldNightPrice: nightFieldPrice,
-                                            durationDay: timeChoosen.dayDuration,
-                                            durationNight: timeChoosen.nightDuration, 
-                                            adminPriceNominal: paymentChoosen.value!.paymentAdminNominal!,
-                                            debugColor: false,
-                                          )
-                                        ],
-                                      ) : const SizedBox();
+                                        ),
+            
+                                        Positioned.fill(
+                                          child: GestureDetector(
+                                            onLongPress: () {},
+                                            onTap: () async{
+                                              DateTime? tempDate = await showDatePicker(
+                                                context: context, 
+                                                initialDate: dateChoosen.value!, 
+                                                firstDate: DateTime.now(), 
+                                                lastDate: DateTime.now().add(const Duration(days: 7)),
+                                                fieldLabelText: 'Tanggal (cth: 05/31/2023)',
+                                                helpText: 'Pilih Tanggal',
+                                                initialEntryMode: DatePickerEntryMode.calendarOnly,
+                                                builder: (context, child) {
+                                                  return Theme(
+                                                    data: ThemeData.light().copyWith(
+                                                      colorScheme: const ColorScheme.light(
+                                                        primary: primaryBaseColor,
+                                                        onPrimary: Colors.white
+                                                      )
+                                                    ),
+                                                    child: child!,
+                                                  );
+                                                },
+                                              );
+                                              if(tempDate != null){
+                                                pilihWaktuController.revertBackList();
+                                                dateChoosen.value = tempDate;
+                                                timeChoosen.setTimeData(null, null, nightHour);
+                                              }
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+            
+                                const SizedBox(height: 16,),
+                          
+                                ///PilihWaktu
+                                ValueListenableBuilder(
+                                  valueListenable: dateChoosen,
+                                  builder: (context, value, child) {
+                                    return PilihWaktu(
+                                      controller: pilihWaktuController,
+                                      callback: ({duration1, startHour1}) {
+                                        timeChoosen.setTimeData(startHour1, duration1, nightHour);
+                                      },
+                                    );
                                   }
-                              )
-                            ],
+                                ),
+            
+                                const SizedBox(height: 16,),
+            
+                                ///MetodePembayaran
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Metode Pembayaran',
+                                      style: TextStyle(
+                                        fontWeight: semiBold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+            
+                                    const SizedBox(height: 4,),
+            
+                                    ///MethodButton
+                                    GestureDetector(
+                                      onTap: () async{
+                                        PaymentMethods? tempPaymentMethod = await showMetodePembayaran(context, p1constraint.maxHeight);
+                                        if(tempPaymentMethod != null){
+                                          paymentChoosen.value = tempPaymentMethod;
+                                          timeChoosen.setPaymentMethodIsChoosen(true);
+                                        }
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                                        decoration: BoxDecoration(
+                                          color: primaryLightColor,
+                                          borderRadius: BorderRadius.circular(10),
+                                          border: Border.all(color: primaryLightestColor)
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: ValueListenableBuilder(
+                                                valueListenable: paymentChoosen,
+                                                builder: (context, value, child) {
+                                                  
+                                                  if(paymentChoosen.value != null){
+                                                    return Row(
+                                                      children: [
+                                                        ///ImageLogo
+                                                        Container(
+                                                          width: 100,
+                                                          decoration: BoxDecoration(
+                                                            // color: Colors.red,
+                                                            image: DecorationImage(
+                                                              image: AssetImage(paymentChoosen.value!.logo),
+                                                            )
+                                                          ),
+                                                        ),
+            
+                                                        ///Name
+                                                        Expanded(
+                                                          child: SizedBox(
+                                                            // color: Colors.green,
+                                                            child: Text(paymentChoosen.value!.paymentMethodName),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }
+                                                  else{
+                                                    return const Text(
+                                                      'Metode Pembayaran belum dipilih',
+                                                      style: TextStyle(
+                                                        fontWeight: regular,
+                                                        fontSize: 12
+                                                      ),
+                                                    );
+                                                  }
+                                                }
+                                              ),
+                                            ),
+                                            SvgPicture.asset(
+                                              'assets/icon/Caret-Down.svg',
+                                              height: 24,
+                                              width: 24,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+            
+                                const SizedBox(height: 16,),
+            
+                                ///BiayaSewa
+                                ValueListenableBuilder(
+                                  valueListenable: timeChoosen,
+                                  builder: (context, value, child) {
+                                    return (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true) 
+                                        ? Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'Biaya Sewa',
+                                              style: TextStyle(
+                                                fontWeight: semiBold,
+                                                fontSize: 16
+                                              ),
+                                            ),
+                                            
+                                            const SizedBox(height: 4,),
+            
+                                            BiayaSewa(
+                                              fieldDayPrice: dayFieldPrice,
+                                              fieldNightPrice: nightFieldPrice,
+                                              durationDay: timeChoosen.dayDuration,
+                                              durationNight: timeChoosen.nightDuration, 
+                                              adminPriceNominal: paymentChoosen.value!.paymentAdminNominal!,
+                                              debugColor: false,
+                                            )
+                                          ],
+                                        ) : const SizedBox();
+                                    }
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                
-                    ///Button Konfirmasi Jadwal
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16.0),
-                      child: ValueListenableBuilder(
-                        valueListenable: timeChoosen,
-                        builder: (context, value, child) {
-                          return CustomButton(
-                            value: 'Konfirmasi Jadwal', 
-                            size: const Size(double.infinity, 48),
-                            onPressed: (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true )
-                                ? (){
-                                  Timer(const Duration(milliseconds: 1500), () { });
-                                  Navigator.pushAndRemoveUntil(
-                                    context, 
-                                    MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen()), 
-                                    (route) => route.isFirst,
-                                  );
-                                } 
-                                : null,
-                          );
-                        }
+                        ],
                       ),
-                    ),
-                  ],
+                  
+                      ///Button Konfirmasi Jadwal
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16.0),
+                        child: ValueListenableBuilder(
+                          valueListenable: timeChoosen,
+                          builder: (context, value, child) {
+                            return CustomButton(
+                              value: 'Konfirmasi Jadwal', 
+                              size: const Size(double.infinity, 48),
+                              onPressed: (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true )
+                                  ? (){
+                                    Timer(const Duration(milliseconds: 1500), () { });
+                                    Navigator.pushAndRemoveUntil(
+                                      context, 
+                                      MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen()), 
+                                      (route) => route.isFirst,
+                                    );
+                                  } 
+                                  : null,
+                            );
+                          }
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

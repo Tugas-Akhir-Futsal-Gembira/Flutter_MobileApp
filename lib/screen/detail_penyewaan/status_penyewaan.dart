@@ -3,6 +3,7 @@ import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_peny
 import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/transaksi_dibatalkan_model.dart';
+import 'package:flutter_application_futsal_gembira/screen/detail_cara_bayar_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
@@ -212,7 +213,7 @@ class StatusPenyewaan extends StatelessWidget {
 
                       GestureDetector(
                         onTap: (){
-
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailCaraBayarScreen(),));
                         },
                         child: const Align(
                           alignment: Alignment.centerRight,
