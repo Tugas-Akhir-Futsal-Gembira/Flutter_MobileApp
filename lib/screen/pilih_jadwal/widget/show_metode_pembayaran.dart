@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods.dart';
+import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods_model.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
 
-Future<PaymentMethods?> showMetodePembayaran(BuildContext context, double maxHeight) async{
+Future<PaymentMethodsModel?> showMetodePembayaran(BuildContext context, double maxHeight) async{
   return await showModalBottomSheet(
     context: context, 
     constraints: BoxConstraints(
@@ -17,56 +17,56 @@ Future<PaymentMethods?> showMetodePembayaran(BuildContext context, double maxHei
     isScrollControlled: true,
     builder: (context) {
 
-      List<PaymentMethods> listOfTransaction = [
-        PaymentMethods(
+      List<PaymentMethodsModel> listOfTransaction = [
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #1',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #2',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #3',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #4',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #5',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #6',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #7',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #8',
           paymentAdminNominal: 4440,
         ),
-        PaymentMethods(
+        PaymentMethodsModel(
           paymentMethodsId: 1, 
           logo: 'assets/image/Temp/Logo BCA_Putih.png', 
           paymentMethodName: 'BCA #9',
@@ -113,7 +113,7 @@ Future<PaymentMethods?> showMetodePembayaran(BuildContext context, double maxHei
 
                     Column(
                       children: [
-                        for(PaymentMethods i in listOfTransaction)
+                        for(PaymentMethodsModel i in listOfTransaction)
                             
                             Stack(
                               children: [

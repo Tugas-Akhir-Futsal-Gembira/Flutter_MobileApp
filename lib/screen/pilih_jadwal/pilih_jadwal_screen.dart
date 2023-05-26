@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods.dart';
+import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/detail_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/time_choosen_notifier.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/pilih_waktu.dart';
@@ -28,7 +28,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
   ///ValueNotifier for JadwalPenyewaan
   ValueNotifier<DateTime?> dateChoosen = ValueNotifier(null);
   ///ValueNotifier for MetodePembayaran
-  ValueNotifier<PaymentMethods?> paymentChoosen = ValueNotifier(null);
+  ValueNotifier<PaymentMethodsModel?> paymentChoosen = ValueNotifier(null);
   ///ValueNotifier for PilihWaktu
   TimeChoosenNotifier timeChoosen = TimeChoosenNotifier(
     TimeChoosen(
@@ -376,7 +376,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                     ///MethodButton
                                     GestureDetector(
                                       onTap: () async{
-                                        PaymentMethods? tempPaymentMethod = await showMetodePembayaran(context, p1constraint.maxHeight);
+                                        PaymentMethodsModel? tempPaymentMethod = await showMetodePembayaran(context, p1constraint.maxHeight);
                                         if(tempPaymentMethod != null){
                                           paymentChoosen.value = tempPaymentMethod;
                                           timeChoosen.setPaymentMethodIsChoosen(true);

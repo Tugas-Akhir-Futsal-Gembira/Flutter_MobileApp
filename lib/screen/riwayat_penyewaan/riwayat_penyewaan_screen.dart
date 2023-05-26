@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
-import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran.dart';
+import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';

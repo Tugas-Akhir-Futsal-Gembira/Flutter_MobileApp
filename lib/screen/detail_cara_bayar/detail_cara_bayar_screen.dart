@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/model/payment_method/instruction_payment_method.dart';
+import 'package:flutter_application_futsal_gembira/model/payment_method/instruction_payment_method_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_cara_bayar/widget/list_cara_bayar_container.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
@@ -39,14 +39,14 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
     String paymentCode = '1234567890123456';
     DateTime paymentDueDateTime = DateTime(2023, 1, 21, 8, 15);
 
-    List<InstructionPaymentMethod> listOfInstruction = [
-      InstructionPaymentMethod(
+    List<InstructionPaymentMethodModel> listOfInstruction = [
+      InstructionPaymentMethodModel(
         instructionPaymentMethodId: 1, 
         paymentMethodsId: 1, 
         typePaymentMethod: 'ATM BCA', 
         instructionPaymentMethodDescription: '1. Masukkan PIN anda\n2. Pilih menu **Penarikan Tunai** atau **Transaksi Lainnya**\n3. Pilih **Transfer**\n4. Pilih **Ke Rek BCA Virtual Account**\n5. Masukkan **$paymentCode** (nomor kode pembayaran) dan klik **Benar**\n6. Cek detail transaksi dan pilih **Ya**\n7. Transaksi berhasil'
       ),
-      InstructionPaymentMethod(
+      InstructionPaymentMethodModel(
         instructionPaymentMethodId: 1, 
         paymentMethodsId: 1, 
         typePaymentMethod: 'BCA Mobile', 

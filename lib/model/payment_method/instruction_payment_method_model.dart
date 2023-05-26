@@ -1,5 +1,5 @@
-class InstructionPaymentMethod{
-  InstructionPaymentMethod({
+class InstructionPaymentMethodModel{
+  InstructionPaymentMethodModel({
     required this.instructionPaymentMethodId,
     required this.paymentMethodsId,
     required this.typePaymentMethod,

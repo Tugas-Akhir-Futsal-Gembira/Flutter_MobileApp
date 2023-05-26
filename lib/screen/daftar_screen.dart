@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
@@ -170,19 +172,37 @@ class DaftarScreen extends StatelessWidget {
                                         child: CustomButton(
                                           value: 'Daftar', 
                                           size: const Size(202, 44),
-                                          onPressed: (){
+                                          onPressed: () async{
 
                                             ///If validation of form return true
                                             if(formKey.currentState!.validate()){
-                                              Navigator.pushReplacement(
-                                                context, 
-                                                MaterialPageRoute(builder: (context) => const LoginScreen(),)
+
+                                              JSONModel json = await GateService.postRegister(
+                                                username: nameTextController.text, 
+                                                email: emailTextController.text, 
+                                                password: passwordTextController.text, 
+                                                phone: nohpTextController.text,
                                               );
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                CustomSnackbar(
-                                                  title: 'Buka email anda untuk validasi akun',
-                                                )
-                                              );
+
+                                              if(json.statusCode == 201 && context.mounted){
+                                                Navigator.pushReplacement(
+                                                  context, 
+                                                  MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                                );
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  CustomSnackbar(
+                                                    title: 'Buka email anda untuk validasi akun',
+                                                  )
+                                                );
+                                              }
+
+                                              else if(context.mounted){
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  CustomSnackbar(
+                                                    title: json.statusCode.toString() + json.message,
+                                                  )
+                                                );
+                                              }
                                             }
                                           },
                                         ),

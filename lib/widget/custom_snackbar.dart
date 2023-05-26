@@ -12,7 +12,7 @@ class CustomSnackbar extends SnackBar{
   }) : super(
     duration: duration,
     backgroundColor: primaryBaseColor,
-    padding: const EdgeInsets.only(top: 0, bottom: 0, left: 24, right: 12),
+    padding: const EdgeInsets.only(top: 16, bottom: 16, left: 24, right: 12),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
       side: const BorderSide(
@@ -27,7 +27,6 @@ class CustomSnackbar extends SnackBar{
     margin: const EdgeInsets.all(16),
     content: Container(
       alignment: Alignment.centerLeft,
-      height: 65,
       child: Text(
         title,
         style: const TextStyle(
