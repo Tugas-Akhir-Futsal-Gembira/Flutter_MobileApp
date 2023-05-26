@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/model/payment_method/instruction_payment_method.dart';
+import 'package:flutter_application_futsal_gembira/model/payment_method/instruction_payment_method_model.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -8,7 +8,7 @@ class ListCaraBayarContainer extends StatelessWidget {
   const ListCaraBayarContainer({super.key, required this.listOfInstruction, this.debugColor = false});
 
   ///List of InstructionPaymentMethod
-  final List<InstructionPaymentMethod> listOfInstruction;
+  final List<InstructionPaymentMethodModel> listOfInstruction;
   ///Gives color for debug purpose
   final bool debugColor;
 
@@ -17,13 +17,13 @@ class ListCaraBayarContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for(InstructionPaymentMethod i in listOfInstruction)
+        for(InstructionPaymentMethodModel i in listOfInstruction)
             paymentInstructionWidget(i, debugColor: debugColor)
       ],
     );
   }
 
-  Widget paymentInstructionWidget(InstructionPaymentMethod model, {bool debugColor = false}){
+  Widget paymentInstructionWidget(InstructionPaymentMethodModel model, {bool debugColor = false}){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

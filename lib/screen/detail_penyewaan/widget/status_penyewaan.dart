@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
-import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran.dart';
+import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/transaksi_dibatalkan_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_cara_bayar/detail_cara_bayar_screen.dart';

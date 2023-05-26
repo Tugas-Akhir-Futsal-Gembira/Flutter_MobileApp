@@ -1,5 +1,5 @@
-class PaymentMethods{
-  PaymentMethods({
+class PaymentMethodsModel{
+  PaymentMethodsModel({
     required this.paymentMethodsId,
     required this.logo,
     required this.paymentMethodName,
