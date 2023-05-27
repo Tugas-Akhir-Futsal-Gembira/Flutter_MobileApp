@@ -3,7 +3,7 @@ class JSONModel{
   JSONModel({this.status, required this.message, this.data, this.statusCode});
 
   final String? status;
-  final String message;
+  final String? message;
   final Map<String, dynamic>? data;
   final int? statusCode;
 

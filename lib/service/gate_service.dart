@@ -67,6 +67,11 @@ class GateService{
         break;
       }
 
+      case 2: {
+        json = await _auth2service.postLogin(email: email, password: password, fcmToken: fcmToken);
+        break;
+      }
+
       default: {
         json = JSONModel(message: 'Error on Post Login: Switch Case Default');
       }

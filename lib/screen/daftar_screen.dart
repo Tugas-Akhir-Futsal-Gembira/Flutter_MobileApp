@@ -200,7 +200,7 @@ class DaftarScreen extends StatelessWidget {
                                               else if(context.mounted){
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   CustomSnackbar(
-                                                    title: json.statusCode.toString() + json.message,
+                                                    title: json.statusCode.toString() + json.message.toString(),
                                                   )
                                                 );
                                               }

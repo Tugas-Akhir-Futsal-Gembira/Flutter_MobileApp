@@ -47,4 +47,38 @@ class Auth2Service{
     }
   }
 
+  ///Login
+  Future<JSONModel> postLogin({
+    required String email,
+    required String password,
+    required String fcmToken,
+  }) async{
+
+    Response response;
+
+    try{
+      response = await _dio.post(
+        '$_baseUrl/auth/login',
+        data: {
+          'email': email,
+          'password': password,
+          'fcm_token': fcmToken,
+        }
+      );
+      
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: 'Error');
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
+
 }
