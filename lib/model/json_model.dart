@@ -3,7 +3,7 @@ class JSONModel{
   JSONModel({this.status, required this.message, this.data, this.statusCode});
 
   final String? status;
-  final String message;
+  final String? message;
   final Map<String, dynamic>? data;
   final int? statusCode;
 
@@ -17,6 +17,7 @@ class JSONModel{
     }.toString();
   }
 
+  ///Primarily json receive Map<String, dynamic> but json might receive String because of error message received from response
   factory JSONModel.fromJSON(dynamic json, int statusCode){
 
     Map<String, dynamic> tempJson;
