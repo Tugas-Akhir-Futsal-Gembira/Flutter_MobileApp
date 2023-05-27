@@ -79,6 +79,67 @@ class Auth1Service{
 
   }
 
-  
+  ///Reset Password
+  Future<JSONModel> postResetPassword({
+    required String email
+  }) async{
 
+    Response response;
+
+    try{
+      response = await _dio.post(
+        '$_baseUrl/auth/reset-password',
+        data: {
+          'email': email
+        }
+      );
+
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: e.toString());
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
+
+  ///Update Password
+  Future<JSONModel> patchUpdatePassword({
+    required String email,
+    required String code,
+    required String password,
+  }) async{
+
+    Response response;
+
+    try{
+      response = await _dio.patch(
+        '$_baseUrl/auth/update-password',
+        data: {
+          'email': email,
+          'code': code,
+          'password': password,
+        }
+      );
+
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: e.toString());
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
 }

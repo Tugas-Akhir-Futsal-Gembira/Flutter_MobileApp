@@ -1,10 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/lupa_password/atur_ulang_password_screen.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
 class LupaPasswordScreen extends StatelessWidget {
@@ -180,15 +183,29 @@ class LupaPasswordScreen extends StatelessWidget {
                                           value: 'Kirimkan', 
                                           size: const Size(202, 44),
                                           fontSize: 20,
-                                          onPressed: (){
+                                          onPressed: () async{
+                                            FocusManager.instance.primaryFocus?.unfocus();
+
                                             ///If validation of form return true
                                             if(formKey.currentState!.validate()){
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => AturUlangPasswordScreen(email: emailTextController.text),
-                                                )
+
+                                              JSONModel json = await GateService.postResetPassword(
+                                                email: emailTextController.text
                                               );
+
+                                              if(json.statusCode == 200 && context.mounted){
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => AturUlangPasswordScreen(email: emailTextController.text),
+                                                  )
+                                                );
+                                              }
+                                              else if(context.mounted){
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  CustomSnackbar(title: json.statusCode.toString() + json.message.toString())
+                                                );
+                                              }
                                             }
                                           },
                                         ),
