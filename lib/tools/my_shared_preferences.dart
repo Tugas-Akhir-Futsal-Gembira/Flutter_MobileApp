@@ -8,7 +8,8 @@ class MySharedPreferences{
 
   static SharedPreferences? _prefs;
   static get prefs => _prefs;
-
+  
+  ///Get value from SharedPreferences
   static Future<bool> setPref(String key, var value) async{
 
     _prefs ??= await SharedPreferences.getInstance();
@@ -23,6 +24,21 @@ class MySharedPreferences{
     }
   }
 
+  static Future<dynamic> getPref(String key, Type type) async{
+    _prefs ??= await SharedPreferences.getInstance();
+
+    switch(type){
+      case String : {
+        return _prefs!.getString(key);
+      }
+      
+      default : {
+        return null;
+      }
+    }
+  }
+
+  ///Remove value that saved from SharedPreferences
   static Future<bool> remove(String key) async{
     _prefs ??= await SharedPreferences.getInstance();
 

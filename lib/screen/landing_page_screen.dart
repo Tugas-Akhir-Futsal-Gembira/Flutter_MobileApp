@@ -4,8 +4,8 @@ import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LandindPageScreen extends StatelessWidget {
-  const LandindPageScreen({super.key});
+class LandingPageScreen extends StatelessWidget {
+  const LandingPageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

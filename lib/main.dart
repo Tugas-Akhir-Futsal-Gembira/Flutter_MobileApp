@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_futsal_gembira/screen/main_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:intl/date_symbol_data_local.dart';
