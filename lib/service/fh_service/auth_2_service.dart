@@ -7,6 +7,7 @@ class Auth2Service{
   final Dio _dio = Dio();
   final String _baseUrl = CustomUrl.fhUrl;
 
+  ///Register
   Future<JSONModel> postRegister({
     required String name,
     required String email,
@@ -40,6 +41,9 @@ class Auth2Service{
       else{
         return JSONModel(message: 'Error');
       }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
     }
   }
 

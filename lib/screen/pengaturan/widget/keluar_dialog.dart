@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
+import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void keluarDialog(BuildContext context){
 
@@ -118,7 +120,8 @@ void keluarDialog(BuildContext context){
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        onTap: (){
+                        onTap: () async{
+                          await MySharedPreferences.remove(MySharedPreferences.accessTokenKey);
                           SystemNavigator.pop();
                         },
                         borderRadius: BorderRadius.circular(5),

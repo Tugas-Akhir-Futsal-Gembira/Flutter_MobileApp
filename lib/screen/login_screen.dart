@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/lupa_password/lupa_password_screen.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
+import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
@@ -155,15 +158,40 @@ class LoginScreen extends StatelessWidget {
                                           value: 'Masuk', 
                                           size: const Size(202, 44),
                                           fontSize: 20,
-                                          onPressed: (){
+                                          onPressed: () async{
+                                            FocusManager.instance.primaryFocus?.unfocus();
+                                            
+                                            ///If validation of form return true
                                             if(formKey.currentState!.validate()){
-                                              Navigator.pushReplacement(
-                                                context, 
-                                                MaterialPageRoute(builder: (context) => const MainScreen(),)
+
+                                              JSONModel json = await GateService.postLogin(
+                                                email: emailTextController.text, 
+                                                password: passwordTextController.text, 
+                                                fcmToken: 'Not Specified'
                                               );
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                CustomSnackbar(title: 'Berhasil Login',)
-                                              );
+                                              
+                                              if(json.statusCode == 200){
+
+                                                await (json.data!['access_token'] as String).setPref(MySharedPreferences.accessTokenKey);
+                                                
+                                                if(context.mounted){
+                                                  Navigator.pushReplacement(
+                                                    context, 
+                                                    MaterialPageRoute(builder: (context) => const MainScreen(),)
+                                                  );
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    CustomSnackbar(title: 'Berhasil Login',)
+                                                  );
+                                                }
+                                              }
+
+                                              else if(context.mounted){
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  CustomSnackbar(
+                                                    title: json.statusCode.toString() + json.message,
+                                                  )
+                                                );
+                                              }
                                             }
                                           },
                                         ),

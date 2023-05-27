@@ -7,6 +7,11 @@ class GateService{
   ///Choose Service (default = 1)
   static const int _numService = 1;
 
+  static final Auth1Service _auth1service = Auth1Service();
+
+  static final Auth2Service _auth2service = Auth2Service();
+
+  ///Register
   static Future<JSONModel> postRegister({
     required String username,
     required String email,
@@ -19,8 +24,7 @@ class GateService{
 
     switch(numService){
       case 1 : {
-        Auth1Service service = Auth1Service();
-        json = await service.postRegister(
+        json = await _auth1service.postRegister(
           username: username, 
           email: email, 
           password: password, 
@@ -30,8 +34,7 @@ class GateService{
       }
 
       case 2 : {
-        Auth2Service service = Auth2Service();
-        json = await service.postRegister(
+        json = await _auth2service.postRegister(
           name: username, 
           email: email, 
           noHp: phone, 
@@ -43,12 +46,32 @@ class GateService{
       }
 
       default : {
-        json = JSONModel(message: 'Error');
+        json = JSONModel(message: 'Error on Post Register: Switch Case Default');
       }
     }
-
     return json;
+  }
 
+  static Future<JSONModel> postLogin({
+    required String email,
+    required String password,
+    required String fcmToken,
+    int? numService = _numService,
+  }) async{
+    
+    JSONModel json;
+
+    switch(numService){
+      case 1: {
+        json = await _auth1service.postLogin(email: email, password: password, fcmToken: fcmToken);
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Post Login: Switch Case Default');
+      }
+    }
+    return json;
   }
 
 

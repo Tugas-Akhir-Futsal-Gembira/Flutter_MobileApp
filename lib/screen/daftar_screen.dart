@@ -173,6 +173,7 @@ class DaftarScreen extends StatelessWidget {
                                           value: 'Daftar', 
                                           size: const Size(202, 44),
                                           onPressed: () async{
+                                            FocusManager.instance.primaryFocus?.unfocus();
 
                                             ///If validation of form return true
                                             if(formKey.currentState!.validate()){

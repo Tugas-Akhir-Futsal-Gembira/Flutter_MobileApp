@@ -17,6 +17,7 @@ class JSONModel{
     }.toString();
   }
 
+  ///Primarily json receive Map<String, dynamic> but json might receive String because of error message received from response
   factory JSONModel.fromJSON(dynamic json, int statusCode){
 
     Map<String, dynamic> tempJson;
