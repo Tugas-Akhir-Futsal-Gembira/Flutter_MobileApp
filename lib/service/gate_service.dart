@@ -122,6 +122,14 @@ class GateService{
         json = await _auth1service.patchUpdatePassword(email: email, code: code, password: password);
         break;
       }
+
+      case 2: {
+        json = await _auth2service.putForgotPassword(
+          email: email, code: code, password: password, confirmPassword: password
+        );
+        break;
+      }
+
       default: {
         json = JSONModel(message: 'Error on Patch Reset Password: Switch Case Default');
       }

@@ -18,6 +18,7 @@ class AturUlangPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    CustomButtonController customButtonController = CustomButtonController(isLoading: false);
     TextEditingController emailTextController = TextEditingController(text: email);
     TextEditingController kodeOTPTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
@@ -144,8 +145,8 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                         controller: kodeOTPTextController,
                                         keyboardType: TextInputType.number,
                                         validator: (value) {
-                                          if(passwordTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          if(kodeOTPTextController.text.length < 4){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 4 karakter';
                                           }
                                           return null;
                                         },
@@ -198,7 +199,9 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                           value: 'Atur Ulang', 
                                           size: const Size(202, 44),
                                           fontSize: 20,
+                                          controller: customButtonController,
                                           onPressed: () async{
+                                            customButtonController.isLoading = true;
                                             FocusScope.of(context).requestFocus(FocusNode());
                                             if(formKey.currentState!.validate()){
 
@@ -268,10 +271,12 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                               }
                                               else if (context.mounted){
                                                 ScaffoldMessenger.of(context).showSnackBar(
-                                                  CustomSnackbar(title: json.statusCode.toString() + json.message.toString())
+                                                  // CustomSnackbar(title: json.statusCode.toString() + json.message.toString())
+                                                  CustomSnackbar(title: json.getErrorToString())
                                                 );
                                               }
                                             }
+                                            customButtonController.isLoading = false;
                                           },
                                         ),
                                       ),
