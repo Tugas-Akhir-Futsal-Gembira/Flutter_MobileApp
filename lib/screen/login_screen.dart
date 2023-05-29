@@ -17,6 +17,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    CustomButtonController customButtonController = CustomButtonController(isLoading: false);
     TextEditingController emailTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -158,7 +159,9 @@ class LoginScreen extends StatelessWidget {
                                           value: 'Masuk', 
                                           size: const Size(202, 44),
                                           fontSize: 20,
+                                          controller: customButtonController,
                                           onPressed: () async{
+                                            customButtonController.isLoading = true;
                                             FocusManager.instance.primaryFocus?.unfocus();
                                             
                                             ///If validation of form return true
@@ -193,6 +196,7 @@ class LoginScreen extends StatelessWidget {
                                                 );
                                               }
                                             }
+                                            customButtonController.isLoading = false;
                                           },
                                         ),
                                       ),
