@@ -1,10 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_alert_dialog.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 
 class AturUlangPasswordScreen extends StatelessWidget {
@@ -15,6 +18,7 @@ class AturUlangPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    CustomButtonController customButtonController = CustomButtonController(isLoading: false);
     TextEditingController emailTextController = TextEditingController(text: email);
     TextEditingController kodeOTPTextController = TextEditingController();
     TextEditingController passwordTextController = TextEditingController();
@@ -141,8 +145,8 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                         controller: kodeOTPTextController,
                                         keyboardType: TextInputType.number,
                                         validator: (value) {
-                                          if(passwordTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          if(kodeOTPTextController.text.length < 4){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 4 karakter';
                                           }
                                           return null;
                                         },
@@ -195,66 +199,84 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                           value: 'Atur Ulang', 
                                           size: const Size(202, 44),
                                           fontSize: 20,
-                                          onPressed: (){
+                                          controller: customButtonController,
+                                          onPressed: () async{
+                                            customButtonController.isLoading = true;
                                             FocusScope.of(context).requestFocus(FocusNode());
                                             if(formKey.currentState!.validate()){
-                                              showDialog(
-                                                context: context, 
-                                                barrierDismissible: false,
-                                                builder: (context) {
-                                                  return CustomAlertDialog(
-                                                    context: context,
-                                                    backgroundColor: primaryLightColor,
-                                                    visibleFirstButton: true,
-                                                    visibleSecondButton: false,
-                                                    backgroundColorFirstButton: success2Color,
-                                                    childFirstButton: const Text(
-                                                      'OK',
-                                                      style: TextStyle(
-                                                        fontWeight: semiBold,
-                                                        fontSize: 16,
-                                                      ),
-                                                    ),
-                                                    onPressedFirstButton: () {
-                                                      Navigator.pop(context);
-                                                      Navigator.pushReplacement(
-                                                        context, 
-                                                        MaterialPageRoute(
-                                                          builder: (context) => const LoginScreen(),
-                                                        )
-                                                      );
-                                                    },
-                                                    content: WillPopScope(
-                                                      onWillPop: () async{
-                                                        return false;
-                                                      },
-                                                      child: Column(
-                                                        mainAxisSize: MainAxisSize.min,
-                                                        children: const [
-                                                          SizedBox(height: 16,),
-                                                          Text(
-                                                            'Berhasil Atur Ulang',
-                                                            style: TextStyle(
-                                                              fontWeight: semiBold,
-                                                              fontSize: 24
-                                                            ),
-                                                          ),
-                                                          SizedBox(height: 32),
-                                                          Text(
-                                                            'Atur Ulang Password berhasil.\n Akun anda telah menyimpan password yang baru',
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                              fontWeight: regular,
-                                                              fontSize: 16
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ),
-                                                  );
-                                                },
+
+                                              JSONModel json = await GateService.patchUpdatePassword(
+                                                email: emailTextController.text,
+                                                password: passwordTextController.text,
+                                                code: kodeOTPTextController.text
                                               );
+
+                                              if(json.statusCode == 200 && context.mounted){
+                                                showDialog(
+                                                  context: context, 
+                                                  barrierDismissible: false,
+                                                  builder: (context) {
+                                                    return CustomAlertDialog(
+                                                      context: context,
+                                                      backgroundColor: primaryLightColor,
+                                                      visibleFirstButton: true,
+                                                      visibleSecondButton: false,
+                                                      backgroundColorFirstButton: success2Color,
+                                                      childFirstButton: const Text(
+                                                        'OK',
+                                                        style: TextStyle(
+                                                          fontWeight: semiBold,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                      onPressedFirstButton: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.pushReplacement(
+                                                          context, 
+                                                          MaterialPageRoute(
+                                                            builder: (context) => const LoginScreen(),
+                                                          )
+                                                        );
+                                                      },
+                                                      content: WillPopScope(
+                                                        onWillPop: () async{
+                                                          return false;
+                                                        },
+                                                        child: Column(
+                                                          mainAxisSize: MainAxisSize.min,
+                                                          children: const [
+                                                            SizedBox(height: 16,),
+                                                            Text(
+                                                              'Berhasil Atur Ulang',
+                                                              style: TextStyle(
+                                                                fontWeight: semiBold,
+                                                                fontSize: 24
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 32),
+                                                            Text(
+                                                              'Atur Ulang Password berhasil.\n Akun anda telah menyimpan password yang baru',
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                fontWeight: regular,
+                                                                fontSize: 16
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                              else if (context.mounted){
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  // CustomSnackbar(title: json.statusCode.toString() + json.message.toString())
+                                                  CustomSnackbar(title: json.getErrorToString())
+                                                );
+                                              }
                                             }
+                                            customButtonController.isLoading = false;
                                           },
                                         ),
                                       ),
