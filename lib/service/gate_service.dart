@@ -5,7 +5,7 @@ import 'package:flutter_application_futsal_gembira/service/futsal_gembira_servic
 class GateService{
 
   ///Choose Service (default = 1)
-  static const int _numService = 1;
+  static const int _numService = 2;
 
   static final Auth1Service _auth1service = Auth1Service();
 
@@ -92,6 +92,11 @@ class GateService{
     switch(numService){
       case 1: {
         json = await _auth1service.postResetPassword(email: email);
+        break;
+      }
+
+      case 2: {
+        json = await _auth2service.postOTP(email: email);
         break;
       }
 

@@ -1,7 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 extension SetSharedPreferences on String{
-  Future<bool> setPref(String key) async => MySharedPreferences.setPref(key, this) ;
+
+  ///Set value by using SharedPreferences
+  Future<bool> setPref(String key) async => MySharedPreferences.setPref(key, this);
 }
 
 class MySharedPreferences{
@@ -9,7 +11,7 @@ class MySharedPreferences{
   static SharedPreferences? _prefs;
   static get prefs => _prefs;
   
-  ///Get value from SharedPreferences
+  ///Set value by using SharedPreferences
   static Future<bool> setPref(String key, var value) async{
 
     _prefs ??= await SharedPreferences.getInstance();

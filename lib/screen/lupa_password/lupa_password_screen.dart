@@ -16,6 +16,7 @@ class LupaPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    ValueNotifier<bool> isLoadingButton = ValueNotifier(false);
     TextEditingController emailTextController = TextEditingController();
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     
@@ -179,35 +180,43 @@ class LupaPasswordScreen extends StatelessWidget {
                                         padding: const EdgeInsets.only(top: 64),
 
                                         ///Button 'Kirimkan'
-                                        child: CustomButton(
-                                          value: 'Kirimkan', 
-                                          size: const Size(202, 44),
-                                          fontSize: 20,
-                                          onPressed: () async{
-                                            FocusManager.instance.primaryFocus?.unfocus();
+                                        child: ValueListenableBuilder(
+                                          valueListenable: isLoadingButton,
+                                          builder: (context, value, child) {
+                                            return CustomButton(
+                                              value: 'Kirimkan', 
+                                              size: const Size(202, 44),
+                                              fontSize: 20,
+                                              isLoading: (isLoadingButton.value == true) ? true : false,
+                                              onPressed: () async{
+                                                isLoadingButton.value = true;
+                                                FocusManager.instance.primaryFocus?.unfocus();
 
-                                            ///If validation of form return true
-                                            if(formKey.currentState!.validate()){
+                                                ///If validation of form return true
+                                                if(formKey.currentState!.validate()){
 
-                                              JSONModel json = await GateService.postResetPassword(
-                                                email: emailTextController.text
-                                              );
+                                                  JSONModel json = await GateService.postResetPassword(
+                                                    email: emailTextController.text
+                                                  );
 
-                                              if(json.statusCode == 200 && context.mounted){
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) => AturUlangPasswordScreen(email: emailTextController.text),
-                                                  )
-                                                );
-                                              }
-                                              else if(context.mounted){
-                                                ScaffoldMessenger.of(context).showSnackBar(
-                                                  CustomSnackbar(title: json.statusCode.toString() + json.message.toString())
-                                                );
-                                              }
-                                            }
-                                          },
+                                                  if(json.statusCode == 200 && context.mounted){
+                                                    Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) => AturUlangPasswordScreen(email: emailTextController.text),
+                                                      )
+                                                    );
+                                                  }
+                                                  else if(context.mounted){
+                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                      CustomSnackbar(title: json.getErrorToString())
+                                                    );
+                                                  }
+                                                }
+                                                isLoadingButton.value = false;
+                                              },
+                                            );
+                                          }
                                         ),
                                       ),
                                       const SizedBox(height: 20,),
