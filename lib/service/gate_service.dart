@@ -5,7 +5,8 @@ import 'package:flutter_application_futsal_gembira/service/futsal_gembira_servic
 class GateService{
 
   ///Choose Service (default = 1)
-  static const int _numService = 2;
+  static const int _numService = 1;
+  static get numService => _numService;
 
   static final Auth1Service _auth1service = Auth1Service();
 
@@ -131,13 +132,32 @@ class GateService{
       }
 
       default: {
-        json = JSONModel(message: 'Error on Patch Reset Password: Switch Case Default');
+        json = JSONModel(message: 'Error on Patch Update Password: Switch Case Default');
       }
     }
 
     return json;
   }
 
-  
+  ///Me
+  static Future<JSONModel> getMe({
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      case 1: {
+        json = await _auth1service.getMe();
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Me: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
 
 }

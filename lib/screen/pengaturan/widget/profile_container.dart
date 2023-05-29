@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/profile/profile_model.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
-import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileContainer extends StatelessWidget {
@@ -14,20 +14,44 @@ class ProfileContainer extends StatelessWidget {
     this.phoneNumber = 'Tidak ada data',
     this.email = 'Tidak ada data',
     this.address = 'Tidak ada data',
-    this.accountCreated,
-    this.temporaryBlockedSecondRemaining,
   });
 
   final String? pictureLink;
   final String profileName;
-  ///1. Male, 2. Female.
+  ///1. Male, 2. Female, null. Not Specified.
   final int? sex;
   final String uniqueId;
   final String phoneNumber;
   final String email;
   final String address;
-  final DateTime? accountCreated;
-  final int? temporaryBlockedSecondRemaining;
+
+  factory ProfileContainer.fromProfileModel(ProfileModel model){
+
+    int? sexTemp;
+    switch(model.gender){
+      case 'male': {
+        sexTemp = 1;
+        break;
+      }
+      case 'female': {
+        sexTemp = 2;
+        break;
+      }
+      default: {
+        sexTemp = null;
+      }
+    }
+
+    return ProfileContainer(
+      pictureLink: model.thumbnail,
+      profileName: model.name,
+      sex: sexTemp,
+      uniqueId: model.idUser.toString(),
+      phoneNumber: model.phone,
+      email: model.email,
+      address: model.address.toString(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +163,13 @@ class ProfileContainer extends StatelessWidget {
                                   width: 14,
                                 ),
                                 const SizedBox(width: 8,),
-                                Text(
-                                  phoneNumber,
-                                  style: const TextStyle(
-                                    fontWeight: regular,
-                                    fontSize: 12
+                                Expanded(
+                                  child: Text(
+                                    phoneNumber,
+                                    style: const TextStyle(
+                                      fontWeight: regular,
+                                      fontSize: 12
+                                    ),
                                   ),
                                 )
                               ],
@@ -159,11 +185,13 @@ class ProfileContainer extends StatelessWidget {
                                   width: 14,
                                 ),
                                 const SizedBox(width: 8,),
-                                Text(
-                                  email,
-                                  style: const TextStyle(
-                                    fontWeight: regular,
-                                    fontSize: 12
+                                Expanded(
+                                  child: Text(
+                                    email,
+                                    style: const TextStyle(
+                                      fontWeight: regular,
+                                      fontSize: 12
+                                    ),
                                   ),
                                 )
                               ],
@@ -179,37 +207,18 @@ class ProfileContainer extends StatelessWidget {
                                   width: 14,
                                 ),
                                 const SizedBox(width: 8,),
-                                Text(
-                                  address,
-                                  style: const TextStyle(
-                                    fontWeight: regular,
-                                    fontSize: 12
+                                Expanded(
+                                  child: Text(
+                                    address,
+                                    style: const TextStyle(
+                                      fontWeight: regular,
+                                      fontSize: 12
+                                    ),
                                   ),
                                 )
                               ],
                             ),
                             const SizedBox(height: 4,),
-
-                            ///Sixth Row personal data: accountCreated
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/icon/material-symbols_calendar-add-on.svg',
-                                  height: 14,
-                                  width: 14,
-                                ),
-                                const SizedBox(width: 8,),
-                                Text(
-                                  (accountCreated == null) ? 'Tidak ada data' : customDateFormat(accountCreated!),
-                                  style: const TextStyle(
-                                    fontWeight: regular,
-                                    fontSize: 12
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 4,),
-
                           ],
                         ),
                       )
@@ -217,35 +226,13 @@ class ProfileContainer extends StatelessWidget {
                   ),
                   const SizedBox(height: 16,),
 
-                  ///Second Row: Blocked minutes remaining text and 'Sunting Profil' text
+                  ///Second Row: 'Sunting Profil' text
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
 
-                      ///First Column: Blocked minutes remaining text
-                      Expanded(
-                        child: Builder(
-                          builder: (context) {
-
-                            late int minute;
-                            
-                            if(temporaryBlockedSecondRemaining == null){
-                              return const SizedBox();
-                            }
-
-                            minute = (temporaryBlockedSecondRemaining! / 60).ceil().toInt();
-
-                            return Text(
-                              'Akun ini diblokir selama $minute menit',
-                              style: const TextStyle(
-                                fontWeight: medium,
-                                fontSize: 12,
-                                color: warningColor,
-                              ),
-                            );
-                          }
-                        ),
-                      ),
+                      ///First Column: Spacer to fill remaining space
+                      const Spacer(),
 
                       ///Second & Third Column: 'Sunting Profil' text and icon
                       const Text(
