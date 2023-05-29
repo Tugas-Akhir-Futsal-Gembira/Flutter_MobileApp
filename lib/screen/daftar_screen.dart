@@ -14,6 +14,7 @@ class DaftarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    CustomButtonController customButtonController = CustomButtonController(isLoading: false);
     TextEditingController nameTextController = TextEditingController();
     TextEditingController emailTextController = TextEditingController();
     TextEditingController nohpTextController = TextEditingController();
@@ -171,8 +172,11 @@ class DaftarScreen extends StatelessWidget {
                                         padding: const EdgeInsets.only(top: 64),
                                         child: CustomButton(
                                           value: 'Daftar', 
+                                          fontSize: 20,
                                           size: const Size(202, 44),
+                                          controller: customButtonController,
                                           onPressed: () async{
+                                            customButtonController.isLoading = true;
                                             FocusManager.instance.primaryFocus?.unfocus();
 
                                             ///If validation of form return true
@@ -200,11 +204,12 @@ class DaftarScreen extends StatelessWidget {
                                               else if(context.mounted){
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   CustomSnackbar(
-                                                    title: json.statusCode.toString() + json.message.toString(),
+                                                    title: json.getErrorToString(),
                                                   )
                                                 );
                                               }
                                             }
+                                            customButtonController.isLoading = false;
                                           },
                                         ),
                                       ),
