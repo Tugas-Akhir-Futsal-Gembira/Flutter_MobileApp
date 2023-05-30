@@ -3,7 +3,7 @@ import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 class ProfileModel{
   ProfileModel({
     required this.id,
-    this.idUser,
+    required this.idUnik,
     required this.name,
     required this.email,
     required this.type,
@@ -14,7 +14,7 @@ class ProfileModel{
   });
 
   final int id;
-  String? idUser;
+  String? idUnik;
   final String name;
   final String email;
   final String type;
@@ -30,7 +30,7 @@ class ProfileModel{
       case 1: {
         return ProfileModel(
           id: json['id'], 
-          idUser: json['idUser'],
+          idUnik: json['idUser'],
           // name: json['name'],
           name: 'Edit ProfileModel',
           email: json['email'], 
@@ -42,10 +42,36 @@ class ProfileModel{
         );
       }
 
+      case 2: {
+        // return ProfileModel(
+        //   id: json['user_id'], 
+        //   idUnik: '@${json['username']}',
+        //   name: json['name'],
+        //   email: json['email'], 
+        //   type: json['type'], 
+        //   phone: json['no_hp'], 
+        //   address: json['alamat'], 
+        //   thumbnail: json['thumbnail'],
+        //   gender: json['gender'],
+        // );
+
+        return ProfileModel(
+          id: 0,
+          idUnik: null,
+          name: 'null',
+          email: 'null', 
+          type: 'null', 
+          phone: 'null', 
+          address: null, 
+          thumbnail: null,
+          gender: null,
+        );
+      }
+
       default: {
         return ProfileModel(
           id: 0,
-          idUser: null,
+          idUnik: null,
           name: 'null',
           email: 'null', 
           type: 'null', 

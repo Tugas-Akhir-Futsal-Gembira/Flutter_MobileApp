@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/profile/profile_model.dart';
+import 'package:flutter_application_futsal_gembira/screen/sunting_profil_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,7 +47,7 @@ class ProfileContainer extends StatelessWidget {
       pictureLink: model.thumbnail,
       profileName: model.name,
       sex: sexTemp,
-      uniqueId: model.idUser.toString(),
+      uniqueId: model.idUnik.toString(),
       phoneNumber: model.phone,
       email: model.email,
       address: model.address.toString(),
@@ -91,18 +92,23 @@ class ProfileContainer extends StatelessWidget {
                       Container(
                         height: profilePictureRadius,
                         width: profilePictureRadius,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: primaryBaseColor,
                           shape: BoxShape.circle,
+                          image: (pictureLink == null)
+                              ? null
+                              : DecorationImage(image: NetworkImage(pictureLink!))
                         ),
-                        child: FittedBox(
-                          fit: BoxFit.none,
-                          child: SvgPicture.asset(
-                            'assets/icon/User.svg', 
-                            height: 85/131 * profilePictureRadius, 
-                            width: 85/131 * profilePictureRadius,
-                          ),
-                        ),
+                        child: (pictureLink == null) 
+                            ? FittedBox(
+                              fit: BoxFit.none,
+                              child: SvgPicture.asset(
+                                'assets/icon/User.svg', 
+                                height: 85/131 * profilePictureRadius, 
+                                width: 85/131 * profilePictureRadius,
+                              ),
+                            )
+                            : null,
                       ),
                       const SizedBox(width: 20,),
 
@@ -262,7 +268,22 @@ class ProfileContainer extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SuntingProfilScreen(
+                      pictureLink: null,
+                      profileName: 'Chandra',
+                      sex: 1,
+                      uniqueId: 'user@04012023-30',
+                      phoneNumber: '081234567890',
+                      email: 'example123@mail.com',
+                      address: 'Tidak ada data',
+                    ),
+                  )
+                );
+              },
               borderRadius: BorderRadius.circular(5),
               highlightColor: primaryBaseColor.withOpacity(0.5),
               splashColor: primaryLightestColor.withOpacity(0.5),

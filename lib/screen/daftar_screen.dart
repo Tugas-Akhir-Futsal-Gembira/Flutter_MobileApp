@@ -109,8 +109,8 @@ class DaftarScreen extends StatelessWidget {
                                         title: 'Nama',
                                         controller: nameTextController,
                                         validator: (value) {
-                                          if(nameTextController.text.length < 8){
-                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                                          if(nameTextController.text.length < 4){
+                                            return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 4 karakter';
                                           }
                                           return null;
                                         },

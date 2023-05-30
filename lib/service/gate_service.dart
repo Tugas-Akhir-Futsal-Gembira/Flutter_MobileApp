@@ -152,6 +152,11 @@ class GateService{
         break;
       }
 
+      case 2: {
+        json = await _auth2service.getProfile();
+        break;
+      }
+
       default: {
         json = JSONModel(message: 'Error on Get Me: Switch Case Default');
       }
