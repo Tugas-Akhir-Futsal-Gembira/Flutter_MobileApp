@@ -50,7 +50,7 @@ class ProfileContainer extends StatelessWidget {
       uniqueId: model.idUnik.toString(),
       phoneNumber: model.phone,
       email: model.email,
-      address: model.address.toString(),
+      address: (model.address == null) ? 'Tidak ada data' : model.address.toString(),
     );
   }
 
@@ -97,7 +97,7 @@ class ProfileContainer extends StatelessWidget {
                           shape: BoxShape.circle,
                           image: (pictureLink == null)
                               ? null
-                              : DecorationImage(image: NetworkImage(pictureLink!))
+                              : DecorationImage(image: NetworkImage(pictureLink!), fit: BoxFit.cover)
                         ),
                         child: (pictureLink == null) 
                             ? FittedBox(
@@ -272,14 +272,14 @@ class ProfileContainer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SuntingProfilScreen(
-                      pictureLink: null,
-                      profileName: 'Chandra',
-                      sex: 1,
-                      uniqueId: 'user@04012023-30',
-                      phoneNumber: '081234567890',
-                      email: 'example123@mail.com',
-                      address: 'Tidak ada data',
+                    builder: (context) => SuntingProfilScreen(
+                      pictureLink: pictureLink,
+                      profileName: profileName,
+                      sex: sex,
+                      uniqueId: uniqueId,
+                      phoneNumber: phoneNumber,
+                      email: email,
+                      address: address,
                     ),
                   )
                 );

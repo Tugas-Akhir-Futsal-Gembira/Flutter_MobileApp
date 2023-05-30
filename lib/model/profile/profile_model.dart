@@ -43,29 +43,29 @@ class ProfileModel{
       }
 
       case 2: {
-        // return ProfileModel(
-        //   id: json['user_id'], 
-        //   idUnik: '@${json['username']}',
-        //   name: json['name'],
-        //   email: json['email'], 
-        //   type: json['type'], 
-        //   phone: json['no_hp'], 
-        //   address: json['alamat'], 
-        //   thumbnail: json['thumbnail'],
-        //   gender: json['gender'],
-        // );
-
         return ProfileModel(
-          id: 0,
-          idUnik: null,
-          name: 'null',
-          email: 'null', 
-          type: 'null', 
-          phone: 'null', 
-          address: null, 
-          thumbnail: null,
-          gender: null,
+          id: json['user_id'], 
+          idUnik: '@${json['username']}',
+          name: json['name'],
+          email: json['email'], 
+          type: json['type'], 
+          phone: json['no_hp'], 
+          address: json['alamat'], 
+          thumbnail: json['thumbnail'],
+          gender: json['gender'],
         );
+
+        // return ProfileModel(
+        //   id: 0,
+        //   idUnik: null,
+        //   name: 'null',
+        //   email: 'null', 
+        //   type: 'null', 
+        //   phone: 'null', 
+        //   address: null, 
+        //   thumbnail: null,
+        //   gender: null,
+        // );
       }
 
       default: {

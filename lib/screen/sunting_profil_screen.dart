@@ -110,7 +110,12 @@ class SuntingProfilScreen extends StatelessWidget {
                                   image: FileImage(circleImageValueNotifier.value!),
                                   fit: BoxFit.cover
                                 )
-                                : null
+                                : (pictureLink != null)
+                                    ? DecorationImage(
+                                      image: NetworkImage(pictureLink!),
+                                      fit: BoxFit.cover
+                                    )
+                                    : null
                           ),
                           child: (pictureLink != null || circleImageValueNotifier.value != null)
                               ? null
@@ -167,7 +172,9 @@ class SuntingProfilScreen extends StatelessWidget {
                   type: CustomTextfieldType.edit,
                   controller: nameTextEditingController,
                   validator: (value) {
-                    
+                    if(nameTextEditingController.text.length < 4){
+                      return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 4 karakter';
+                    }
                   },
                 ),
                 const SizedBox(height: 32,),
@@ -179,38 +186,19 @@ class SuntingProfilScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32,),
           
-                Builder(
-                  builder: (context) {
-                    String stringSex;
-                    switch(sex){
-                      case 1: {
-                        stringSex = 'Pria';
-                        break;
-                      }
-                      case 2: {
-                        stringSex = 'Wanita';
-                        break;
-                      }
-                      default: {
-                        stringSex = 'Tidak ditentukan';
-                      }
-                    }
-
-                    return CustomDropdownButton(
-                      context: context,
-                      controller: sexCustomDropdownButtonController,
-                      title: 'Jenis Kelamin',
-                      value: 'Pria',
-                      itemString: const ['Pria', 'Wanita'],
-                      isExpanded: true,
-                      onChanged: (value) {
-                        sexCustomDropdownButtonController.findIndexItemString(value);
-                      },
-                      onTap: () {
-                        
-                      },
-                    );
-                  }
+                CustomDropdownButton(
+                  context: context,
+                  controller: sexCustomDropdownButtonController,
+                  title: 'Jenis Kelamin',
+                  value: 'Pria',
+                  itemString: const ['Pria', 'Wanita'],
+                  isExpanded: true,
+                  onChanged: (value) {
+                    sexCustomDropdownButtonController.findIndexItemString(value);
+                  },
+                  onTap: () {
+                    
+                  },
                 ),
                 const SizedBox(height: 32,),
 
@@ -220,7 +208,9 @@ class SuntingProfilScreen extends StatelessWidget {
                   type: CustomTextfieldType.edit,
                   controller: phoneTextEditingController,
                   validator: (value) {
-                    
+                    if(phoneTextEditingController.text.length < 8){
+                      return 'Input tidak boleh kosong atau tidak boleh berisi kurang dari 8 karakter';
+                    }
                   },
                 ),
                 const SizedBox(height: 32,),
