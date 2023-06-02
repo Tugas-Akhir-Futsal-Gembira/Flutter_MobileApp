@@ -136,8 +136,9 @@ class SuntingProfilScreen extends StatelessWidget {
                       onTap: () async {
 
                         bool storagePermissionIsGranted = await Permission.storage.request().isGranted;
+                        bool photosPermissionIsGranted = await Permission.photos.request().isGranted;
 
-                        if(storagePermissionIsGranted){
+                        if(storagePermissionIsGranted || photosPermissionIsGranted){
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
                             type: FileType.image
                           );
