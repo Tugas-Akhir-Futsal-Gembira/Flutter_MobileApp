@@ -146,6 +146,4 @@ class Auth2Service{
       return JSONModel(message: e.toString());
     }
   }
-
-  
 }

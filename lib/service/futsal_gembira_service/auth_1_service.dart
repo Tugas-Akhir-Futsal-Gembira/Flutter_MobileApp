@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_url.dart';
+import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
 
 class Auth1Service{
 
@@ -126,6 +127,37 @@ class Auth1Service{
           'code': code,
           'password': password,
         }
+      );
+
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: e.toString());
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
+
+  ///ME
+  Future<JSONModel> getMe() async{
+
+    Response response;
+    String accessToken = await MySharedPreferences.getPref(MySharedPreferences.accessTokenKey, String);
+
+    try{
+      response = await _dio.get(
+        '$_baseUrl/auth/me',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $accessToken'
+          }
+        )
       );
 
       return JSONModel.fromJSON(response.data, response.statusCode!);

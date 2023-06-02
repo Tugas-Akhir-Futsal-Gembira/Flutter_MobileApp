@@ -1,11 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
+import 'package:flutter_application_futsal_gembira/model/profile/profile_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/lupa_password/lupa_password_screen.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
+import 'package:flutter_application_futsal_gembira/variables/variables.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
@@ -173,10 +175,21 @@ class LoginScreen extends StatelessWidget {
                                                 fcmToken: 'Not Specified'
                                               );
 
+                                              String accessToken = json.data!['access_token'] as String;
+                                              await accessToken.setPref(MySharedPreferences.accessTokenKey);
+                                              
                                               if(json.statusCode == 200){
 
-                                                await (json.data!['access_token'] as String).setPref(MySharedPreferences.accessTokenKey);
-                                                
+                                                JSONModel jsonProfile = await GateService.getMe();
+                                                if(jsonProfile.statusCode == 200 && jsonProfile.data != null){
+                                                  Variables.profileData = ProfileModel.fromJSON(jsonProfile.data!);
+                                                }
+                                              }
+
+                                              ///If profileData is not null, navigate to MainScreen
+                                              ///Else will not go anywhere
+                                              if(Variables.profileData != null){
+
                                                 if(context.mounted){
                                                   Navigator.pushReplacement(
                                                     context, 
@@ -191,7 +204,7 @@ class LoginScreen extends StatelessWidget {
                                               else if(context.mounted){
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   CustomSnackbar(
-                                                    title: json.statusCode.toString() + json.message.toString(),
+                                                    title: json.getErrorToString(),
                                                   )
                                                 );
                                               }

@@ -26,6 +26,7 @@ class MySharedPreferences{
     }
   }
 
+  ///Get value from key by using SharedPreferences
   static Future<dynamic> getPref(String key, Type type) async{
     _prefs ??= await SharedPreferences.getInstance();
 
