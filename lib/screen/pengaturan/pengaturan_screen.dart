@@ -98,7 +98,6 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
 
     JSONModel json = await GateService.getMe();
     if(json.statusCode == 200){
-      print(json.toString1());
       Variables.profileData = ProfileModel.fromJSON(json.data!);
     }
 
