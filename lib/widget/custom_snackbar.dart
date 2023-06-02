@@ -9,14 +9,15 @@ class CustomSnackbar extends SnackBar{
     super.key, 
     required this.title, 
     this.duration = _snackBarDisplayDuration,
+    this.color = success2Color
   }) : super(
     duration: duration,
     backgroundColor: primaryBaseColor,
     padding: const EdgeInsets.only(top: 16, bottom: 16, left: 24, right: 12),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10),
-      side: const BorderSide(
-        color: success2Color,
+      side: BorderSide(
+        color: color,
         style: BorderStyle.solid,
         width: 3,
       )
@@ -42,6 +43,8 @@ class CustomSnackbar extends SnackBar{
   @override
   // ignore: overridden_fields
   final Duration duration;
+
+  final Color color;
 
 }
 

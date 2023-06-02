@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/auth_2_service.dart';
+import 'package:flutter_application_futsal_gembira/service/fh_service/user_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/futsal_gembira_service/auth_1_service.dart';
 
 class GateService{
@@ -11,6 +14,7 @@ class GateService{
   static final Auth1Service _auth1service = Auth1Service();
 
   static final Auth2Service _auth2service = Auth2Service();
+  static final User2Service _user2service = User2Service();
 
   ///Register
   static Future<JSONModel> postRegister({
@@ -153,7 +157,7 @@ class GateService{
       }
 
       case 2: {
-        json = await _auth2service.getProfile();
+        json = await _user2service.getProfile();
         break;
       }
 
@@ -163,6 +167,44 @@ class GateService{
     }
 
     return json;
+  }
+
+  ///Update Profile
+  static Future<JSONModel> putUpdateProfile({
+    required String name,
+    required String noHp,
+    required String address,
+    required int gender,
+    File? thumbnail,
+    int? numService = _numService,
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _user2service.updateProfile(
+          name: name, 
+          noHp: noHp, 
+          address: address, 
+          gender: gender, 
+          thumbnail: thumbnail
+        );
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Me: Switch Case Default');
+      }
+    }
+
+    return json;
+
   }
 
 }

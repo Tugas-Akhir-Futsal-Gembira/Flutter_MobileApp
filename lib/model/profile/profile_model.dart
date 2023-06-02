@@ -21,6 +21,7 @@ class ProfileModel{
   final String phone;
   final String? address;
   final String? thumbnail;
+  ///Pria = 'male', Wanita = 'female'
   final String? gender;
 
   factory ProfileModel.fromJSON(Map<String, dynamic> json, {int? numService}){
@@ -52,7 +53,8 @@ class ProfileModel{
           phone: json['no_hp'], 
           address: json['alamat'], 
           thumbnail: json['thumbnail'],
-          gender: json['gender'],
+          ///Convert from 'LK'/'PR' to 'male'/'female'
+          gender: (json['gender'] == 'PR') ? 'female' : 'male',
         );
 
         // return ProfileModel(

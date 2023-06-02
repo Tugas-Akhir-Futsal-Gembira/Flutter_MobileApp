@@ -175,16 +175,12 @@ class LoginScreen extends StatelessWidget {
                                                 fcmToken: 'Not Specified'
                                               );
 
-                                              print(json.toString1());
-
                                               String accessToken = json.data!['access_token'] as String;
                                               await accessToken.setPref(MySharedPreferences.accessTokenKey);
                                               
                                               if(json.statusCode == 200){
 
                                                 JSONModel jsonProfile = await GateService.getMe();
-                                                print('A');
-                                                print(jsonProfile.toString1());
                                                 if(jsonProfile.statusCode == 200 && jsonProfile.data != null){
                                                   Variables.profileData = ProfileModel.fromJSON(jsonProfile.data!);
                                                 }

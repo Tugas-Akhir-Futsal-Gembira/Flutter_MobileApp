@@ -117,6 +117,8 @@ class CustomDropdownButtonExtends extends DropdownButton<String>{
   }) : super(
     icon: const SizedBox(),
     underline: const SizedBox(),
+    borderRadius: BorderRadius.circular(10),
+    
 
     items: itemString.map<DropdownMenuItem<String>>((e) {
       return DropdownMenuItem<String>(

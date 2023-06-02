@@ -15,6 +15,8 @@ class ProfileContainer extends StatelessWidget {
     this.phoneNumber = 'Tidak ada data',
     this.email = 'Tidak ada data',
     this.address = 'Tidak ada data',
+    this.isLoading = false,
+    this.isChanged
   });
 
   final String? pictureLink;
@@ -25,8 +27,16 @@ class ProfileContainer extends StatelessWidget {
   final String phoneNumber;
   final String email;
   final String address;
+  final bool isLoading;
+  final void Function(bool value)? isChanged;
 
-  factory ProfileContainer.fromProfileModel(ProfileModel model){
+  factory ProfileContainer.fromProfileModel(
+    ProfileModel model, 
+    {
+      bool isLoading = false,
+      Function(bool value)? isChanged,
+    }
+  ){
 
     int? sexTemp;
     switch(model.gender){
@@ -51,6 +61,8 @@ class ProfileContainer extends StatelessWidget {
       phoneNumber: model.phone,
       email: model.email,
       address: (model.address == null) ? 'Tidak ada data' : model.address.toString(),
+      isLoading: isLoading,
+      isChanged: isChanged,
     );
   }
 
@@ -268,28 +280,53 @@ class ProfileContainer extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SuntingProfilScreen(
-                      pictureLink: pictureLink,
-                      profileName: profileName,
-                      sex: sex,
-                      uniqueId: uniqueId,
-                      phoneNumber: phoneNumber,
-                      email: email,
-                      address: address,
-                    ),
-                  )
-                );
-              },
+              ///if isLoading, no navigation
+              onTap: (isLoading)
+                  ? null
+                  : () async{
+                    bool? isChangedBool = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SuntingProfilScreen(
+                          pictureLink: pictureLink,
+                          profileName: profileName,
+                          sex: sex,
+                          uniqueId: uniqueId,
+                          phoneNumber: phoneNumber,
+                          email: email,
+                          address: address,
+                        ),
+                      )
+                    );
+                    
+                    ///Do isChanged function if isChangedBool true
+                    (isChanged != null && isChangedBool == true) ? isChanged!(true) : null;
+                  },
               borderRadius: BorderRadius.circular(5),
               highlightColor: primaryBaseColor.withOpacity(0.5),
               splashColor: primaryLightestColor.withOpacity(0.5),
             ),
           )
         ),
+
+        ///Third Stack: CircularProgressIndicator
+        (isLoading == false)
+            ? const SizedBox()
+            : Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.black.withOpacity(0.5)
+                ),
+                child: const FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: CircularProgressIndicator(
+                    backgroundColor: infoColor,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            )
       ],
     );
   }

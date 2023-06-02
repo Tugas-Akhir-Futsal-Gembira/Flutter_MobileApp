@@ -63,6 +63,7 @@ class _CustomButtonState extends State<CustomButton> {
               borderRadius: BorderRadius.circular(20)
             ),
           ),
+          ///If isLoading show circularProgressIndicator
           child: (tempController._isLoading) 
               ? const AspectRatio(
                 aspectRatio: 1,
