@@ -3,9 +3,7 @@ import 'package:flutter_application_futsal_gembira/screen/beranda/widget/field_l
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 
 class FieldListView extends StatelessWidget {
-  const FieldListView({super.key, required this.name});
-
-  final String name;
+  const FieldListView({super.key});
 
   @override
   Widget build(BuildContext context) {

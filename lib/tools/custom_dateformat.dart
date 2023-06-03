@@ -31,3 +31,67 @@ String customCurrencyFormat(int totalCurrency, { int decimalDigits = 0, bool wit
   );
   return currencyFormat.format(totalCurrency);
 }
+
+///Example input: '03 Jun 2023, 12:00',
+///
+///Output DateTime(2023, 6, 3, 12, 0)
+///
+///if value = null, return DateTime(0)
+DateTime customJsonToDateTime(String? value){
+
+  if(value == null){
+    return DateTime(0);
+  }
+
+  ///'03'
+  String tanggal = value.substring(0, 2);
+
+  ///'Jun'
+  String bulan = value.substring(3, 6);
+
+  ///'2023'
+  String tahun = value.substring(7, 11);
+
+  ///'12'
+  String jam = value.substring(13, 15);
+
+  ///'00'
+  String menit = value.substring(16);
+
+  ///Convert from String to int
+  
+  int? tanggalInt = int.tryParse(tanggal);
+  tanggalInt ??= 1;
+
+  int? bulanInt;
+
+  List<String> bulanString = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+  ];
+
+  for(int i = 0; i < bulanString.length; i++){
+    if(bulan == bulanString[i]){
+      bulanInt = i + 1;
+      break;
+    }
+  }
+  bulanInt ??= 1;
+
+  int? tahunInt = int.tryParse(tahun);
+  tahunInt ??= 0;
+
+  int? jamInt = int.tryParse(jam);
+  jamInt ??= 0;
+
+  int? menitInt = int.tryParse(menit);
+  menitInt ??= 0;
+
+  return DateTime(
+    tahunInt, 
+    bulanInt, 
+    tanggalInt,
+    jamInt,
+    menitInt
+  );
+  
+}

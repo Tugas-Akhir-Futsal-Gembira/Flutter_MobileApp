@@ -188,7 +188,7 @@ class GateService{
       // }
 
       case 2: {
-        json = await _user2service.updateProfile(
+        json = await _user2service.putUpdateProfile(
           name: name, 
           noHp: noHp, 
           address: address, 
@@ -199,12 +199,37 @@ class GateService{
       }
 
       default: {
-        json = JSONModel(message: 'Error on Get Me: Switch Case Default');
+        json = JSONModel(message: 'Error on Put Update Profile: Switch Case Default');
       }
     }
 
     return json;
+  }
 
+  ///Active Booking User(Menunjukkan satu booking paling penting)
+  static Future<JSONModel> getActiveBookingUser({
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _user2service.getActiveBookingUser();
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Active Booking User: Switch Case Default');
+      }
+    }
+
+    return json;
   }
 
 }
