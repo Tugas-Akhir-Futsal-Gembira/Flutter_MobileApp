@@ -48,6 +48,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
     int totalPrice = 74439;
 
     AbstractPenyewaanModel abstractPenyewaanModel = MenungguPembayaranModel(
+      id: 0,
       fieldName: 'Lapangan #1', 
       rentDateTime: DateTime.now(), 
       durationInt: 2, 

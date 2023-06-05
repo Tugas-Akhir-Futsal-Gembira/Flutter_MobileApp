@@ -5,12 +5,14 @@ import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 
 abstract class AbstractPenyewaanModel{
   AbstractPenyewaanModel({
+    required this.id,
     required this.fieldName,
     required this.rentDateTime,
     required this.durationInt,
     required this.createdAtDateTime,
   });
 
+  final int id;
   final String fieldName;
   final DateTime rentDateTime;
   final int durationInt;
@@ -34,6 +36,7 @@ abstract class AbstractPenyewaanModel{
           }
           default:{
             return TransaksiDibatalkanModel(
+              id: 0,
               fieldName: 'null', 
               rentDateTime: DateTime(0), 
               durationInt: 0, 
@@ -45,6 +48,7 @@ abstract class AbstractPenyewaanModel{
 
       default: {
         return TransaksiDibatalkanModel(
+          id: 0,
           fieldName: 'null', 
           rentDateTime: DateTime(0), 
           durationInt: 0, 

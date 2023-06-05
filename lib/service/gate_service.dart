@@ -258,7 +258,33 @@ class GateService{
     }
 
     return json;
+  }
 
+  ///Riwayat Booking User(Menunjukkan riwayat booking)
+  static Future<JSONModel> getRiwayatBookingUser({
+    int page = 1,
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _user2service.getRiwayatBookingUser(page: page);
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Riwayat Booking User: Switch Case Default');
+      }
+    }
+
+    return json;
   }
 
 }

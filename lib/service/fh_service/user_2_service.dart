@@ -130,4 +130,35 @@ class User2Service{
       return JSONModel(message: e.toString());
     }
   }
+
+  ///Riwayat Booking User(Menunjukkan riwayat booking)
+  Future<JSONModel> getRiwayatBookingUser({int page = 1}) async{
+
+    Response response;
+    String accessToken = await MySharedPreferences.getPref(MySharedPreferences.accessTokenKey, String);
+
+    try{
+      response = await _dio.get(
+        '$_baseUrl/user/bookings?page=$page',
+        options: Options(
+          headers: {
+            'token': accessToken
+          }
+        )
+      );
+
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: e.toString());
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
 }

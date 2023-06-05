@@ -4,6 +4,7 @@ import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart'
 
 class SudahDibayarModel extends AbstractPenyewaanModel{
   SudahDibayarModel({
+    required super.id,
     required super.fieldName, 
     required super.rentDateTime, 
     required super.durationInt, 
@@ -27,6 +28,7 @@ class SudahDibayarModel extends AbstractPenyewaanModel{
         DateTime paymentDateTime = customJsonToDateTime( json['tanggal_pembayaran'] );
 
         return SudahDibayarModel(
+          id: json['booking_id'],
           fieldName: json['name'], 
           rentDateTime: rentDateTime, 
           durationInt: json['duration'], 
@@ -40,6 +42,7 @@ class SudahDibayarModel extends AbstractPenyewaanModel{
 
       default: {
         return SudahDibayarModel(
+          id: 0,
           fieldName: 'null', 
           rentDateTime: DateTime(0), 
           durationInt: 0, 
