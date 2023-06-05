@@ -69,6 +69,7 @@ class FieldListView extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),  //Tidak ada fungsi scroll
           children: tempListField.map((e) {   //change List<FieldModel> to List<FieldGridItem>
             return FieldGridItem(
+              id: e.id,
               name: e.name, 
               timeHourStart: e.bookingOpenHour,
               timeMinuteStart: e.bookingOpenMinute, 

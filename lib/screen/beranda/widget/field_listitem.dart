@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class FieldGridItem extends StatelessWidget {
   const FieldGridItem({
     super.key, 
+    required this.id,
     required this.name, 
     required this.timeHourStart, 
     required this.timeMinuteStart,
@@ -15,6 +16,7 @@ class FieldGridItem extends StatelessWidget {
     required this.timeMinuteEnd,
   });
 
+  final int id;
   final String name;
   final int timeHourStart;
   final int timeMinuteStart;
@@ -106,7 +108,7 @@ class FieldGridItem extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(5),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailLapanganScreen(),));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailLapanganScreen(id: id),));
             },
             highlightColor: primaryBaseColor.withOpacity(0.5),
             splashColor: primaryLightestColor.withOpacity(0.5)

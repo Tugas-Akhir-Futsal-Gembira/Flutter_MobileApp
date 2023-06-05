@@ -287,4 +287,31 @@ class GateService{
     return json;
   }
 
+  ///Detail Field
+  static Future<JSONModel> getDetailField({
+    required int id,
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _field2service.getDetailField(id: id);
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Deail Field: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
 }
