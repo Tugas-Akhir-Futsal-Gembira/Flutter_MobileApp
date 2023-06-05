@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/field/field_model.dart';
 import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/detail_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/time_choosen_notifier.dart';
@@ -15,7 +16,9 @@ import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart'
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PilihJadwalScreen extends StatefulWidget {
-  const PilihJadwalScreen({super.key});
+  const PilihJadwalScreen({super.key, required this.fieldModel});
+
+  final FieldModel fieldModel;
 
   @override
   State<PilihJadwalScreen> createState() => _PilihJadwalScreenState();
@@ -406,7 +409,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                                           decoration: BoxDecoration(
                                                             // color: Colors.red,
                                                             image: DecorationImage(
-                                                              image: AssetImage(paymentChoosen.value!.logo),
+                                                              image: NetworkImage(paymentChoosen.value!.logo),
                                                             )
                                                           ),
                                                         ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/auth_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/field_2_service.dart';
+import 'package:flutter_application_futsal_gembira/service/fh_service/payment_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/user_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/futsal_gembira_service/auth_1_service.dart';
 
@@ -17,6 +18,7 @@ class GateService{
   static final Auth2Service _auth2service = Auth2Service();
   static final User2Service _user2service = User2Service();
   static final Field2Service _field2service = Field2Service();
+  static final Payment2Service _payment2service = Payment2Service();
 
   ///Register
   static Future<JSONModel> postRegister({
@@ -303,6 +305,32 @@ class GateService{
 
       case 2: {
         json = await _field2service.getDetailField(id: id);
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Deail Field: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
+  ///List Payment
+  static Future<JSONModel> getListPayment({
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _payment2service.getListPayment();
         break;
       }
 
