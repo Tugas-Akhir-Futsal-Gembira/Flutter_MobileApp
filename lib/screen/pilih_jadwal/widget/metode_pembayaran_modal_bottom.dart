@@ -102,13 +102,17 @@ class _MetodePembayaranModalBottomState extends State<MetodePembayaranModalBotto
                                         children: [
 
                                           ///ImageLogo
-                                          Container(
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                              // color: Colors.red,
-                                              image: DecorationImage(
-                                                image: NetworkImage(i.logo),
-                                              )
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                            child: Container(
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                // color: Colors.red,
+                                                image: DecorationImage(
+                                                  image: NetworkImage(i.logo),
+                                                  fit: BoxFit.contain
+                                                )
+                                              ),
                                             ),
                                           ),
 

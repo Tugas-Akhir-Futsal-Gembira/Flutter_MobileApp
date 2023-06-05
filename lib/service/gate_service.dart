@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/auth_2_service.dart';
+import 'package:flutter_application_futsal_gembira/service/fh_service/booking_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/field_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/payment_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/user_2_service.dart';
@@ -19,6 +20,7 @@ class GateService{
   static final User2Service _user2service = User2Service();
   static final Field2Service _field2service = Field2Service();
   static final Payment2Service _payment2service = Payment2Service();
+  static final Booking2Service _booking2service = Booking2Service();
 
   ///Register
   static Future<JSONModel> postRegister({
@@ -335,7 +337,73 @@ class GateService{
       }
 
       default: {
-        json = JSONModel(message: 'Error on Get Deail Field: Switch Case Default');
+        json = JSONModel(message: 'Error on Get List Payment: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
+  ///Available Field
+  static Future<JSONModel> getAvailableField({
+    required int fieldId,
+    required DateTime date,
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _booking2service.getAvailableField(fieldId: fieldId, date: date);
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Available Field: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
+  
+  ///Booking Mobile
+  static Future<JSONModel> postBookingMobile({
+    required int fieldId,
+    required DateTime bookingDate,
+    required int bookingTime,
+    required int duration,
+    required int paymentMethodId,
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _booking2service.postBookingMobile(
+          fieldId: fieldId, 
+          bookingDate: bookingDate, 
+          bookingTime: bookingTime, 
+          duration: duration, 
+          paymentMethodId: paymentMethodId
+        );
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Post Booking Mobile: Switch Case Default');
       }
     }
 
