@@ -4,7 +4,7 @@ class JSONModel{
 
   final String? status;
   final String? message;
-  final Map<String, dynamic>? data;
+  final dynamic data;
   final List<String>? errors;
   final int? statusCode;
 

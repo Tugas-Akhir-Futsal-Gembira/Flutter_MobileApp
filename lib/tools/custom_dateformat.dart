@@ -32,9 +32,9 @@ String customCurrencyFormat(int totalCurrency, { int decimalDigits = 0, bool wit
   return currencyFormat.format(totalCurrency);
 }
 
-///Example input: '03 Jun 2023, 12:00',
+///Example Output DateTime(2023, 6, 3, 12, 0),
 ///
-///Output DateTime(2023, 6, 3, 12, 0)
+///input: '03 Jun 2023, 12:00',
 ///
 ///if value = null, return DateTime(0)
 DateTime customJsonToDateTime(String? value){

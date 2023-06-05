@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/field/field_model.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
@@ -22,8 +23,9 @@ class BerandaScreen extends StatefulWidget {
 
 class _BerandaScreenState extends State<BerandaScreen> {
 
-  ValueNotifier<bool> isLoading = ValueNotifier(true);
-  ValueNotifier<AbstractPenyewaanModel?> activeBooking = ValueNotifier(null);
+  ValueNotifier<bool> isLoadingValueNotifier = ValueNotifier(true);
+  ValueNotifier<AbstractPenyewaanModel?> activeBookingValueNotifier = ValueNotifier(null);
+  ValueNotifier<List<FieldModel>?> listFieldValueNotifier = ValueNotifier(null);
 
   @override
   void initState() {
@@ -36,7 +38,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
     return Container(
       color: primaryBaseColor,
       child: ValueListenableBuilder(
-        valueListenable: isLoading,
+        valueListenable: isLoadingValueNotifier,
         builder: (context, value, child) {
           if(value){
             return const LinearProgressIndicator(
@@ -52,46 +54,58 @@ class _BerandaScreenState extends State<BerandaScreen> {
           onRefresh: () async{
             refresh();
           },
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-
-                  ///'Anda tidak punya pemesanan aktif' or PenyewaanContainer
-                  // const TidakPunyaPemesananContainer(),
-                  ValueListenableBuilder(
-                    valueListenable: activeBooking, 
-                    builder: (context, value, child) {
-
-                      return (activeBooking.value is AbstractPenyewaanModel)
-                          ? PenyewaanContainer(
-                            abstractPenyewaanModel: activeBooking.value!,
-                            transparentBackground: false,
-                            customMessage: (activeBooking.value.runtimeType is SudahDibayarModel)
-                                ? 'Semoga ${Variables.profileData!.name} mendapat pengalaman menyenangkan'
-                                : 'Batas pembayaran hingga ${customDateFormat((activeBooking.value as MenungguPembayaranModel).paymentDueDateTime!)}',
-                          )
-                          : const TidakPunyaPemesananContainer();
-                       
-                    },
-                  ),
+          child: SizedBox(
+            height: double.infinity,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
                   
-                  ///TEMP
-                  ///Status pembayaran aktif terkini
-                  PenyewaanContainer(
-                    abstractPenyewaanModel: SudahDibayarModel(
-                      fieldName: 'Lapangan#1', 
-                      rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
-                      durationInt: 2, 
-                      createdAtDateTime: DateTime.now(),
+                    ///'Anda tidak punya pemesanan aktif' or PenyewaanContainer
+                    ValueListenableBuilder(
+                      valueListenable: activeBookingValueNotifier, 
+                      builder: (context, value, child) {
+                        
+                        ///If activeBooking value is subclass of AbstractPenyewaanModel, return PenyewaanContainer
+                        ///Else (must be null) return TidakPunyaPemesananContainer
+                        return (activeBookingValueNotifier.value is AbstractPenyewaanModel)
+                            ? PenyewaanContainer(
+                              abstractPenyewaanModel: activeBookingValueNotifier.value!,
+                              transparentBackground: false,
+                              customMessage: (activeBookingValueNotifier.value.runtimeType is SudahDibayarModel)
+                                  ? 'Semoga ${Variables.profileData!.name} mendapat pengalaman menyenangkan'
+                                  : 'Batas pembayaran hingga ${customDateFormat((activeBookingValueNotifier.value as MenungguPembayaranModel).paymentDueDateTime!)}',
+                            )
+                            : const TidakPunyaPemesananContainer();
+                         
+                      },
                     ),
-                    customMessage: 'Semoga Chandra mendapat pengalaman menyenangkan',
-                    transparentBackground: false,
-                  ),
-                  const SizedBox(height: 16,),
-                  const FieldListView(),
-                ],
+                    
+                    // ///TEMP
+                    // ///Status pembayaran aktif terkini
+                    // PenyewaanContainer(
+                    //   abstractPenyewaanModel: SudahDibayarModel(
+                    //     fieldName: 'Lapangan#1', 
+                    //     rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
+                    //     durationInt: 2, 
+                    //     createdAtDateTime: DateTime.now(),
+                    //   ),
+                    //   customMessage: 'Semoga Chandra mendapat pengalaman menyenangkan',
+                    //   transparentBackground: false,
+                    // ),
+                    const SizedBox(height: 16,),
+                  
+                    ///List of Field
+                    ValueListenableBuilder(
+                      valueListenable: listFieldValueNotifier,
+                      builder: (context, value, child) {
+                        return FieldListView(listField: listFieldValueNotifier.value,);
+                      }
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -101,32 +115,35 @@ class _BerandaScreenState extends State<BerandaScreen> {
   }
 
   void refresh() async{
-    isLoading.value = true;
+    isLoadingValueNotifier.value = true;
     
     ///[
-    ///   jsonActiveBooking
+    ///   jsonActiveBooking,
+    ///   jsonListFields,
     ///]
     List<JSONModel> list = await Future.wait([
-      GateService.getActiveBookingUser()
+      GateService.getActiveBookingUser(),
+      GateService.getListFields()
     ]);
 
     JSONModel jsonActiveBooking = list[0];
-    print(jsonActiveBooking.toString1());
+    JSONModel jsonListFields = list[1];
+    print(jsonListFields.toString1());
 
     ///If no activeBooking, return null
     ///Else return to child class of AbstractPenyewaanModel 
-    activeBooking.value = (jsonActiveBooking.data == null)
+    activeBookingValueNotifier.value = (jsonActiveBooking.data == null)
         ? null
         : AbstractPenyewaanModel.fromJSON(jsonActiveBooking.data!);
-    
-    print(activeBooking.value);
 
-    
-
-    isLoading.value = false;
-    // Timer( 
-    //   const Duration(seconds: 1), 
-    //   ()=> isLoading.value = false,
-    // );
+    ///If no listField, return null
+    ///Else return to list of FieldModel
+    listFieldValueNotifier.value = (jsonListFields.data == null)
+        ? null
+        : (jsonListFields.data as List).map((e){
+          return FieldModel.fromJSONListField(e as Map<String, dynamic>);
+        }).toList();
+        
+    isLoadingValueNotifier.value = false;
   }
 }
