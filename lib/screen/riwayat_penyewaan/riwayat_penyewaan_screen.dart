@@ -159,7 +159,17 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
       }).toList();
       listPenyewaanModel.addAll(tempListPenyewaanModel);
 
-      riwayatExtendable = (json.data['total_item'] * int.parse(json.data['current_page']) < json.data['total_all_item'])
+      /// jika jumlah maximum item per page (5) x lembar sekarang < total jumlah item
+      /// riwayat extendable = true
+      /// Contoh1:  Sekarang lembar 2, maximum item per page 5,
+      ///           Teorinya ada 10 item yang sudah di dapatkan
+      ///           Total Jumlah item contohnya ada 17
+      ///           Maka jika 5 x 2 < 17 -> riwayatExtendable = true(dapat menarik data lebih banyak)
+      /// Contoh2:  Sekarang lembar 4, maximum item per page 5,
+      ///           Teorinya ada 20 item yang sudah di dapatkan
+      ///           Total jumlah item contohnya ada 17
+      ///           Maka jika 5 x 4 < 17 -> riwayatExtendable = false(tidak dapat menarik data lebih banyak)
+      riwayatExtendable = (5 * int.parse(json.data['current_page']) < json.data['total_all_item'])
           ? true : false;
       riwayatPageValueNotifier.value += 1;
     }
