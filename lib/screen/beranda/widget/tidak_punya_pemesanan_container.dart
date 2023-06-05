@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 
-class WelcomeContainer extends StatelessWidget {
-  const WelcomeContainer({super.key, required this.name});
-
-  final String name;
+class TidakPunyaPemesananContainer extends StatelessWidget {
+  const TidakPunyaPemesananContainer({super.key,});
 
   @override
   Widget build(BuildContext context) {

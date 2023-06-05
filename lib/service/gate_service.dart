@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/auth_2_service.dart';
+import 'package:flutter_application_futsal_gembira/service/fh_service/field_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/fh_service/user_2_service.dart';
 import 'package:flutter_application_futsal_gembira/service/futsal_gembira_service/auth_1_service.dart';
 
@@ -15,6 +16,7 @@ class GateService{
 
   static final Auth2Service _auth2service = Auth2Service();
   static final User2Service _user2service = User2Service();
+  static final Field2Service _field2service = Field2Service();
 
   ///Register
   static Future<JSONModel> postRegister({
@@ -188,7 +190,7 @@ class GateService{
       // }
 
       case 2: {
-        json = await _user2service.updateProfile(
+        json = await _user2service.putUpdateProfile(
           name: name, 
           noHp: noHp, 
           address: address, 
@@ -199,7 +201,59 @@ class GateService{
       }
 
       default: {
-        json = JSONModel(message: 'Error on Get Me: Switch Case Default');
+        json = JSONModel(message: 'Error on Put Update Profile: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
+  ///Active Booking User(Menunjukkan satu booking paling penting)
+  static Future<JSONModel> getActiveBookingUser({
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _user2service.getActiveBookingUser();
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Active Booking User: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
+  ///List Fields
+  static Future<JSONModel> getListFields({
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _field2service.getListFields();
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get List Fields: Switch Case Default');
       }
     }
 
