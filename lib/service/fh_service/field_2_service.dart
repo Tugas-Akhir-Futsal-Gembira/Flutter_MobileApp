@@ -38,4 +38,37 @@ class Field2Service{
       return JSONModel(message: e.toString());
     }
   }
+
+  ///Detail Fields
+  Future<JSONModel> getDetailField({
+    required int id,
+  }) async{
+
+    Response response;
+    String accessToken = await MySharedPreferences.getPref(MySharedPreferences.accessTokenKey, String);
+
+    try{
+      response = await _dio.get(
+        '$_baseUrl/fields/$id',
+        options: Options(
+          headers: {
+            'token': accessToken
+          }
+        )
+      );
+
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: e.toString());
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
 }

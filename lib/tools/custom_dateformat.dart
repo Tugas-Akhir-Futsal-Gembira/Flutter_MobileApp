@@ -32,7 +32,7 @@ String customCurrencyFormat(int totalCurrency, { int decimalDigits = 0, bool wit
   return currencyFormat.format(totalCurrency);
 }
 
-///Example Output DateTime(2023, 6, 3, 12, 0),
+///Example Output: DateTime(2023, 6, 3, 12, 0),
 ///
 ///input: '03 Jun 2023, 12:00',
 ///
@@ -94,4 +94,19 @@ DateTime customJsonToDateTime(String? value){
     menitInt
   );
   
+}
+
+///Example: 'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu
+String customActiveDaysString(List<String> listDays){
+  String returnStr = '';
+  for(int i = 0; i < listDays.length; i++){
+    if(i != listDays.length - 1){
+      returnStr += '${listDays[i]}, ';
+    }
+    else{
+      returnStr += listDays[i];
+    }
+  }
+
+  return returnStr;
 }

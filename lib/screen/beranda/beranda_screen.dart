@@ -75,7 +75,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
                             ? PenyewaanContainer(
                               abstractPenyewaanModel: activeBookingValueNotifier.value!,
                               transparentBackground: false,
-                              customMessage: (activeBookingValueNotifier.value.runtimeType is SudahDibayarModel)
+                              customMessage: (activeBookingValueNotifier.value.runtimeType == SudahDibayarModel)
                                   ? 'Semoga ${Variables.profileData!.name} mendapat pengalaman menyenangkan'
                                   : 'Batas pembayaran hingga ${customDateFormat((activeBookingValueNotifier.value as MenungguPembayaranModel).paymentDueDateTime!)}',
                             )
@@ -83,19 +83,6 @@ class _BerandaScreenState extends State<BerandaScreen> {
                          
                       },
                     ),
-                    
-                    // ///TEMP
-                    // ///Status pembayaran aktif terkini
-                    // PenyewaanContainer(
-                    //   abstractPenyewaanModel: SudahDibayarModel(
-                    //     fieldName: 'Lapangan#1', 
-                    //     rentDateTime: DateTime.now().add(const Duration(hours: 2)), 
-                    //     durationInt: 2, 
-                    //     createdAtDateTime: DateTime.now(),
-                    //   ),
-                    //   customMessage: 'Semoga Chandra mendapat pengalaman menyenangkan',
-                    //   transparentBackground: false,
-                    // ),
                     const SizedBox(height: 16,),
                   
                     ///List of Field

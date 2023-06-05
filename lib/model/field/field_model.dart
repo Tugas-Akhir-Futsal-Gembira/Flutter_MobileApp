@@ -1,4 +1,3 @@
-import 'package:flutter_application_futsal_gembira/enum/day_enum.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 
 class FieldModel{
@@ -10,7 +9,8 @@ class FieldModel{
     required this.bookingOpenMinute,
     required this.bookingCloseHour,
     required this.bookingCloseMinute,
-    this.waktuMulaiMalam,
+    this.waktuMulaiMalamHour,
+    this.waktuMulaiMalamMinute,
     required this.harga,
     this.hargaMalam,
     this.daysActive,
@@ -24,10 +24,11 @@ class FieldModel{
   final int bookingOpenMinute;
   final int bookingCloseHour;
   final int bookingCloseMinute;
-  final int? waktuMulaiMalam;
+  final int? waktuMulaiMalamHour;
+  final int? waktuMulaiMalamMinute;
   final int harga;
   final int? hargaMalam;
-  final List<DayEnum>? daysActive;
+  final List<String>? daysActive;
   final List<String> gallery;
 
   factory FieldModel.fromJSONListField(Map<String, dynamic> json, {int? numService}) {
@@ -47,6 +48,51 @@ class FieldModel{
           gallery: [
             json['image']
           ]
+        );
+      }
+
+      default: {
+        return FieldModel(
+          id: 0, 
+          name: 'null', 
+          bookingOpenHour: 0, 
+          bookingOpenMinute: 0,
+          bookingCloseHour: 0, 
+          bookingCloseMinute: 0,
+          harga: 0,
+          gallery: []
+        );
+      }
+    }
+  }
+
+  factory FieldModel.fromJSONDetailField(Map<String, dynamic> json, int id, {int? numService}) {
+    numService ??= GateService.numService;
+
+    switch(numService){
+      case 2: {
+        return FieldModel(
+          id: id, 
+          name: json['name'], 
+          bookingOpenHour: int.parse((json['booking_open'] as String).substring(0,2)), 
+          bookingOpenMinute: int.parse((json['booking_open'] as String).substring(3, 5)),
+          bookingCloseHour: int.parse((json['booking_close'] as String).substring(0,2)),
+          bookingCloseMinute: int.parse((json['booking_close'] as String).substring(3, 5)),
+          description: json['description'],
+          harga: json['harga'], 
+          hargaMalam: json['harga_malam'],
+          waktuMulaiMalamHour: (json['waktu_mulai_malam'] != null)
+              ? int.tryParse((json['waktu_mulai_malam'] as String).substring(0,2))
+              : null,
+          waktuMulaiMalamMinute: (json['waktu_mulai_malam'] != null)
+              ? int.tryParse((json['waktu_mulai_malam'] as String).substring(3,5))
+              : null,
+          daysActive: (json['days_active'] as List).map((e) {
+            return e['day_name'] as String;
+          }).toList(),
+          gallery: (json['galleries'] as List).map((e) {
+            return e['image'].toString();
+          }).toList()
         );
       }
 
