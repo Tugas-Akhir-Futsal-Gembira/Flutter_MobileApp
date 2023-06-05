@@ -89,7 +89,7 @@ class PenyewaanContainer extends StatelessWidget {
                               ),
                               const SizedBox(height: 2,),
                               Text(
-                                customDateFormat(abstractPenyewaanModel.createdAtDateTime),
+                                customDateFormat(abstractPenyewaanModel.rentDateTime),
                                 style: const TextStyle(
                                   fontWeight: medium,
                                   fontSize: 12,
