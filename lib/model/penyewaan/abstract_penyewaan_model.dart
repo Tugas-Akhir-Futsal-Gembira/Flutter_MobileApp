@@ -29,7 +29,7 @@ abstract class AbstractPenyewaanModel{
           case 'paid': {
             return SudahDibayarModel.fromJSON(json);
           }
-          case 'expired': {
+          case 'canceled': {
             return TransaksiDibatalkanModel.fromJSON(json);
           }
           default:{

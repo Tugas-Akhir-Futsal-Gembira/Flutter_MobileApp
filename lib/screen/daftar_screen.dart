@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
@@ -205,6 +206,7 @@ class DaftarScreen extends StatelessWidget {
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   CustomSnackbar(
                                                     title: json.getErrorToString(),
+                                                    color: error2Color,
                                                   )
                                                 );
                                               }

@@ -5,7 +5,9 @@ import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/kelu
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/pengaturan_listitem.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/profile_container.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/variables/variables.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 
 class PengaturanScreen extends StatefulWidget {
   const PengaturanScreen({super.key});
@@ -99,6 +101,14 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
     JSONModel json = await GateService.getMe();
     if(json.statusCode == 200){
       Variables.profileData = ProfileModel.fromJSON(json.data!);
+    }
+    else if(context.mounted){
+      ScaffoldMessenger.of(context).showSnackBar(
+        CustomSnackbar(
+          title: json.getErrorToString(),
+          color: error2Color,
+        )
+      );
     }
 
     isLoadingValueNotifier.value = false;

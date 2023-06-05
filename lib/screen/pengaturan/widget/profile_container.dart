@@ -309,7 +309,7 @@ class ProfileContainer extends StatelessWidget {
           )
         ),
 
-        ///Third Stack: CircularProgressIndicator
+        ///Third Stack: CircularProgressIndicator (showed if isLoading is true)
         (isLoading == false)
             ? const SizedBox()
             : Positioned.fill(

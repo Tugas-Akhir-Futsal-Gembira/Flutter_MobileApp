@@ -5,6 +5,7 @@ import 'package:flutter_application_futsal_gembira/model/profile/profile_model.d
 import 'package:flutter_application_futsal_gembira/screen/daftar_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/lupa_password/lupa_password_screen.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
+import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
 import 'package:flutter_application_futsal_gembira/variables/variables.dart';
@@ -205,6 +206,7 @@ class LoginScreen extends StatelessWidget {
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   CustomSnackbar(
                                                     title: json.getErrorToString(),
+                                                    color: error2Color,
                                                   )
                                                 );
                                               }

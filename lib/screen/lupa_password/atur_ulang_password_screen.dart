@@ -271,8 +271,7 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                               }
                                               else if (context.mounted){
                                                 ScaffoldMessenger.of(context).showSnackBar(
-                                                  // CustomSnackbar(title: json.statusCode.toString() + json.message.toString())
-                                                  CustomSnackbar(title: json.getErrorToString())
+                                                  CustomSnackbar(title: json.getErrorToString(), color: error2Color,)
                                                 );
                                               }
                                             }
