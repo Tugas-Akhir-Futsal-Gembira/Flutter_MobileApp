@@ -193,7 +193,7 @@ class PenyewaanContainer extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context, 
-                    MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen(),)
+                    MaterialPageRoute(builder: (context) => DetailPenyewaanScreen(bookingId: abstractPenyewaanModel.id),)
                   );
                 },
                 borderRadius: BorderRadius.circular(5),

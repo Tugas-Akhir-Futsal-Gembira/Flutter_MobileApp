@@ -18,7 +18,7 @@ class MenungguPembayaranModel extends AbstractPenyewaanModel{
   final DateTime? paymentDueDateTime;
   final String? paymentCode;
 
-  factory MenungguPembayaranModel.fromJSON(Map<String, dynamic> json, {int? numService}){
+  factory MenungguPembayaranModel.fromJSON(Map<String, dynamic> json, {int? bookingId, int? numService}){
     numService ??= GateService.numService;
 
     switch(numService){
@@ -28,8 +28,8 @@ class MenungguPembayaranModel extends AbstractPenyewaanModel{
         DateTime paymentDueDateTime = customJsonToDateTime( json['tanggal_batas_pembayaran'] );
 
         return MenungguPembayaranModel(
-          id: json['booking_id'],
-          fieldName: json['name'], 
+          id: (json['booking_id'] != null) ? json['booking_id'] : bookingId,
+          fieldName: (json['name'] != null) ? json['name'] : json['field_name'], 
           rentDateTime: rentDateTime, 
           durationInt: json['duration'], 
           createdAtDateTime: createdAtDateTime,

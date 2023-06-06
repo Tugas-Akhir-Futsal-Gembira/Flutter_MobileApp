@@ -1,17 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/widget/status_penyewaan.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
 import 'package:flutter_application_futsal_gembira/widget/biaya_sewa.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailPenyewaanScreen extends StatefulWidget {
-  const DetailPenyewaanScreen({super.key});
+  const DetailPenyewaanScreen({super.key, required this.bookingId});
+  
+  final int bookingId;
 
   @override
   State<DetailPenyewaanScreen> createState() => _DetailPenyewaanScreenState();
@@ -21,15 +26,11 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
 
   ValueNotifier<bool> isLoading = ValueNotifier(true);
   ScrollController fieldScrollController = ScrollController();
+  AbstractPenyewaanModel? abstractPenyewaanModel;
 
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   refreshDummy();
-    //   print('fieldScroll');
-    //   // fieldScrollController.animateTo(18, duration: const Duration(seconds: 2), curve: Curves.easeOutCubic);
-    // });
     refreshDummy();
   }
 
@@ -47,16 +48,16 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
     int adminPriceNominal = 4440;
     int totalPrice = 74439;
 
-    AbstractPenyewaanModel abstractPenyewaanModel = MenungguPembayaranModel(
-      id: 0,
-      fieldName: 'Lapangan #1', 
-      rentDateTime: DateTime.now(), 
-      durationInt: 2, 
-      createdAtDateTime: DateTime.now(),
-      paymentCode: '1234567890123456',
-      paymentDueDateTime: DateTime(2023, 1, 21, 8, 15),
-      paymentMethod: 'Virtual Account BCA'
-    );
+    // AbstractPenyewaanModel abstractPenyewaanModel = MenungguPembayaranModel(
+    //   id: 0,
+    //   fieldName: 'Lapangan #1', 
+    //   rentDateTime: DateTime.now(), 
+    //   durationInt: 2, 
+    //   createdAtDateTime: DateTime.now(),
+    //   paymentCode: '1234567890123456',
+    //   paymentDueDateTime: DateTime(2023, 1, 21, 8, 15),
+    //   paymentMethod: 'Virtual Account BCA'
+    // );
 
     // AbstractPenyewaanModel abstractPenyewaanModel = SudahDibayarModel(
     //   fieldName: 'Lapangan #1', 
@@ -152,212 +153,215 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                 return true;
               }
             },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              controller: scrollController,
-              child: Column(
-                children: [
-                        
-                  ///Image with field name, booking time date, booking duration
-                  Stack(
-                    children: [
-                        
-                      ///Image
-                      AspectRatio(
-                        aspectRatio: 428/302,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: const AssetImage('assets/image/Lapangan futsal wallpaper.jpg'),
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.7), 
-                                BlendMode.srcATop
-                              ),
-                            )
+            child: SizedBox(
+              height: double.infinity,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                controller: scrollController,
+                child: Column(
+                  children: [
+                          
+                    ///Image with field name, booking time date, booking duration
+                    Stack(
+                      children: [
+                          
+                        ///Image
+                        AspectRatio(
+                          aspectRatio: 428/302,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: const AssetImage('assets/image/Lapangan futsal wallpaper.jpg'),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.7), 
+                                  BlendMode.srcATop
+                                ),
+                              )
+                            ),
                           ),
                         ),
-                      ),
-                        
-                      ///Bunch of Data Text
-                      Positioned.fill(
-                        child: Container(
-                          // color: Colors.amber,
-                          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                          ///For dividing notch(and System UI) and content(such as 'Lapangan #1', 'Tanggal & Waktu Sewa')
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.of(context).viewPadding.top + 71, //notch and systemUI + AppBar height
-                              ),
-                              Expanded(
-                                child: ValueListenableBuilder(
-                                  valueListenable: isLoading,
-                                  builder: (context, value, child) {
-                                    
-                                    (isLoading.value == true)
-                                        ? null
-                                        : Future.delayed( const Duration(milliseconds: 0),() {
-                                          if(fieldScrollController.hasClients){
-                                            fieldScrollController.animateTo(
-                                              18, 
-                                              duration: const Duration(seconds: 2), 
-                                              curve: Curves.easeOutCubic
-                                            );
-                                          }
-                                        },);
-                        
-                                    return (isLoading.value == true)
-                                        ? const SizedBox()
-                                        : SizedBox(
-                                          width: double.infinity,
-                                          ///Bunch of field data
-                                          child: LayoutBuilder(
-                                            builder: (p0context1, p1constraint1) {
-                                              return SingleChildScrollView(
-                                                controller: fieldScrollController,
-                                                child: ConstrainedBox(
-                                                  constraints: BoxConstraints(
-                                                    minHeight: p1constraint1.maxHeight
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      const SizedBox(height: 18,),
-                        
-                                                      ///'Lapangan #1'
-                                                      Text(
-                                                        abstractPenyewaanModel.fieldName,
-                                                        style: const TextStyle(
-                                                          fontWeight: semiBold,
-                                                          fontSize: 24,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(height: 28,),
-                        
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                const Text(
-                                                                  'Tanggal & Waktu Sewa',
-                                                                  style: TextStyle(
-                                                                    fontWeight: regular,
-                                                                    fontSize: 14
-                                                                  ),
-                                                                ),
-                                                                ///21 Januari 2023, 08:00
-                                                                Text(
-                                                                  customDateFormat(abstractPenyewaanModel.rentDateTime),
-                                                                  style: const TextStyle(
-                                                                    fontWeight: semiBold,
-                                                                    fontSize: 16
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          const SizedBox(width: 32,),
-                        
-                                                          Expanded(
-                                                            child: Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                const Text(
-                                                                  'Durasi Sewa',
-                                                                  style: TextStyle(
-                                                                    fontWeight: regular,
-                                                                    fontSize: 14
-                                                                  ),
-                                                                ),
-                                                                ///2 jam
-                                                                Text(
-                                                                  '${abstractPenyewaanModel.durationInt} jam',
-                                                                  style: const TextStyle(
-                                                                    fontWeight: semiBold,
-                                                                    fontSize: 16
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )                                  
-                                                    ],
-                                                  ),
-                                                ),
+                          
+                        ///Bunch of Data Text
+                        Positioned.fill(
+                          child: Container(
+                            // color: Colors.amber,
+                            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                            ///For dividing notch(and System UI) and content(such as 'Lapangan #1', 'Tanggal & Waktu Sewa')
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: MediaQuery.of(context).viewPadding.top + 71, //notch and systemUI + AppBar height
+                                ),
+                                Expanded(
+                                  child: ValueListenableBuilder(
+                                    valueListenable: isLoading,
+                                    builder: (context, value, child) {
+                                      
+                                      (isLoading.value == true)
+                                          ? null
+                                          : Future.delayed( const Duration(milliseconds: 0),() {
+                                            if(fieldScrollController.hasClients){
+                                              fieldScrollController.animateTo(
+                                                18, 
+                                                duration: const Duration(seconds: 2), 
+                                                curve: Curves.easeOutCubic
                                               );
                                             }
-                                          ),
-                                        );
-                                  }
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                        
-                    ],
-                  ),///End of Image and Bunch of Field Data,
-                        
-                  ///Status and Biaya Sewa
-                  ValueListenableBuilder(
-                    valueListenable: isLoading,
-                    builder: (context, value, child) {
-                      
-                      return (isLoading.value == true)
-                          ? const LinearProgressIndicator(
-                            color: infoColor,
-                            backgroundColor: primaryLightestColor,
-                          )
-                          : Padding(
-                            padding: const EdgeInsets.all(16), 
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                        
-                                ///Status
-                                const Text(
-                                  'Status',
-                                  style: TextStyle(
-                                    fontWeight: semiBold,
-                                    fontSize: 16
+                                          },);
+                          
+                                      return (isLoading.value == true)
+                                          ? const SizedBox()
+                                          : SizedBox(
+                                            width: double.infinity,
+                                            ///Bunch of field data
+                                            child: LayoutBuilder(
+                                              builder: (p0context1, p1constraint1) {
+                                                return SingleChildScrollView(
+                                                  controller: fieldScrollController,
+                                                  child: ConstrainedBox(
+                                                    constraints: BoxConstraints(
+                                                      minHeight: p1constraint1.maxHeight
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        const SizedBox(height: 18,),
+                          
+                                                        ///'Lapangan #1'
+                                                        Text(
+                                                          abstractPenyewaanModel!.fieldName,
+                                                          style: const TextStyle(
+                                                            fontWeight: semiBold,
+                                                            fontSize: 24,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(height: 28,),
+                          
+                                                        Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  const Text(
+                                                                    'Tanggal & Waktu Sewa',
+                                                                    style: TextStyle(
+                                                                      fontWeight: regular,
+                                                                      fontSize: 14
+                                                                    ),
+                                                                  ),
+                                                                  ///21 Januari 2023, 08:00
+                                                                  Text(
+                                                                    customDateFormat(abstractPenyewaanModel!.rentDateTime),
+                                                                    style: const TextStyle(
+                                                                      fontWeight: semiBold,
+                                                                      fontSize: 16
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            const SizedBox(width: 32,),
+                          
+                                                            Expanded(
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  const Text(
+                                                                    'Durasi Sewa',
+                                                                    style: TextStyle(
+                                                                      fontWeight: regular,
+                                                                      fontSize: 14
+                                                                    ),
+                                                                  ),
+                                                                  ///2 jam
+                                                                  Text(
+                                                                    '${abstractPenyewaanModel!.durationInt} jam',
+                                                                    style: const TextStyle(
+                                                                      fontWeight: semiBold,
+                                                                      fontSize: 16
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )                                  
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            ),
+                                          );
+                                    }
                                   ),
                                 ),
-                                const SizedBox(height: 4,),
-                        
-                                StatusPenyewaan(model: abstractPenyewaanModel),
-                        
-                        
-                                const SizedBox(height: 16,),
-                        
-                                ///Biaya Sewa
-                                const Text(
-                                  'Biaya Sewa',
-                                  style: TextStyle(
-                                    fontWeight: semiBold,
-                                    fontSize: 16
-                                  ),
-                                ),
-                                const SizedBox(height: 4,),
-                        
-                                BiayaSewa(
-                                  fieldDayPrice: fieldDayPrice,
-                                  durationDay: durationDay,
-                                  adminPriceNominal: adminPriceNominal,
-                                  totalPrice:  totalPrice,
-                                )
                               ],
                             ),
-                          );
-                    }
-                  )
-                ],
-              )
+                          ),
+                        )
+                          
+                      ],
+                    ),///End of Image and Bunch of Field Data,
+                          
+                    ///Status and Biaya Sewa
+                    ValueListenableBuilder(
+                      valueListenable: isLoading,
+                      builder: (context, value, child) {
+                        
+                        return (isLoading.value == true)
+                            ? const LinearProgressIndicator(
+                              color: infoColor,
+                              backgroundColor: primaryLightestColor,
+                            )
+                            : Padding(
+                              padding: const EdgeInsets.all(16), 
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                          
+                                  ///Status
+                                  const Text(
+                                    'Status',
+                                    style: TextStyle(
+                                      fontWeight: semiBold,
+                                      fontSize: 16
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4,),
+                          
+                                  StatusPenyewaan(model: abstractPenyewaanModel!),
+                          
+                          
+                                  const SizedBox(height: 16,),
+                          
+                                  ///Biaya Sewa
+                                  const Text(
+                                    'Biaya Sewa',
+                                    style: TextStyle(
+                                      fontWeight: semiBold,
+                                      fontSize: 16
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4,),
+                          
+                                  BiayaSewa(
+                                    fieldDayPrice: fieldDayPrice,
+                                    durationDay: durationDay,
+                                    adminPriceNominal: adminPriceNominal,
+                                    totalPrice:  totalPrice,
+                                  )
+                                ],
+                              ),
+                            );
+                      }
+                    )
+                  ],
+                )
+              ),
             ),
           ),
         ),
@@ -365,9 +369,21 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
     );
   }
 
-  void refreshDummy(){
+  Future<void> refreshDummy() async{
     isLoading.value = true;
-    Future.delayed(const Duration(seconds: 1), ()=> isLoading.value = false);
-    // fieldScrollController.animateTo(18, duration: const Duration(seconds: 2), curve: Curves.easeOutCubic);
+
+    JSONModel json = await GateService.getDetailBookingUser(bookingId: widget.bookingId);
+    
+    if(json.statusCode == 200){
+      abstractPenyewaanModel = AbstractPenyewaanModel.fromJSON(json.data, bookingId: widget.bookingId);
+    }
+    else if(context.mounted){
+      ScaffoldMessenger.of(context).showSnackBar(
+        CustomSnackbar(title: json.getErrorToString(), color: error2Color,)
+      );
+      Navigator.pop(context);
+    }
+
+    isLoading.value = false;
   }
 }

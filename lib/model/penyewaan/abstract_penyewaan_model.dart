@@ -18,7 +18,7 @@ abstract class AbstractPenyewaanModel{
   final int durationInt;
   final DateTime createdAtDateTime;
 
-  factory AbstractPenyewaanModel.fromJSON(Map<String, dynamic> json, {int? numService}){
+  factory AbstractPenyewaanModel.fromJSON(Map<String, dynamic> json, {int? bookingId, int? numService}){
     numService ??= GateService.numService;
 
     switch(numService){
@@ -26,13 +26,13 @@ abstract class AbstractPenyewaanModel{
         
         switch(json['status_bayar']){
           case 'waiting': {
-            return MenungguPembayaranModel.fromJSON(json);
+            return MenungguPembayaranModel.fromJSON(json, bookingId: bookingId);
           }
           case 'paid': {
-            return SudahDibayarModel.fromJSON(json);
+            return SudahDibayarModel.fromJSON(json, bookingId: bookingId);
           }
           case 'canceled': {
-            return TransaksiDibatalkanModel.fromJSON(json);
+            return TransaksiDibatalkanModel.fromJSON(json, bookingId: bookingId);
           }
           default:{
             return TransaksiDibatalkanModel(

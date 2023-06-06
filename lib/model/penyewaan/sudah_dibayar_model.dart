@@ -18,7 +18,7 @@ class SudahDibayarModel extends AbstractPenyewaanModel{
   final DateTime? paymentDateTime;
   final String? checkInCode;
   
-  factory SudahDibayarModel.fromJSON(Map<String, dynamic> json, {int? numService}){
+  factory SudahDibayarModel.fromJSON(Map<String, dynamic> json, {int? bookingId, int? numService}){
     numService ??= GateService.numService;
 
     switch(numService){
@@ -28,8 +28,8 @@ class SudahDibayarModel extends AbstractPenyewaanModel{
         DateTime paymentDateTime = customJsonToDateTime( json['tanggal_pembayaran'] );
 
         return SudahDibayarModel(
-          id: json['booking_id'],
-          fieldName: json['name'], 
+          id: (json['booking_id'] != null) ? json['booking_id'] : bookingId,
+          fieldName: (json['name'] != null) ? json['name'] : json['field_name'], 
           rentDateTime: rentDateTime, 
           durationInt: json['duration'], 
           createdAtDateTime: createdAtDateTime,

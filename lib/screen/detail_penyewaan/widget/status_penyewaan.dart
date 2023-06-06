@@ -75,6 +75,7 @@ class StatusPenyewaan extends StatelessWidget {
                               ],
                             ),
                           ),
+                          const SizedBox(width: 8,),
 
                           Expanded(
                             child: Column(
@@ -172,6 +173,7 @@ class StatusPenyewaan extends StatelessWidget {
                               ],
                             ),
                           ),
+                          const SizedBox(width: 8,),
 
                           Expanded(
                             child: Column(

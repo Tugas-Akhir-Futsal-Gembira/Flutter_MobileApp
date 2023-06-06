@@ -410,4 +410,31 @@ class GateService{
     return json;
   }
 
+  ///Detail Booking User
+  static Future<JSONModel> getDetailBookingUser({
+    required int bookingId,
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _user2service.getDetailBookingUser(bookingId: bookingId);
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Detail Booking User: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
+
 }

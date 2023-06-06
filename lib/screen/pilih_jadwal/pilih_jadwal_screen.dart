@@ -611,7 +611,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                     if(json.statusCode == 200 && context.mounted){
                                       Navigator.pushAndRemoveUntil(
                                         context, 
-                                        MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen()), 
+                                        MaterialPageRoute(builder: (context) => DetailPenyewaanScreen(bookingId: widget.fieldModel.id,)), 
                                         (route) => route.isFirst,
                                       );
                                     }
