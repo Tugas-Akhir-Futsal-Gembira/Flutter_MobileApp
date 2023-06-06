@@ -10,11 +10,13 @@ class MenungguPembayaranModel extends AbstractPenyewaanModel{
     required super.durationInt, 
     required super.createdAtDateTime,
     this.paymentMethod,
+    this.paymentMethodId,
     this.paymentDueDateTime,
     this.paymentCode,
   });
 
   final String? paymentMethod;
+  final int? paymentMethodId;
   final DateTime? paymentDueDateTime;
   final String? paymentCode;
 
@@ -33,10 +35,10 @@ class MenungguPembayaranModel extends AbstractPenyewaanModel{
           rentDateTime: rentDateTime, 
           durationInt: json['duration'], 
           createdAtDateTime: createdAtDateTime,
-          paymentCode: json['verification_code'],
-          ///TEMP
+          paymentCode: json['virtual_account_code'],
           paymentDueDateTime: paymentDueDateTime,
-          paymentMethod: 'TEST PAYMENT METHOD - MENUNGGU PEMBAYARAN'
+          paymentMethod: json['booking_payment_method_name'],
+          paymentMethodId: json['payment_method_id'],
         );
 
       }

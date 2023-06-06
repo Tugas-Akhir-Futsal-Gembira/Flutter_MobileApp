@@ -20,12 +20,23 @@ class PaymentMethodsModel{
   factory PaymentMethodsModel.fromJSON(Map<String, dynamic> json, {int? numService}) {
     numService ??= GateService.numService;
 
-    return PaymentMethodsModel(
-      paymentMethodsId: json['payment_method_id'], 
-      logo: json['logo'], 
-      paymentMethodName: json['payment_method_name'],
-      paymentAdminNominal: json['payment_admin_nominal'],
-    );
-  }
+    switch(numService){
+      case 2: {
+        return PaymentMethodsModel(
+          paymentMethodsId: json['payment_method_id'], 
+          logo: json['logo'], 
+          paymentMethodName: json['payment_method_name'],
+          paymentAdminNominal: json['payment_admin_nominal'],
+        );
+      }
 
+      default: {
+        return PaymentMethodsModel(
+          paymentMethodsId: 0, 
+          logo: 'null', 
+          paymentMethodName: 'null'
+        );
+      }
+    }
+  }
 }

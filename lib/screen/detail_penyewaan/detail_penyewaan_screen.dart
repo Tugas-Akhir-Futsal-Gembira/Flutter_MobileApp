@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
-import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/widget/status_penyewaan.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
