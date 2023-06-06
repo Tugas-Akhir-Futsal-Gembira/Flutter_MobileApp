@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/profile/profile_model.dart';
+import 'package:flutter_application_futsal_gembira/screen/aturan_penyewaan/aturan_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/keluar_dialog.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/pengaturan_listitem.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/profile_container.dart';
@@ -69,11 +70,13 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                 ),
                 const SizedBox(height: 8,),
               
-                ///Third Row: Dukungan
+                ///Third Row: Aturan Penyewaan
                 PengaturanListItem(
-                  title: 'Dukungan',
+                  title: 'Aturan Penyewaan',
                   assetName: 'assets/icon/Question-Circle.svg',
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AturanPenyewaanScreen(),));
+                  },
                 ),
                 const SizedBox(height: 8,),
                 
