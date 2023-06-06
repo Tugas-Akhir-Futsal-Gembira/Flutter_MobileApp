@@ -90,7 +90,8 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
         setPilihWaktuInitialValue(
           json, 
           nearestBookHour: Variables.nearestBookHour, 
-          dateOfField: now.add(Duration(hours: widget.fieldModel.bookingOpenHour))
+          // dateOfField: now.add(Duration(hours: widget.fieldModel.bookingOpenHour))
+          dateOfField: DateTime(now.year, now.month, now.day).add(Duration(hours: widget.fieldModel.bookingOpenHour))
         );
       }
       else if(context.mounted){
@@ -586,7 +587,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                               onPressed: (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true )
                                   ? () async{
                                     customButtonController.isLoading = true;
-                                    await Future.delayed(Duration(seconds: 1));
+                                    // await Future.delayed(Duration(seconds: 1));
                                     int bookingTime = pilihWaktuController.value.indexOf(2) + widget.fieldModel.bookingOpenHour;
                                     int duration = 0;
                                     for(int i in pilihWaktuController.value){
@@ -598,7 +599,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                     JSONModel json = await GateService.postBookingMobile(
                                       fieldId: widget.fieldModel.id, 
                                       bookingDate: dateChoosen.value!, 
-                                      bookingTime: widget.fieldModel.bookingOpenHour, 
+                                      bookingTime: bookingTime, 
                                       duration: duration, 
                                       paymentMethodId: paymentChoosen.value!.paymentMethodsId
                                     );
@@ -639,6 +640,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
 
   ///Set initialValue of pilihWaktuController from JSONModel
   void setPilihWaktuInitialValue(JSONModel json, {required int nearestBookHour, required DateTime dateOfField}){
+    print(dateOfField);
     ///Convert Map<String, dynamic> json.data to List<int> listAvailableField
     List<int> listAvailableField = [];
     (json.data as Map<String, dynamic>).forEach((key, value) => listAvailableField.add((value as bool) ? 1 : 0));
