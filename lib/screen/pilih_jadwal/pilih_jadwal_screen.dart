@@ -3,6 +3,7 @@ import 'package:flutter_application_futsal_gembira/model/field/field_model.dart'
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/detail_penyewaan_screen.dart';
+import 'package:flutter_application_futsal_gembira/screen/main_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/time_choosen_notifier.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/pilih_waktu.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/show_metode_pembayaran.dart';
@@ -603,16 +604,23 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                       duration: duration, 
                                       paymentMethodId: paymentChoosen.value!.paymentMethodsId
                                     );
-                                    
-                                    print(bookingTime);
-                                    print(duration);
-                                    print(json.toString1());
 
                                     if(json.statusCode == 200 && context.mounted){
+                                      // Navigator.pushAndRemoveUntil(
+                                      //   context, 
+                                      //   MaterialPageRoute(builder: (context) => DetailPenyewaanScreen(bookingId: json.data['booking_id'],)), 
+                                      //   (route) => route.isFirst,
+                                      // );
                                       Navigator.pushAndRemoveUntil(
                                         context, 
-                                        MaterialPageRoute(builder: (context) => DetailPenyewaanScreen(bookingId: json.data['booking_id'],)), 
-                                        (route) => route.isFirst,
+                                        MaterialPageRoute(builder: (context) => const MainScreen(indexChoosen: 0,)), 
+                                        (route) => false,
+                                      );
+                                      Navigator.push(
+                                        context, 
+                                        MaterialPageRoute(builder: (context) => DetailPenyewaanScreen(
+                                          bookingId: json.data['booking_id'],
+                                        ),)
                                       );
                                     }
                                     else if(context.mounted){
@@ -640,7 +648,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
 
   ///Set initialValue of pilihWaktuController from JSONModel
   void setPilihWaktuInitialValue(JSONModel json, {required int nearestBookHour, required DateTime dateOfField}){
-    print(dateOfField);
+
     ///Convert Map<String, dynamic> json.data to List<int> listAvailableField
     List<int> listAvailableField = [];
     (json.data as Map<String, dynamic>).forEach((key, value) => listAvailableField.add((value as bool) ? 1 : 0));
