@@ -208,14 +208,23 @@ class StatusPenyewaan extends StatelessWidget {
                     
                           Text(
                             (model as MenungguPembayaranModel).paymentCode!,
-                            style: itemTextStyle.copyWith(fontWeight: semiBold)
+                            style: const TextStyle(fontWeight: semiBold, fontSize: 16)
                           ),
                         ],
                       ),  ///End of Second Row
 
                       GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const DetailCaraBayarScreen(),));
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(builder: (context) => DetailCaraBayarScreen(
+                              paymentMethodId: (model as MenungguPembayaranModel).paymentMethodId!,
+                              paymentMethodName: (model as MenungguPembayaranModel).paymentMethod!,
+                              totalPrice: 10000,
+                              paymentCode: (model as MenungguPembayaranModel).paymentCode!,
+                              paymentDueDateTime: (model as MenungguPembayaranModel).paymentDueDateTime!,
+                            ),)
+                          );
                         },
                         child: const Align(
                           alignment: Alignment.centerRight,

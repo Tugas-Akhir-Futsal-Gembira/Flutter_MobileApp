@@ -1,14 +1,30 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/payment_method/instruction_payment_method_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_cara_bayar/widget/list_cara_bayar_container.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailCaraBayarScreen extends StatefulWidget {
-  const DetailCaraBayarScreen({super.key});
+  const DetailCaraBayarScreen({
+    super.key, 
+    required this.paymentMethodId, 
+    required this.paymentMethodName,
+    required this.totalPrice,
+    required this.paymentCode,
+    required this.paymentDueDateTime
+  });
+
+  final int paymentMethodId;
+  final String paymentMethodName;
+  final int totalPrice;
+  final String paymentCode;
+  final DateTime paymentDueDateTime;
 
   @override
   State<DetailCaraBayarScreen> createState() => _DetailCaraBayarScreenState();
@@ -18,41 +34,21 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
 
   ValueNotifier<bool> isLoading = ValueNotifier(true);
   ScrollController cardScrollController = ScrollController();
+  List<InstructionPaymentMethodModel> listOfInstruction = [];
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      refreshDummy();
+      refresh();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
+    
     ScrollController scrollController = ScrollController();
     ValueNotifier<double> opacity = ValueNotifier(0);
-
-    ///Dummy Data
-    String paymentMethodName = 'Virtual Account BCA';
-    int totalPrice = 74439;
-    String paymentCode = '1234567890123456';
-    DateTime paymentDueDateTime = DateTime(2023, 1, 21, 8, 15);
-
-    List<InstructionPaymentMethodModel> listOfInstruction = [
-      InstructionPaymentMethodModel(
-        instructionPaymentMethodId: 1, 
-        paymentMethodsId: 1, 
-        typePaymentMethod: 'ATM BCA', 
-        instructionPaymentMethodDescription: '1. Masukkan PIN anda\n2. Pilih menu **Penarikan Tunai** atau **Transaksi Lainnya**\n3. Pilih **Transfer**\n4. Pilih **Ke Rek BCA Virtual Account**\n5. Masukkan **$paymentCode** (nomor kode pembayaran) dan klik **Benar**\n6. Cek detail transaksi dan pilih **Ya**\n7. Transaksi berhasil'
-      ),
-      InstructionPaymentMethodModel(
-        instructionPaymentMethodId: 1, 
-        paymentMethodsId: 1, 
-        typePaymentMethod: 'BCA Mobile', 
-        instructionPaymentMethodDescription: '1. Masukkan PIN anda\n2. Pilih menu **Penarikan Tunai** atau **Transaksi Lainnya**\n3. Pilih **Transfer**\n4. Pilih **Ke Rek BCA Virtual Account**\n5. Masukkan **$paymentCode** (nomor kode pembayaran) dan klik **Benar**\n6. Cek detail transaksi dan pilih **Ya**\n7. Transaksi berhasil'
-      ),
-    ];
 
 
     return Container(
@@ -214,7 +210,7 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                                     ),
                                                                     ///'Virtual Account BCA
                                                                     Text(
-                                                                      paymentMethodName,
+                                                                      widget.paymentMethodName,
                                                                       style: const TextStyle(
                                                                         fontWeight: semiBold,
                                                                         fontSize: 16
@@ -238,7 +234,7 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                                     ),
                                                                     ///Rp 79.999
                                                                     Text(
-                                                                      customCurrencyFormat(totalPrice),
+                                                                      customCurrencyFormat(widget.totalPrice),
                                                                       style: const TextStyle(
                                                                         fontWeight: semiBold,
                                                                         fontSize: 16
@@ -267,7 +263,7 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                                     ),
                                                                     ///1234567890123456
                                                                     Text(
-                                                                      paymentCode,
+                                                                      widget.paymentCode,
                                                                       style: const TextStyle(
                                                                         fontWeight: semiBold,
                                                                         fontSize: 16
@@ -291,7 +287,7 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                                     ),
                                                                     ///21 Januari 2023, 08:15
                                                                     Text(
-                                                                      customDateFormat(paymentDueDateTime),
+                                                                      customDateFormat(widget.paymentDueDateTime),
                                                                       style: const TextStyle(
                                                                         fontWeight: semiBold,
                                                                         fontSize: 16
@@ -344,8 +340,25 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
     );
   }
 
-  void refreshDummy(){
+  void refresh() async{
     isLoading.value = true;
-    Future.delayed(const Duration(seconds: 1), ()=> isLoading.value = false);
+
+    JSONModel json = await GateService.getTutorialPayment(
+      paymentMethodId: widget.paymentMethodId, 
+      kodePembayaran: widget.paymentCode
+    );
+
+    if(json.statusCode == 200){
+      for(Map<String, dynamic> i in json.data){
+        listOfInstruction.add(InstructionPaymentMethodModel.fromJSON(i));
+      }
+    }
+    else if(context.mounted){
+      ScaffoldMessenger.of(context).showSnackBar(
+        CustomSnackbar(title: json.getErrorToString())
+      );
+    }
+
+    isLoading.value = false;
   }
 }
