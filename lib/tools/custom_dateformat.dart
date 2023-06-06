@@ -13,6 +13,11 @@ String customDateFormat2(DateTime dateTime){
   return DateFormat('EEEE, d MMMM y', 'id_ID').format(dateTime);
 }
 
+///Example: 2023-5-19
+String customDateFormat3(DateTime dateTime){
+  return DateFormat('y-M-d', 'id_ID').format(dateTime);
+}
+
 ///Example: 07:00
 String customTimeFormat(
   int timeHour, 

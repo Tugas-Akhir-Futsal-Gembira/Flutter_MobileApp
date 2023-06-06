@@ -2,4 +2,5 @@ import 'package:flutter_application_futsal_gembira/model/profile/profile_model.d
 
 class Variables{
   static ProfileModel? profileData;
+  static int nearestBookHour = 2;
 }

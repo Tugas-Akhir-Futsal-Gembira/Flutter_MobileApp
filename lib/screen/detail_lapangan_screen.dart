@@ -440,7 +440,7 @@ class _DetailLapanganScreenState extends State<DetailLapanganScreen> {
                                         Navigator.push(
                                           context, 
                                           MaterialPageRoute(
-                                            builder: (context) => const PilihJadwalScreen()
+                                            builder: (context) => PilihJadwalScreen(fieldModel: fieldModel!,)
                                           )
                                         );
                                       },

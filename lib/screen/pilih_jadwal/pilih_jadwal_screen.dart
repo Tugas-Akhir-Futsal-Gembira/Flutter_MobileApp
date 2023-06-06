@@ -1,21 +1,26 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/field/field_model.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/payment_method/payment_methods_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/detail_penyewaan_screen.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/time_choosen_notifier.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/pilih_waktu.dart';
 import 'package:flutter_application_futsal_gembira/screen/pilih_jadwal/widget/show_metode_pembayaran.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
+import 'package:flutter_application_futsal_gembira/variables/variables.dart';
 import 'package:flutter_application_futsal_gembira/widget/biaya_sewa.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_button.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_application_futsal_gembira/widget/custom_textfield.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PilihJadwalScreen extends StatefulWidget {
-  const PilihJadwalScreen({super.key});
+  const PilihJadwalScreen({super.key, required this.fieldModel});
+
+  final FieldModel fieldModel;
 
   @override
   State<PilihJadwalScreen> createState() => _PilihJadwalScreenState();
@@ -37,23 +42,65 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
     )
   );
   PilihWaktuController pilihWaktuController = PilihWaktuController([0,1,1,0,1,0,1,1,1,1,1,1,0,0,1,1]);
+  CustomButtonController customButtonController = CustomButtonController(isLoading: false);
 
-  int dayFieldPrice = 69999;
-  int nightFieldPrice = 79999;
-  int nightHour = 17;
+  // int dayFieldPrice = 69999;
+  // int nightFieldPrice = 79999;
+  // int nightHour = 17;
   
 
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
+
+      pilihWaktuController.isLoading = true;
 
       ///To create animation of moving scroll(Intended to inform the user that the field data is scrollable)
       fieldScrollController.animateTo(18, duration: const Duration(seconds: 2), curve: Curves.easeOutCubic);
       
-      dateChoosen.value = DateTime.now();
+      ///Set date of JadwalPenyewaan
+      ///Only accept days from daysActive
+      DateTime now = DateTime.now();
+      if(widget.fieldModel.daysActive!.length < 7){
+        List<String> hariHari = [
+          'Senin',
+          'Selasa',
+          'Rabu',
+          'Kamis',
+          'Jumat',
+          'Sabtu',
+          'Minggu'
+        ];
+        String? hari;
+        hari = hariHari[now.weekday - 1];
+        while(!widget.fieldModel.daysActive!.contains(hari)){
+          now = now.add(const Duration(days: 1));
+          hari = hariHari[now.weekday - 1];
+        }
+      }
+      dateChoosen.value = now;
       jadwalPenyewaanTextController.text = customDateFormat2(dateChoosen.value!);
+
+      ///Get data from api AvailableField
+      JSONModel json = await GateService.getAvailableField(fieldId: widget.fieldModel.id, date: dateChoosen.value!);
+
+      if(json.statusCode == 200){
+        setPilihWaktuInitialValue(
+          json, 
+          nearestBookHour: Variables.nearestBookHour, 
+          // dateOfField: now.add(Duration(hours: widget.fieldModel.bookingOpenHour))
+          dateOfField: DateTime(now.year, now.month, now.day).add(Duration(hours: widget.fieldModel.bookingOpenHour))
+        );
+      }
+      else if(context.mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          CustomSnackbar(title: json.getErrorToString())
+        );
+      }
+
+      pilihWaktuController.isLoading = false;
     });
   }
 
@@ -199,43 +246,45 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.end,
                                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: const [
-                                                      SizedBox(height: 18,),
+                                                    children: [
+                                                      const SizedBox(height: 18,),
                                                       Text(
-                                                        'Lapangan #1',
-                                                        style: TextStyle(
+                                                        widget.fieldModel.name,      //'Lapangan #1'
+                                                        style: const TextStyle(
                                                           fontWeight: semiBold,
                                                           fontSize: 24,
                                                         ),
                                                       ),
-                                                      SizedBox(height: 28,),
+                                                      const SizedBox(height: 28,),
                                                       Text(
-                                                        'Rp 69.999,- /jam',
-                                                        style: TextStyle(
+                                                        '${customCurrencyFormat(widget.fieldModel.harga)},- /jam',          //'Rp 69.999,-/jam'
+                                                        style: const TextStyle(
                                                           fontWeight: regular,
                                                           fontSize: 16,
                                                         ),
                                                       ),
-                                                      SizedBox(height: 4,),
+                                                      const SizedBox(height: 4,),
+                                                      (widget.fieldModel.hargaMalam == null)
+                                                          ? const SizedBox()
+                                                          : Text(
+                                                            '${customCurrencyFormat(widget.fieldModel.hargaMalam!)},- /jam diatas pukul ${customTimeFormat(widget.fieldModel.waktuMulaiMalamHour!, widget.fieldModel.waktuMulaiMalamMinute!)}',        //'Rp 79.999,- /jam diatas pukul 17.00'
+                                                            style: const TextStyle(
+                                                              fontWeight: regular,
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                      const SizedBox(height: 28,),
                                                       Text(
-                                                        'Rp 79.999,- /jam diatas pukul 17.00',
-                                                        style: TextStyle(
-                                                          fontWeight: regular,
-                                                          fontSize: 12,
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 28,),
-                                                      Text(
-                                                        'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu',
-                                                        style: TextStyle(
+                                                        customActiveDaysString(widget.fieldModel.daysActive!),      //'Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu'
+                                                        style: const TextStyle(
                                                           fontWeight: semiBold,
                                                           fontSize: 12,
                                                         ),
                                                       ),
-                                                      SizedBox(height: 4,),
+                                                      const SizedBox(height: 4,),
                                                       Text(
-                                                        '07:00 hingga 22:00',
-                                                        style: TextStyle(
+                                                        '${customTimeFormat(widget.fieldModel.bookingOpenHour, widget.fieldModel.bookingOpenMinute)} hingga ${customTimeFormat(widget.fieldModel.bookingCloseHour, widget.fieldModel.bookingCloseMinute)}',         //'07:00 hingga 22:00'
+                                                        style: const TextStyle(
                                                           fontWeight: semiBold,
                                                           fontSize: 12,
                                                         ),
@@ -314,6 +363,26 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                                 initialDate: dateChoosen.value!, 
                                                 firstDate: DateTime.now(), 
                                                 lastDate: DateTime.now().add(const Duration(days: 7)),
+
+                                                ///Melarang pemilihan hari diluar hari yang ditentukan lapangan
+                                                selectableDayPredicate: (day) {
+                                                  List<String> hariHari = [
+                                                    'Senin',
+                                                    'Selasa',
+                                                    'Rabu',
+                                                    'Kamis',
+                                                    'Jumat',
+                                                    'Sabtu',
+                                                    'Minggu'
+                                                  ];
+                                                  String? hari;
+                                                  hari = hariHari[day.weekday - 1];
+                                                  if(widget.fieldModel.daysActive!.contains(hari)){
+                                                    return true;
+                                                  }
+                                                  return false;
+                                                },
+                                                
                                                 fieldLabelText: 'Tanggal (cth: 05/31/2023)',
                                                 helpText: 'Pilih Tanggal',
                                                 initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -330,9 +399,27 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                                 },
                                               );
                                               if(tempDate != null){
+                                                pilihWaktuController.isLoading = true;
                                                 pilihWaktuController.revertBackList();
                                                 dateChoosen.value = tempDate;
-                                                timeChoosen.setTimeData(null, null, nightHour);
+                                                timeChoosen.setTimeData(null, null, widget.fieldModel.waktuMulaiMalamHour);
+                                                JSONModel json = await GateService.getAvailableField(
+                                                  fieldId: widget.fieldModel.id, date: dateChoosen.value!
+                                                );
+                                                if(json.statusCode == 200){
+                                                  setPilihWaktuInitialValue(
+                                                    json, 
+                                                    nearestBookHour: Variables.nearestBookHour, 
+                                                    dateOfField: tempDate.add(Duration(hours: widget.fieldModel.bookingOpenHour))
+                                                  );
+                                                }
+                                                else if(context.mounted){
+                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                    CustomSnackbar(title: json.getErrorToString(),)
+                                                  );
+                                                }
+                                                pilihWaktuController.isLoading = false;
+
                                               }
                                             },
                                           ),
@@ -350,8 +437,11 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                   builder: (context, value, child) {
                                     return PilihWaktu(
                                       controller: pilihWaktuController,
+                                      startHour: widget.fieldModel.bookingOpenHour,
+                                      ///Limiting the input duration
+                                      hourLimit: 2,
                                       callback: ({duration1, startHour1}) {
-                                        timeChoosen.setTimeData(startHour1, duration1, nightHour);
+                                        timeChoosen.setTimeData(startHour1, duration1, widget.fieldModel.waktuMulaiMalamHour);
                                       },
                                     );
                                   }
@@ -406,7 +496,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                                           decoration: BoxDecoration(
                                                             // color: Colors.red,
                                                             image: DecorationImage(
-                                                              image: AssetImage(paymentChoosen.value!.logo),
+                                                              image: NetworkImage(paymentChoosen.value!.logo),
                                                             )
                                                           ),
                                                         ),
@@ -466,8 +556,8 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                             const SizedBox(height: 4,),
             
                                             BiayaSewa(
-                                              fieldDayPrice: dayFieldPrice,
-                                              fieldNightPrice: nightFieldPrice,
+                                              fieldDayPrice: widget.fieldModel.harga,
+                                              fieldNightPrice: widget.fieldModel.hargaMalam,
                                               durationDay: timeChoosen.dayDuration,
                                               durationNight: timeChoosen.nightDuration, 
                                               adminPriceNominal: paymentChoosen.value!.paymentAdminNominal!,
@@ -493,14 +583,44 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                             return CustomButton(
                               value: 'Konfirmasi Jadwal', 
                               size: const Size(double.infinity, 48),
+                              controller: customButtonController,
                               onPressed: (timeChoosen.startHour != null && timeChoosen.duration != null && timeChoosen.paymentMethodIsChoosen == true )
-                                  ? (){
-                                    Timer(const Duration(milliseconds: 1500), () { });
-                                    Navigator.pushAndRemoveUntil(
-                                      context, 
-                                      MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen()), 
-                                      (route) => route.isFirst,
+                                  ? () async{
+                                    customButtonController.isLoading = true;
+                                    // await Future.delayed(Duration(seconds: 1));
+                                    int bookingTime = pilihWaktuController.value.indexOf(2) + widget.fieldModel.bookingOpenHour;
+                                    int duration = 0;
+                                    for(int i in pilihWaktuController.value){
+                                      if(i == 2){
+                                        duration += 1;
+                                      }
+                                    }
+
+                                    JSONModel json = await GateService.postBookingMobile(
+                                      fieldId: widget.fieldModel.id, 
+                                      bookingDate: dateChoosen.value!, 
+                                      bookingTime: bookingTime, 
+                                      duration: duration, 
+                                      paymentMethodId: paymentChoosen.value!.paymentMethodsId
                                     );
+                                    
+                                    print(bookingTime);
+                                    print(duration);
+                                    print(json.toString1());
+
+                                    if(json.statusCode == 200 && context.mounted){
+                                      Navigator.pushAndRemoveUntil(
+                                        context, 
+                                        MaterialPageRoute(builder: (context) => const DetailPenyewaanScreen()), 
+                                        (route) => route.isFirst,
+                                      );
+                                    }
+                                    else if(context.mounted){
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        CustomSnackbar(title: json.getErrorToString())
+                                      );
+                                    }
+                                    customButtonController.isLoading = false;
                                   } 
                                   : null,
                             );
@@ -516,5 +636,38 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
         )
       ),
     );
+  }
+
+  ///Set initialValue of pilihWaktuController from JSONModel
+  void setPilihWaktuInitialValue(JSONModel json, {required int nearestBookHour, required DateTime dateOfField}){
+    print(dateOfField);
+    ///Convert Map<String, dynamic> json.data to List<int> listAvailableField
+    List<int> listAvailableField = [];
+    (json.data as Map<String, dynamic>).forEach((key, value) => listAvailableField.add((value as bool) ? 1 : 0));
+
+    DateTime now = DateTime.now();
+
+    ///if dateOfField > now
+    if(dateOfField.compareTo(now) == 1){
+      Duration difference = dateOfField.difference(now);
+      int differenceHours = difference.inHours;
+      if(nearestBookHour >= differenceHours){
+        int remainderHour = nearestBookHour - differenceHours + 1;
+        for(int i = 0; i < remainderHour; i++){
+          listAvailableField[i] = 0;
+        }
+      }
+    }
+    ///if dateOfField < now
+    else{
+      Duration difference = now.difference(dateOfField);
+      int differenceHours = difference.inHours;
+      for(int i = 0; i < differenceHours + nearestBookHour + 1 && i < listAvailableField.length; i++){
+        listAvailableField[i] = 0;
+      }
+    }
+
+    ///Set initialValue of pilihWaktuController
+    pilihWaktuController.initialValue = listAvailableField;
   }
 }
