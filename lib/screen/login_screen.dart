@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
@@ -166,14 +167,17 @@ class LoginScreen extends StatelessWidget {
                                           onPressed: () async{
                                             customButtonController.isLoading = true;
                                             FocusManager.instance.primaryFocus?.unfocus();
+
+                                            ///Get FCM TOKEN
+                                            String? fcmToken = await FirebaseMessaging.instance.getToken();
                                             
                                             ///If validation of form return true
-                                            if(formKey.currentState!.validate()){
+                                            if(formKey.currentState!.validate() && fcmToken!= null){
 
                                               JSONModel json = await GateService.postLogin(
                                                 email: emailTextController.text, 
                                                 password: passwordTextController.text, 
-                                                fcmToken: 'Not Specified'
+                                                fcmToken: fcmToken
                                               );
                                               
                                               if(json.statusCode == 200){

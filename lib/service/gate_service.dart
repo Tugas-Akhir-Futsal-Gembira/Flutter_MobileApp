@@ -465,4 +465,29 @@ class GateService{
     return json;
   }
 
+  ///Logout
+  static Future<JSONModel> postLogout({
+    int numService = _numService
+  }) async{
+
+    JSONModel json;
+
+    switch(numService){
+      // case 1: {
+      //   json = await _auth1service.getMe();
+      //   break;
+      // }
+
+      case 2: {
+        json = await _auth2service.postLogout();
+        break;
+      }
+
+      default: {
+        json = JSONModel(message: 'Error on Get Tutorial Payment: Switch Case Default');
+      }
+    }
+
+    return json;
+  }
 }
