@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/biaya_sewa/biaya_sewa_model.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_penyewaan/widget/status_penyewaan.dart';
@@ -26,6 +27,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
   ValueNotifier<bool> isLoading = ValueNotifier(true);
   ScrollController fieldScrollController = ScrollController();
   AbstractPenyewaanModel? abstractPenyewaanModel;
+  BiayaSewaModel? biayaSewaModel;
 
   @override
   void initState() {
@@ -39,42 +41,6 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
 
     ScrollController scrollController = ScrollController();
     ValueNotifier<double> opacity = ValueNotifier(0);
-
-
-    ///Dummy Data
-    int fieldDayPrice = 69999;
-    int durationDay = 2;
-    int adminPriceNominal = 4440;
-    int totalPrice = 74439;
-
-    // AbstractPenyewaanModel abstractPenyewaanModel = MenungguPembayaranModel(
-    //   id: 0,
-    //   fieldName: 'Lapangan #1', 
-    //   rentDateTime: DateTime.now(), 
-    //   durationInt: 2, 
-    //   createdAtDateTime: DateTime.now(),
-    //   paymentCode: '1234567890123456',
-    //   paymentDueDateTime: DateTime(2023, 1, 21, 8, 15),
-    //   paymentMethod: 'Virtual Account BCA'
-    // );
-
-    // AbstractPenyewaanModel abstractPenyewaanModel = SudahDibayarModel(
-    //   fieldName: 'Lapangan #1', 
-    //   rentDateTime: DateTime.now(), 
-    //   durationInt: 2, 
-    //   createdAtDateTime: DateTime.now(),
-    //   checkInCode: '123456',
-    //   paymentDateTime: DateTime(2023, 1, 21, 8, 15),
-    //   paymentMethod: 'Virtual Account BCA'
-    // );
-
-    // AbstractPenyewaanModel abstractPenyewaanModel = TransaksiDibatalkanModel(
-    //   fieldName: 'Lapangan #1', 
-    //   rentDateTime: DateTime.now(), 
-    //   durationInt: 2, 
-    //   createdAtDateTime: DateTime.now(),
-    //   paymentDueDateTime: DateTime(2023, 1, 21, 8, 15),
-    // );
 
     return Container(
       decoration: const BoxDecoration(
@@ -332,7 +298,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                   ),
                                   const SizedBox(height: 4,),
                           
-                                  StatusPenyewaan(model: abstractPenyewaanModel!),
+                                  StatusPenyewaan(model: abstractPenyewaanModel!, totalPrice: biayaSewaModel!.totalPrice!),
                           
                           
                                   const SizedBox(height: 16,),
@@ -348,10 +314,12 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
                                   const SizedBox(height: 4,),
                           
                                   BiayaSewa(
-                                    fieldDayPrice: fieldDayPrice,
-                                    durationDay: durationDay,
-                                    adminPriceNominal: adminPriceNominal,
-                                    totalPrice:  totalPrice,
+                                    fieldDayPrice: biayaSewaModel!.dayPrice,
+                                    fieldNightPrice: biayaSewaModel!.nightPrice,
+                                    durationNight: biayaSewaModel!.nightPriceQuantity,
+                                    durationDay: biayaSewaModel!.dayPriceQuantity,
+                                    adminPriceNominal: biayaSewaModel!.adminPrice,
+                                    totalPrice: biayaSewaModel!.totalPrice,
                                   )
                                 ],
                               ),
@@ -375,6 +343,7 @@ class _DetailPenyewaanScreenState extends State<DetailPenyewaanScreen> {
     
     if(json.statusCode == 200){
       abstractPenyewaanModel = AbstractPenyewaanModel.fromJSON(json.data, bookingId: widget.bookingId);
+      biayaSewaModel = BiayaSewaModel.fromJSON(json.data);
     }
     else if(context.mounted){
       ScaffoldMessenger.of(context).showSnackBar(

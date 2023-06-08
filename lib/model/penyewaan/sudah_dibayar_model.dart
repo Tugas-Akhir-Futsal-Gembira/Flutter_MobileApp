@@ -35,7 +35,7 @@ class SudahDibayarModel extends AbstractPenyewaanModel{
           createdAtDateTime: createdAtDateTime,
           checkInCode: json['verification_code'],
           paymentDateTime: paymentDateTime,
-          paymentMethod: 'TEST PAYMENT METHOD - SUDAH DIBAYAR'
+          paymentMethod: json['booking_payment_method_name'],
         );
 
       }

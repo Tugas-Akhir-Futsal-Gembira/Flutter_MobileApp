@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "186303062477",
+    "project_id": "futsal-gembira-df88b",
+    "storage_bucket": "futsal-gembira-df88b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186303062477:android:d84b4d9f10dc3b071ca484",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_futsal_gembira"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186303062477-5vtei1372bppekrk88tnf6vr3d33tfsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTeSZOtjKV9wopKLQIVvIuNFU0Ikazb6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186303062477-5vtei1372bppekrk88tnf6vr3d33tfsf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "186303062477-i88h6id41u6mr2ctep6g992s1uqj8tlh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterApplicationPushnotiftest2Futsalgembira2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186303062477:android:b35de2b8336d37611ca484",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_pushnotiftest2_futsalgembira2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186303062477-5vtei1372bppekrk88tnf6vr3d33tfsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTeSZOtjKV9wopKLQIVvIuNFU0Ikazb6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186303062477-5vtei1372bppekrk88tnf6vr3d33tfsf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "186303062477-i88h6id41u6mr2ctep6g992s1uqj8tlh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterApplicationPushnotiftest2Futsalgembira2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
