@@ -12,9 +12,10 @@ import 'package:flutter_application_futsal_gembira/tools/payment_status_tools.da
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StatusPenyewaan extends StatelessWidget {
-  const StatusPenyewaan({super.key, required this.model});
+  const StatusPenyewaan({super.key, required this.model, required this.totalPrice});
 
   final AbstractPenyewaanModel model;
+  final int totalPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +221,7 @@ class StatusPenyewaan extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => DetailCaraBayarScreen(
                               paymentMethodId: (model as MenungguPembayaranModel).paymentMethodId!,
                               paymentMethodName: (model as MenungguPembayaranModel).paymentMethod!,
-                              totalPrice: 10000,
+                              totalPrice: totalPrice,
                               paymentCode: (model as MenungguPembayaranModel).paymentCode!,
                               paymentDueDateTime: (model as MenungguPembayaranModel).paymentDueDateTime!,
                             ),)
