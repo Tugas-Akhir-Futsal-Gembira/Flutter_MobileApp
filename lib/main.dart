@@ -1,12 +1,60 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/firebase_options.dart';
 import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+const AndroidNotificationChannel _channel = AndroidNotificationChannel(
+  'high_importance_channel', // id
+  'High Importance Notifications', // title(name)
+  description: 'This channel is used for important notifications.', // description
+  importance: Importance.max,
+);
 
 void main() async{
   // await initializeDateFormatting('id_ID, null').then((_) => runApp(const MyApp()));
   await initializeDateFormatting('id_ID, null');
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  await flutterLocalNotificationsPlugin.initialize(
+    const InitializationSettings(android: AndroidInitializationSettings('ic_launcher'))
+  );
+
+  flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(_channel);
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+
+    if(notification != null && android != null){
+      flutterLocalNotificationsPlugin.show(
+        notification.hashCode, 
+        notification.title, 
+        notification.body, 
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            _channel.id, 
+            _channel.name,
+            channelDescription: _channel.description,
+          )
+        )
+      );
+    }
+  },);
+
   runApp(const MyApp());
 }
 
@@ -18,43 +66,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  // StreamSubscription? _sub;
-
-  // Future<void> initUniLinks() async {
-  //   // Platform messages may fail, so we use a try/catch PlatformException.
-  //   try {
-  //     final initialLink = await getInitialLink();
-  //     // Parse the link and warn the user, if it is not correct,
-  //     // but keep in mind it could be `null`.
-  //     print('initialLink = $initialLink');
-  //   } on PlatformException {
-  //     // Handle exception by warning the user their action did not succeed
-  //     // return?
-  //   }
-
-  //   // Attach a listener to the stream
-  //   _sub = linkStream.listen((String? link) {
-  //     // Parse the link and warn the user, if it is not correct
-  //   }, onError: (err) {
-  //     // Handle exception by warning the user their action did not succeed
-  //   });
-    
-  //   // NOTE: Don't forget to call _sub.cancel() in dispose()
-  //   print('done');
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   initUniLinks();
-  // }
-
-  // @override
-  // void dispose() {
-  //   _sub?.cancel();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {

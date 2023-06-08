@@ -1,9 +1,13 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/login_screen.dart';
+import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
 import 'package:flutter_application_futsal_gembira/variables/variables.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void keluarDialog(BuildContext context){
@@ -121,13 +125,26 @@ void keluarDialog(BuildContext context){
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () async{
-                          await MySharedPreferences.remove(MySharedPreferences.accessTokenKey);
-                          Variables.profileData = null;
-                          if(context.mounted){
-                            Navigator.pushAndRemoveUntil(
-                              context, 
-                              MaterialPageRoute(builder: (context) => const LoginScreen(),), 
-                              (route) => false
+
+                          JSONModel json = await GateService.postLogout();
+                          
+                          if(json.statusCode == 200){
+
+                            await MySharedPreferences.remove(MySharedPreferences.accessTokenKey);
+                            Variables.profileData = null;
+                            FirebaseMessaging.instance.deleteToken();
+
+                            if(context.mounted){
+                              Navigator.pushAndRemoveUntil(
+                                context, 
+                                MaterialPageRoute(builder: (context) => const LoginScreen(),), 
+                                (route) => false
+                              );
+                            }
+                          }
+                          else if(context.mounted){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              CustomSnackbar(title: json.getErrorToString())
                             );
                           }
                           // SystemNavigator.pop();

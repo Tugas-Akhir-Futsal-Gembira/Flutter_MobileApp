@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_url.dart';
+import 'package:flutter_application_futsal_gembira/tools/my_shared_preferences.dart';
 
 class Auth2Service{
 
@@ -132,6 +133,37 @@ class Auth2Service{
         }
       );
 
+      return JSONModel.fromJSON(response.data, response.statusCode!);
+    }
+    on DioError catch(e){
+      if(e.response != null){
+        return JSONModel.fromJSON(e.response!.data, e.response!.statusCode!);
+      }
+      else{
+        return JSONModel(message: 'Error');
+      }
+    }
+    on Error catch(e){
+      return JSONModel(message: e.toString());
+    }
+  }
+
+  ///Logout
+  Future<JSONModel> postLogout() async{
+
+    Response response;
+    String? accessToken = await MySharedPreferences.getPref(MySharedPreferences.accessTokenKey, String);
+
+    try{
+      response = await _dio.post(
+        '$_baseUrl/auth/logout',
+        options: Options(
+          headers: {
+            'token': accessToken
+          }
+        )
+      );
+      
       return JSONModel.fromJSON(response.data, response.statusCode!);
     }
     on DioError catch(e){
