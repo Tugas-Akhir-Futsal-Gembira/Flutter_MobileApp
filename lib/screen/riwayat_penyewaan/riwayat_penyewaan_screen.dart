@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
@@ -22,12 +23,24 @@ class _RiwayatPenyewaanScreenState extends State<RiwayatPenyewaanScreen> {
   ValueNotifier<int> riwayatPageValueNotifier = ValueNotifier(1);
   bool riwayatExtendable = false;
   List<AbstractPenyewaanModel> listPenyewaanModel = [];
+  StreamSubscription? streamSubscription;
 
   @override
   void initState() {
     ///After 1 second, from loading linear transformed to riwayat penyewaan screen
     super.initState();
     refresh();
+
+    ///Refresh when receive notification
+    streamSubscription = FirebaseMessaging.onMessage.listen((event) {
+      refresh();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    streamSubscription?.cancel();
   }
 
   @override

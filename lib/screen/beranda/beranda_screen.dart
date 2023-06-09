@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/model/field/field_model.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
@@ -27,11 +28,23 @@ class _BerandaScreenState extends State<BerandaScreen> {
   ValueNotifier<bool> isLoadingValueNotifier = ValueNotifier(true);
   ValueNotifier<AbstractPenyewaanModel?> activeBookingValueNotifier = ValueNotifier(null);
   ValueNotifier<List<FieldModel>?> listFieldValueNotifier = ValueNotifier(null);
+  StreamSubscription? streamSubscription;
 
   @override
   void initState() {
     super.initState();
     refresh();
+
+    ///Refresh when receive notification
+    streamSubscription = FirebaseMessaging.onMessage.listen((event) {
+      refresh();
+    });
+  }
+
+  @override
+  void dispose() async{
+    super.dispose();
+    await streamSubscription?.cancel();
   }
 
   @override
@@ -102,7 +115,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
     );
   }
 
-  void refresh() async{
+  Future<void> refresh() async{
     isLoadingValueNotifier.value = true;
     
     ///[
