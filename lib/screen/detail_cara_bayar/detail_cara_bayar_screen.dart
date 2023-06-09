@@ -188,117 +188,119 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                       constraints: BoxConstraints(
                                                         minHeight: p1constraint1.maxHeight
                                                       ),
-                                                      child: Column(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          const SizedBox(height: 18,),
-                      
-                                                          ///First Row
-                                                          Row(
-                                                            children: [
-                                                              Expanded(
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    const Text(
-                                                                      'Metode Pembayaran',
-                                                                      style: TextStyle(
-                                                                        fontWeight: regular,
-                                                                        fontSize: 14
+                                                      child: SelectionArea(
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            const SizedBox(height: 18,),
+                                                                            
+                                                            ///First Row
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Column(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      const Text(
+                                                                        'Metode Pembayaran',
+                                                                        style: TextStyle(
+                                                                          fontWeight: regular,
+                                                                          fontSize: 14
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    ///'Virtual Account BCA
-                                                                    Text(
-                                                                      widget.paymentMethodName,
-                                                                      style: const TextStyle(
-                                                                        fontWeight: semiBold,
-                                                                        fontSize: 16
-                                                                      ),
-                                                                    )
-                                                                  ],
+                                                                      ///'Virtual Account BCA
+                                                                      Text(
+                                                                        widget.paymentMethodName,
+                                                                        style: const TextStyle(
+                                                                          fontWeight: semiBold,
+                                                                          fontSize: 16
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              const SizedBox(width: 32,),
-                            
-                                                              Expanded(
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    const Text(
-                                                                      'Total Harga',
-                                                                      style: TextStyle(
-                                                                        fontWeight: regular,
-                                                                        fontSize: 14
+                                                                const SizedBox(width: 32,),
+                                                                                  
+                                                                Expanded(
+                                                                  child: Column(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      const Text(
+                                                                        'Total Harga',
+                                                                        style: TextStyle(
+                                                                          fontWeight: regular,
+                                                                          fontSize: 14
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    ///Rp 79.999
-                                                                    Text(
-                                                                      customCurrencyFormat(widget.totalPrice),
-                                                                      style: const TextStyle(
-                                                                        fontWeight: semiBold,
-                                                                        fontSize: 16
-                                                                      ),
-                                                                    )
-                                                                  ],
+                                                                      ///Rp 79.999
+                                                                      Text(
+                                                                        customCurrencyFormat(widget.totalPrice),
+                                                                        style: const TextStyle(
+                                                                          fontWeight: semiBold,
+                                                                          fontSize: 16
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),    ///End of First Row
-                                                          const SizedBox(height: 16,),
-                      
-                                                          ///Second Row
-                                                          Row(
-                                                            children: [
-                                                              Expanded(
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    const Text(
-                                                                      'Kode Pembayaran',
-                                                                      style: TextStyle(
-                                                                        fontWeight: regular,
-                                                                        fontSize: 14
+                                                              ],
+                                                            ),    ///End of First Row
+                                                            const SizedBox(height: 16,),
+                                                                            
+                                                            ///Second Row
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Column(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      const Text(
+                                                                        'Kode Pembayaran',
+                                                                        style: TextStyle(
+                                                                          fontWeight: regular,
+                                                                          fontSize: 14
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    ///1234567890123456
-                                                                    Text(
-                                                                      widget.paymentCode,
-                                                                      style: const TextStyle(
-                                                                        fontWeight: semiBold,
-                                                                        fontSize: 16
-                                                                      ),
-                                                                    )
-                                                                  ],
+                                                                      ///1234567890123456
+                                                                      Text(
+                                                                        widget.paymentCode,
+                                                                        style: const TextStyle(
+                                                                          fontWeight: semiBold,
+                                                                          fontSize: 16
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              const SizedBox(width: 32,),
-                            
-                                                              Expanded(
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: [
-                                                                    const Text(
-                                                                      'Batas Pembayaran',
-                                                                      style: TextStyle(
-                                                                        fontWeight: regular,
-                                                                        fontSize: 14
+                                                                const SizedBox(width: 32,),
+                                                                                  
+                                                                Expanded(
+                                                                  child: Column(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      const Text(
+                                                                        'Batas Pembayaran',
+                                                                        style: TextStyle(
+                                                                          fontWeight: regular,
+                                                                          fontSize: 14
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    ///21 Januari 2023, 08:15
-                                                                    Text(
-                                                                      customDateFormat(widget.paymentDueDateTime),
-                                                                      style: const TextStyle(
-                                                                        fontWeight: semiBold,
-                                                                        fontSize: 16
-                                                                      ),
-                                                                    )
-                                                                  ],
+                                                                      ///21 Januari 2023, 08:15
+                                                                      Text(
+                                                                        customDateFormat(widget.paymentDueDateTime),
+                                                                        style: const TextStyle(
+                                                                          fontWeight: semiBold,
+                                                                          fontSize: 16
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          )   ///End of Second Row
-                                                        ],
+                                                              ],
+                                                            )   ///End of Second Row
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   );
