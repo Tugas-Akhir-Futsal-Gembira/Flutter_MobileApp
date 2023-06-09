@@ -144,7 +144,7 @@ void keluarDialog(BuildContext context){
                           }
                           else if(context.mounted){
                             ScaffoldMessenger.of(context).showSnackBar(
-                              CustomSnackbar(title: json.getErrorToString())
+                              CustomSnackbar(title: json.getErrorToString(), color: error2Color,)
                             );
                           }
                           // SystemNavigator.pop();

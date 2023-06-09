@@ -115,15 +115,16 @@ class _DetailLapanganScreenState extends State<DetailLapanganScreen> {
               );
             }
             else{
-              if (fieldModel == null){
-                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                  Navigator.pop(context);
-                });
-                return const SizedBox();
-              }
-              else{
-                return child!;
-              }
+              // if (fieldModel == null){
+              //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              //     Navigator.pop(context);
+              //   });
+              //   return const SizedBox();
+              // }
+              // else{
+              //   return child!;
+              // }
+              return child!;
             }
           },
           child: LayoutBuilder(
@@ -491,6 +492,7 @@ class _DetailLapanganScreenState extends State<DetailLapanganScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         CustomSnackbar(title: jsonDetailField.getErrorToString(), color: error2Color,),
       );
+      Navigator.pop(context);
     }
 
     isLoadingValueNotifier.value = false;

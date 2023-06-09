@@ -625,7 +625,7 @@ class _PilihJadwalScreenState extends State<PilihJadwalScreen> {
                                     }
                                     else if(context.mounted){
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                        CustomSnackbar(title: json.getErrorToString())
+                                        CustomSnackbar(title: json.getErrorToString(), color: error2Color,)
                                       );
                                     }
                                     customButtonController.isLoading = false;

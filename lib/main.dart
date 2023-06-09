@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_futsal_gembira/firebase_options.dart';
 import 'package:flutter_application_futsal_gembira/screen/splash_screen.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
@@ -69,6 +70,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    ///Disable lanscape
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -80,6 +88,7 @@ class _MyAppState extends State<MyApp> {
           PointerDeviceKind.unknown
         }
       ),
+
       theme: ThemeData(
         primarySwatch: Colors.blue,
         ///To set Inter font to be default font

@@ -142,16 +142,26 @@ class SuntingProfilScreen extends StatelessWidget {
                           FilePickerResult? result = await FilePicker.platform.pickFiles(
                             type: FileType.image
                           );
-
-                          if(result != null) {
+                          
+                          ///Limit to 512kb
+                          if(result != null && result.files.single.size < 512000) {
                             circleImageValueNotifier.value = File(result.files.single.path!);
+                          }
+                          else if(context.mounted){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              CustomSnackbar(
+                                title: 'Anda mungkin tidak memilih file gambar atau ukuran gambar melebihi 512KB', 
+                                color: error2Color,
+                              )
+                            );
                           }
                         }
                         else if(context.mounted){
                           ScaffoldMessenger.of(context).showSnackBar(
                             CustomSnackbar(
                               duration: const Duration(seconds: 10),
-                              title: 'Aplikasi ini masih belum mendapatkan ijin akses penyimpanan yang digunakan untuk mengakses foto.\n\nMohon berikan ijin akses penyimpanan agar dapat melanjutkan aksi.'
+                              title: 'Aplikasi ini masih belum mendapatkan ijin akses penyimpanan yang digunakan untuk mengakses foto.\n\nMohon berikan ijin akses penyimpanan agar dapat melanjutkan aksi.',
+                              color: error2Color,
                             )
                           );
                         }
@@ -254,15 +264,6 @@ class SuntingProfilScreen extends StatelessWidget {
                     fontSize: 16,
                     onPressed: () async{
 
-                        // final String? pictureLink;
-                        // final String profileName;
-                        // ///1. Male, 2. Female, null. Not Specified.
-                        // final int? sex;
-                        // final String uniqueId;
-                        // final String phoneNumber;
-                        // final String email;
-                        // final String address;
-
                       JSONModel json = await GateService.putUpdateProfile(
                         name: nameTextEditingController.text, 
                         noHp: phoneTextEditingController.text, 
@@ -285,7 +286,7 @@ class SuntingProfilScreen extends StatelessWidget {
                       }
                       else if(context.mounted){
                         ScaffoldMessenger.of(context).showSnackBar(
-                          CustomSnackbar(title: json.getErrorToString(), color: warningColor,)
+                          CustomSnackbar(title: json.getErrorToString(), color: error2Color,)
                         );
                       }
                     },
