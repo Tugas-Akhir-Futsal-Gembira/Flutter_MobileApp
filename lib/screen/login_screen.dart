@@ -139,7 +139,7 @@ class LoginScreen extends StatelessWidget {
                                             text: 'Lupa Password?',
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = (){
-                                                Navigator.pushReplacement(
+                                                Navigator.push(
                                                   context, 
                                                   MaterialPageRoute(builder: (context) => const LupaPasswordScreen(),)
                                                 );
@@ -232,7 +232,7 @@ class LoginScreen extends StatelessWidget {
                                               text: 'Buat Akun',
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = (){ 
-                                                  Navigator.pushReplacement(
+                                                  Navigator.push(
                                                     context, 
                                                     MaterialPageRoute(builder: (context) => const DaftarScreen(),)
                                                   );

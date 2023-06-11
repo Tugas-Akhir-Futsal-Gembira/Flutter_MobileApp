@@ -231,11 +231,12 @@ class AturUlangPasswordScreen extends StatelessWidget {
                                                       ),
                                                       onPressedFirstButton: () {
                                                         Navigator.pop(context);
-                                                        Navigator.pushReplacement(
+                                                        Navigator.pushAndRemoveUntil(
                                                           context, 
                                                           MaterialPageRoute(
                                                             builder: (context) => const LoginScreen(),
-                                                          )
+                                                          ),
+                                                          (route) => false,
                                                         );
                                                       },
                                                       content: WillPopScope(

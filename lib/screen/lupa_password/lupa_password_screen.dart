@@ -198,7 +198,7 @@ class LupaPasswordScreen extends StatelessWidget {
                                               );
 
                                               if(json.statusCode == 200 && context.mounted){
-                                                Navigator.pushReplacement(
+                                                Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) => AturUlangPasswordScreen(email: emailTextController.text),
@@ -228,9 +228,10 @@ class LupaPasswordScreen extends StatelessWidget {
                                               text: 'Masuk',
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = (){ 
-                                                  Navigator.pushReplacement(
+                                                  Navigator.pushAndRemoveUntil(
                                                     context, 
-                                                    MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                                    MaterialPageRoute(builder: (context) => const LoginScreen(),),
+                                                    (route) => false,
                                                   );
                                                 },
                                               style: const TextStyle(

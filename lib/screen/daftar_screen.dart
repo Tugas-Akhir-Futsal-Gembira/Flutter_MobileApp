@@ -191,9 +191,10 @@ class DaftarScreen extends StatelessWidget {
                                               );
 
                                               if(json.statusCode == 201 && context.mounted){
-                                                Navigator.pushReplacement(
+                                                Navigator.pushAndRemoveUntil(
                                                   context, 
-                                                  MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                                  MaterialPageRoute(builder: (context) => const LoginScreen(),),
+                                                  (route) => false,
                                                 );
                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                   CustomSnackbar(
@@ -228,9 +229,10 @@ class DaftarScreen extends StatelessWidget {
                                               text: 'Masuk',
                                               recognizer: TapGestureRecognizer()
                                                 ..onTap = (){ 
-                                                  Navigator.pushReplacement(
+                                                  Navigator.pushAndRemoveUntil(
                                                     context, 
-                                                    MaterialPageRoute(builder: (context) => const LoginScreen(),)
+                                                    MaterialPageRoute(builder: (context) => const LoginScreen(),),
+                                                    (route) => false,
                                                   );
                                                 },
                                               style: const TextStyle(
