@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_dateformat.dart';
 import 'package:flutter_application_futsal_gembira/tools/custom_tool.dart';
 import 'package:flutter_application_futsal_gembira/tools/payment_status_tools.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StatusPenyewaan extends StatelessWidget {
@@ -208,9 +210,17 @@ class StatusPenyewaan extends StatelessWidget {
                             ),
                             const SizedBox(height: 2,),
                       
-                            Text(
-                              (model as MenungguPembayaranModel).paymentCode!,
-                              style: const TextStyle(fontWeight: semiBold, fontSize: 16)
+                            GestureDetector(
+                              onTap: () {
+                                Clipboard.setData(ClipboardData(text: (model as MenungguPembayaranModel).paymentCode));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  CustomSnackbar(title: 'Nomor telah disalin')
+                                );
+                              },
+                              child: Text(
+                                (model as MenungguPembayaranModel).paymentCode!,
+                                style: const TextStyle(fontWeight: semiBold, fontSize: 16, decoration: TextDecoration.underline)
+                              ),
                             ),
                           ],
                         ),  ///End of Second Row

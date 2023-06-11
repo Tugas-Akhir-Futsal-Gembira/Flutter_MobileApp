@@ -263,11 +263,19 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                                         ),
                                                                       ),
                                                                       ///1234567890123456
-                                                                      Text(
-                                                                        widget.paymentCode,
-                                                                        style: const TextStyle(
-                                                                          fontWeight: semiBold,
-                                                                          fontSize: 16
+                                                                      GestureDetector(
+                                                                        onTap: () {
+                                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                                            CustomSnackbar(title: 'Nomor telah disalin')
+                                                                          );
+                                                                        },
+                                                                        child: Text(
+                                                                          widget.paymentCode,
+                                                                          style: const TextStyle(
+                                                                            fontWeight: semiBold,
+                                                                            fontSize: 16,
+                                                                            decoration: TextDecoration.underline
+                                                                          ),
                                                                         ),
                                                                       )
                                                                     ],
