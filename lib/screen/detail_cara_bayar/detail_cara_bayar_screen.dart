@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_futsal_gembira/model/json_model.dart';
 import 'package:flutter_application_futsal_gembira/model/payment_method/instruction_payment_method_model.dart';
 import 'package:flutter_application_futsal_gembira/screen/detail_cara_bayar/widget/list_cara_bayar_container.dart';
@@ -265,6 +266,7 @@ class _DetailCaraBayarScreenState extends State<DetailCaraBayarScreen> {
                                                                       ///1234567890123456
                                                                       GestureDetector(
                                                                         onTap: () {
+                                                                          Clipboard.setData(ClipboardData(text: widget.paymentCode));
                                                                           ScaffoldMessenger.of(context).showSnackBar(
                                                                             CustomSnackbar(title: 'Nomor telah disalin')
                                                                           );
