@@ -60,12 +60,6 @@ class BiayaSewa extends StatelessWidget {
     else if(durationDay == null && durationNight == null){
       throw const FormatException('both durationDay or durationNight can not be null ');
     }
-    // else if(fieldDayPrice != null && durationDay == null){
-    //   throw const FormatException('durationDay can not be null if fieldDayPrice is not null');
-    // }
-    // else if(fieldNightPrice != null && durationNight == null){
-    //   throw const FormatException('durationNight can not be null if fieldDayPrice is not null');
-    // }
 
     final List<int?> adminPriceList = [
       adminPriceNominal, adminPricePercent, adminPricePercentCalculated
@@ -89,13 +83,13 @@ class BiayaSewa extends StatelessWidget {
     const TextStyle firstRow = TextStyle(fontWeight: medium, fontSize: 12);
     const TextStyle nonFirstRow = TextStyle(fontWeight: regular, fontSize: 12);
 
-    ///day price * duration day (0 if day price = null and day duration = null)
-    final int? totalPriceDay = (fieldDayPrice != null && durationDay != null)
+    ///day price * duration day (null if day price = null and (day duration = null or day duration = 0))
+    final int? totalPriceDay = (fieldDayPrice != null && (durationDay != null && durationDay != 0))
         ? fieldDayPrice! * durationDay!
         : null;
 
-    ///day night * duration day (0 if night price = null and night duration = null)
-    final int? totalPriceNight = (fieldNightPrice != null && durationNight != null)
+    ///day night * duration day (null if night price = null and (night duration = null or night duration = 0))
+    final int? totalPriceNight = (fieldNightPrice != null && (durationNight != null && durationNight != 0))
         ? fieldNightPrice! * durationNight!
         : null;
 
