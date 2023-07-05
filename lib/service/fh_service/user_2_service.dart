@@ -132,14 +132,14 @@ class User2Service{
   }
 
   ///Riwayat Booking User(Menunjukkan riwayat booking)
-  Future<JSONModel> getRiwayatBookingUser({int page = 1}) async{
+  Future<JSONModel> getRiwayatBookingUser({String filter = 'week', int page = 1}) async{
 
     Response response;
     String accessToken = await MySharedPreferences.getPref(MySharedPreferences.accessTokenKey, String);
 
     try{
       response = await _dio.get(
-        '$_baseUrl/user/bookings?page=$page',
+        '$_baseUrl/user/bookings?page=$page&filter=$filter',
         options: Options(
           headers: {
             'token': accessToken
