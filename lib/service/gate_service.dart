@@ -266,6 +266,7 @@ class GateService{
 
   ///Riwayat Booking User(Menunjukkan riwayat booking)
   static Future<JSONModel> getRiwayatBookingUser({
+    String filter = 'week',
     int page = 1,
     int numService = _numService
   }) async{
@@ -279,7 +280,7 @@ class GateService{
       // }
 
       case 2: {
-        json = await _user2service.getRiwayatBookingUser(page: page);
+        json = await _user2service.getRiwayatBookingUser(filter: filter, page: page);
         break;
       }
 
