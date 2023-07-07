@@ -452,7 +452,7 @@ class StatusPenyewaan extends StatelessWidget {
                               const SizedBox(height: 2,),
                           
                               Text(
-                                (model as DibatalkanAdminModel).paymentDueDateTime.toString(),
+                                customDateFormat((model as DibatalkanAdminModel).paymentDueDateTime!),
                                 style: itemTextStyle
                               ),
                             ],

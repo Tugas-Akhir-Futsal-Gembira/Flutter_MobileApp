@@ -33,6 +33,7 @@ class DibatalkanAdminModel extends AbstractPenyewaanModel{
         DateTime? paymentDateTime = customJsonToDateTime( json['tanggal_pembayaran'] );
         DateTime? paymentDueDateTime = customJsonToDateTime( json['tanggal_batas_pembayaran'] );
         DateTime? canceledDateTime = customJsonToDateTime( json['updated_at'] ); 
+        String? statusPrevious = (json['status_previous'] == 'waiting') ? 'canceled' : json['status_previous'];
 
         return DibatalkanAdminModel(
           id: (json['booking_id'] != null) ? json['booking_id'] : bookingId, 
@@ -40,7 +41,7 @@ class DibatalkanAdminModel extends AbstractPenyewaanModel{
           rentDateTime: rentDateTime, 
           durationInt: json['duration'], 
           createdAtDateTime: createdAtDateTime,
-          statusPrevious: json['status_previous'],
+          statusPrevious: statusPrevious,
           paymentMethod: json['booking_payment_method_name'],
           paymentDateTime: paymentDateTime,
           paymentDueDateTime: paymentDueDateTime,
