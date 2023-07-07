@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/abstract_penyewaan_model.dart';
+import 'package:flutter_application_futsal_gembira/model/penyewaan/dibatalkan_admin_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/menunggu_pembayaran_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/sudah_dibayar_model.dart';
 import 'package:flutter_application_futsal_gembira/model/penyewaan/transaksi_dibatalkan_model.dart';
@@ -279,7 +280,196 @@ class StatusPenyewaan extends StatelessWidget {
                     );
                   }
     
-    
+
+                  
+
+
+                  ///If DibatalkanAdmin
+                  case DibatalkanAdminModel: {
+
+                    late String statusSebelumnyaString;
+                    late Color statusSebelumnyaColor;
+
+                    ///If statusPrevious is Sudah Dibayar
+                    if((model as DibatalkanAdminModel).statusPrevious == 'paid'){
+                      statusSebelumnyaString = 'Sudah Dibayar';
+                      statusSebelumnyaColor = success2Color;
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+      
+                          ///First Row
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Status Sebelumnya',
+                                      style: titleTextStyle
+                                    ),
+                                    const SizedBox(height: 2,),
+                              
+                                    Text(
+                                      statusSebelumnyaString.toString(),
+                                      style: itemTextStyle.copyWith(color: statusSebelumnyaColor)
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8,),
+      
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Tanggal Pembayaran',
+                                      style: titleTextStyle
+                                    ),
+                                    const SizedBox(height: 2,),
+                              
+                                    Text(
+                                      customDateFormat((model as DibatalkanAdminModel).paymentDateTime!),
+                                      style: itemTextStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),  ///End of First Row
+                          const SizedBox(height: 16,),
+      
+                          ///Second Row
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Metode Pembayaran',
+                                      style: titleTextStyle
+                                    ),
+                                    const SizedBox(height: 2,),
+                              
+                                    Text(
+                                      (model as DibatalkanAdminModel).paymentMethod.toString(),
+                                      style: itemTextStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8,),
+      
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Tanggal Dibatalkan Admin',
+                                      style: titleTextStyle
+                                    ),
+                                    const SizedBox(height: 2,),
+                              
+                                    Text(
+                                      customDateFormat((model as DibatalkanAdminModel).canceledDateTime!),
+                                      style: itemTextStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),  ///End of Second Row
+                          const SizedBox(height: 8,),
+                        ],
+                      );
+                    }
+
+
+
+                    ///If statusPrevious is Transaksi Dibatalkan
+                    else if((model as DibatalkanAdminModel).statusPrevious == 'canceled'){
+                      statusSebelumnyaString = 'Transaksi Dibatalkan';
+                      statusSebelumnyaColor = error2Color;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+      
+                          ///First Row
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Status Sebelumnya',
+                                      style: titleTextStyle
+                                    ),
+                                    const SizedBox(height: 2,),
+                              
+                                    Text(
+                                      statusSebelumnyaString.toString(),
+                                      style: itemTextStyle.copyWith(color: statusSebelumnyaColor)
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 8,),
+      
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Tanggal Dibatalkan Admin',
+                                      style: titleTextStyle
+                                    ),
+                                    const SizedBox(height: 2,),
+                              
+                                    Text(
+                                      customDateFormat((model as DibatalkanAdminModel).canceledDateTime!),
+                                      style: itemTextStyle
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),  ///End of First Row
+                          const SizedBox(height: 16,),
+      
+                          ///Second Row
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Batas Pembayaran',
+                                style: titleTextStyle
+                              ),
+                              const SizedBox(height: 2,),
+                          
+                              Text(
+                                (model as DibatalkanAdminModel).paymentDueDateTime.toString(),
+                                style: itemTextStyle
+                              ),
+                            ],
+                          ),  ///End of Second Row
+                          const SizedBox(height: 8,),
+                        ],
+                      );
+                    }
+                    else{
+                      statusSebelumnyaString = 'null';
+                      statusSebelumnyaColor = Colors.white;
+
+                      return const SizedBox();
+                    }
+                  }
+
+
     
     
                   default: {

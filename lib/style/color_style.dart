@@ -25,3 +25,5 @@ const Color error2DarkerColor = Color(0xFF521E0E);
 const Color success2Color = Color(0xFF00FF47);
 ///0xFF219E44
 const Color success2DarkColor = Color(0xFF219E44);
+///0xFFDFDFDF
+const Color greyColor = Color(0xFFDFDFDF);
