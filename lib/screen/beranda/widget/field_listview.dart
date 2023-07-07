@@ -74,7 +74,8 @@ class FieldListView extends StatelessWidget {
               timeHourStart: e.bookingOpenHour,
               timeMinuteStart: e.bookingOpenMinute, 
               timeHourEnd: e.bookingCloseHour, 
-              timeMinuteEnd: e.bookingCloseMinute
+              timeMinuteEnd: e.bookingCloseMinute,
+              picture: (e.gallery.isNotEmpty) ? e.gallery[0] : null,
             );
           }).toList(),
         )

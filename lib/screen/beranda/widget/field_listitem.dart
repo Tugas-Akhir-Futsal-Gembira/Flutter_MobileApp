@@ -14,6 +14,7 @@ class FieldGridItem extends StatelessWidget {
     required this.timeMinuteStart,
     required this.timeHourEnd,
     required this.timeMinuteEnd,
+    this.picture,
   });
 
   final int id;
@@ -22,6 +23,7 @@ class FieldGridItem extends StatelessWidget {
   final int timeMinuteStart;
   final int timeHourEnd;
   final int timeMinuteEnd;
+  final String? picture;
   
 
   @override
@@ -36,10 +38,15 @@ class FieldGridItem extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            image: const DecorationImage(
-              image: AssetImage('assets/image/Lapangan futsal wallpaper.jpg'),
-              fit: BoxFit.cover,
-            )
+            image: (picture != null) 
+                ? DecorationImage(
+                  image: NetworkImage(picture!),
+                  fit: BoxFit.cover,
+                )
+                : const DecorationImage(
+                  image: AssetImage('assets/image/Lapangan futsal wallpaper.jpg'),
+                  fit: BoxFit.cover,
+                ),
           ),
 
           ///Black box on the bottom with Field Name and Time Start - End
