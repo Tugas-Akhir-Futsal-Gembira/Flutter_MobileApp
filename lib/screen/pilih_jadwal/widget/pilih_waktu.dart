@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/style/shadow_style.dart';
+import 'package:flutter_application_futsal_gembira/variables/variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
@@ -644,26 +645,29 @@ class _PilihWaktuState extends State<PilihWaktu> {
 
                           const SizedBox(width: 16,),
 
-                          ValueListenableBuilder(
-                            valueListenable: listDaftarSewa,
-                            builder: (context, value, child) {
-
-                              bool isChoosen = false;
-                              for(int i = 0; i < listDaftarSewa.value.length; i++){
-                                if(listDaftarSewa.value[i] == 2){
-                                  isChoosen = true;
-                                  break;
+                          Expanded(
+                            child: ValueListenableBuilder(
+                              valueListenable: listDaftarSewa,
+                              builder: (context, value, child) {
+                          
+                                bool isChoosen = false;
+                                for(int i = 0; i < listDaftarSewa.value.length; i++){
+                                  if(listDaftarSewa.value[i] == 2){
+                                    isChoosen = true;
+                                    break;
+                                  }
                                 }
+                          
+                                return Text(
+                                  // (isChoosen) ? 'Pilih Durasi' : 'Pilih waktu yang tersedia',
+                                  (isChoosen) ? 'Maximal durasi yang dapat dipilih adalah ${widget.hourLimit} jam' : 'Pilih waktu yang tersedia',
+                                  style: const TextStyle(
+                                    fontWeight: regular,
+                                    fontSize: 14,
+                                  ),
+                                );
                               }
-
-                              return Text(
-                                (isChoosen) ? 'Pilih Durasi' : 'Pilih waktu yang tersedia',
-                                style: const TextStyle(
-                                  fontWeight: regular,
-                                  fontSize: 14,
-                                ),
-                              );
-                            }
+                            ),
                           )
                         ],
                       ),
