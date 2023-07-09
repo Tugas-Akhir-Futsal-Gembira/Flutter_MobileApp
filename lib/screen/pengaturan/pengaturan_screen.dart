@@ -5,6 +5,7 @@ import 'package:flutter_application_futsal_gembira/screen/aturan_penyewaan/atura
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/keluar_dialog.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/pengaturan_listitem.dart';
 import 'package:flutter_application_futsal_gembira/screen/pengaturan/widget/profile_container.dart';
+import 'package:flutter_application_futsal_gembira/screen/tentang_screen.dart';
 import 'package:flutter_application_futsal_gembira/service/gate_service.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/variables/variables.dart';
@@ -62,11 +63,13 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                 ),
                 const SizedBox(height: 32,),
               
-                ///Second Row: Tentang
+                ///Second Row: Tentang Futsal Gembira
                 PengaturanListItem(
-                  title: 'Tentang',
+                  title: 'Tentang Futsal Gembira',
                   assetName: 'assets/icon/Info-Circle.svg',
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TentangScreen(),));
+                  },
                 ),
                 const SizedBox(height: 8,),
               
