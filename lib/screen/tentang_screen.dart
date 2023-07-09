@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
+import 'package:flutter_application_futsal_gembira/widget/custom_snackbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TentangScreen extends StatelessWidget {
   const TentangScreen({super.key});
@@ -78,9 +80,28 @@ class TentangScreen extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.centerLeft,
                             constraints: const BoxConstraints(minHeight: 32),
-                            child: const Text(
-                              'Jalan Alumunium Raya no. 2, Tj. Mulia Hilir, Kec. Medan Deli, Kota Medan, Sumatera Utara 20241',
-                              style: TextStyle(fontWeight: regular, fontSize: 16),
+                            child: GestureDetector(
+                              onTap: () async{
+
+                                ///Link of Google Maps - Futsal Gembira
+                                final Uri url = Uri(
+                                  scheme: 'https',
+                                  host: 'goo.gl',
+                                  path: '/maps/zbqUWaZcKpTt74Hh7'
+                                );
+
+                                if(!await launchUrl(url, mode: LaunchMode.externalApplication)){
+                                  if(context.mounted){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      CustomSnackbar(title: 'Tidak dapat membuka link di browser eksternal')
+                                    );
+                                  }
+                                }
+                              },
+                              child: const Text(
+                                'Jalan Alumunium Raya no. 2, Tj. Mulia Hilir, Kec. Medan Deli, Kota Medan, Sumatera Utara 20241',
+                                style: TextStyle(fontWeight: regular, fontSize: 16, decoration: TextDecoration.underline),
+                              ),
                             ),
                           ),
                         )
@@ -99,9 +120,24 @@ class TentangScreen extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.centerLeft,
                             constraints: const BoxConstraints(minHeight: 32),
-                            child: const Text(
-                              '082363601765',
-                              style: TextStyle(fontWeight: regular, fontSize: 16),
+                            child: GestureDetector(
+                              onTap: () async{
+
+                                ///Telephone to Futsal Gembira
+                                final Uri url = Uri.parse('tel:082363601765');
+
+                                if(!await launchUrl(url, mode: LaunchMode.externalApplication)){
+                                  if(context.mounted){
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      CustomSnackbar(title: 'Tidak dapat membuka panggilan di aplikasi eksternal')
+                                    );
+                                  }
+                                }
+                              },
+                              child: const Text(
+                                '082363601765',
+                                style: TextStyle(fontWeight: regular, fontSize: 16, decoration: TextDecoration.underline),
+                              ),
                             ),
                           ),
                         )

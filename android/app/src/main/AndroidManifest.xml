@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter_application_futsal_gembira">
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
    <application
         android:label="Futsal Gembira"
         android:name="${applicationName}"
@@ -36,6 +38,14 @@
 
                 <data android:host="contoh1.abc" />
             </intent-filter>
+
+            <!-- For open google maps url -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <data android:scheme="https" android:host="goo.gl/maps/zbqUWaZcKpTt74Hh7"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
