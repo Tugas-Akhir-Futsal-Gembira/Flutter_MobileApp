@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_futsal_gembira/style/color_style.dart';
 import 'package:flutter_application_futsal_gembira/style/font_weight.dart';
 import 'package:flutter_application_futsal_gembira/style/shadow_style.dart';
-import 'package:flutter_application_futsal_gembira/variables/variables.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 

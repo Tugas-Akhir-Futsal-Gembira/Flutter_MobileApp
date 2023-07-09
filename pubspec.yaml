@@ -38,6 +38,7 @@ dependencies:
   file_picker: ^5.2.6
   permission_handler: ^10.2.0
   flutter_local_notifications: ^14.1.1
+  url_launcher: ^6.1.11
   
   # MediaType('image', 'jpg')
   http_parser: ^4.0.2
@@ -84,6 +85,7 @@ flutter:
       - assets/image/landing_page/
       - assets/image/Temp/
       - assets/image/cara_bayar/
+      - assets/image/tentang/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
